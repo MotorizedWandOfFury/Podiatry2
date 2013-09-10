@@ -22,11 +22,12 @@ $func = new Functions();
 $mode = isset($_GET['mode']) ? $_GET['mode'] : "view"; // default mode for page is viewing, if the mode attribute has not been set
  
 $database = new Database();
-$patientID = $_GET['patid'] or die("Patient ID not set");
+$patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
-$surgical = $database->read(Surgical::createRetrievableDatabaseObject($patientID));
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
+$surgical = $database->read(Surgical::createRetrievableDatabaseObject($patientID, $extremity));
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($surgical->getSurID()));
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID)) or die("Pre eval form for patient has not been filled yet.");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
  
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
     if (isset($_POST['SUBMIT'])) {
@@ -57,11 +58,9 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-		&nbsp;
-		<?php echo Functions::formTitle($type, "Surgical Data Evaluation");?>
-        <br />&nbsp;
-        <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=" . $patientID . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=" . $patientID . "&mode=edit"; ?>">Edit</a>
-        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=" . $patientID, "&mode=" . $mode; ?>" method="POST">
+        &nbsp;
+        <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid= $patientID" . "&extremity=$extremity" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid= $patientID" . "&extremity=$extremity" . "&mode=edit"; ?>">Edit</a>
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&mode=" . $mode; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>
                     <table>

@@ -14,7 +14,7 @@ class Constants {
             LAST_VALIDATION_TIME = "LASTVALIDATIONTIME";
 
     //Directory constants
-    const PROJECT_PATH = "/Podiatry2/",
+    const PROJECT_PATH = "/Podiatry2",
             DOCTOR_DIRECTORY = "doctor",
             ADMIN_DIRECTORY = "admin";
 

@@ -20,10 +20,11 @@ $nav = new Navigator();
 
 
 $database = new Database();
-$patientID = $_GET['patid'] or die("Patient ID not set");
+$patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($patient->getDoctor()));
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID)) or die("Pre eval form for patient has not been filled yet.");
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
 
 $currTime = getdate();
 
@@ -79,6 +80,7 @@ if (isset($_POST['SUBMIT'])) {
        $surgical = new Surgical($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
        $surgical->setDateOfSurgery($_POST['M'], $_POST['D'], $_POST['Y']);
        $surgical->setSurId($doctor->getID());
+       $surgical->setExtremity($extremity);
        
        foreach ($_POST as $key => $value){
            if($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y'){   //filtering out unwanted keys
@@ -103,7 +105,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <form action="<?php echo $_SERVER['SCRIPT_NAME'], "?patid=", $patientID; ?>" method="POST">
+        <form action="<?php echo $_SERVER['SCRIPT_NAME']. "?patid=$patientID" . "&extremity=$extremity"; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>
                     <table>

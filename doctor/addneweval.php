@@ -131,8 +131,11 @@ if (isset($_POST['SUBMIT'])) {
         }
         //echo $eval->generateCreateQuery();
         //var_dump($eval);
-        $database->create($eval);
-        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
+        if ($database->create($eval)) {
+            $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
+        } else {
+            die("Form has already been filled for patient");
+        }
     }
 }
 ?>

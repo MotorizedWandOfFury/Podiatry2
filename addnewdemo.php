@@ -62,6 +62,7 @@ if (isset($_POST['SUBMIT'])) {
                     }
                     break;
                 case 'Y':
+                    //$date = getdate();
                     $yearOptions = array(
                         'options' => array(
                             'min_range' => 1900,

@@ -7,9 +7,10 @@ session_start();                    // Start Session
 $database = new Database();
 $nav = new Navigator();
 
-if (array_key_exists(Constants::LOGGED_IN_USER_TYPE, $_SESSION)) { //have the session variables been set
-    $nav->redirectUser($_SESSION[Constants::LOGGED_IN_USER_TYPE], Navigator::LOGIN_NAVIGATION_ACTION, "You are already logged in"); //user is already logged in, redirect
-}
+$session = new SessionManager();
+$session->validate();
+
+
 ?>
 <!DOCTYPE html> 
 <html lang="en"> 

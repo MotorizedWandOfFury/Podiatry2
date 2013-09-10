@@ -10,7 +10,7 @@ class SF36 implements DatabaseObject {
 
     const tableName = "sf36_answers";
 
-    private $id, $patient_id, $type, $dateof, $answerArray, $questionArray;
+    private $id, $patient_id, $type, $dateof, $extremity, $answerArray, $questionArray;
 
     use Clean {
         cleanInput as private;
@@ -47,9 +47,13 @@ use TimeComparison;
         if (array_key_exists('type', $paramArray)) {
             $this->setType($paramArray['type']);
         }
+        
+        if(array_key_exists('extremity', $paramArray)){
+            $this->setExtremity($paramArray['extremity']);
+        }
 
         foreach ($paramArray as $key => $var) {
-            if ($key === 'patientid' || $key === 'id' || $key === 'dateof' || $key === 'type') {
+            if ($key === 'patientid' || $key === 'id' || $key === 'dateof' || $key === 'type' || $key === 'extremity') {
             } else {
                 $this->setAnswer($key, $var);
                 //echo "$key => $var", "\n";
@@ -62,14 +66,14 @@ use TimeComparison;
 
         $answers = implode(", ", $this->answerArray);
         $questions = implode(", ", array_keys($this->answerArray));
-        $queryString = "INSERT INTO " . SF36::tableName . " (dateof, patientid, type, " . $questions . ") VALUES ($this->dateof, $this->patient_id, $this->type," . $answers . ")";
+        $queryString = "INSERT INTO " . SF36::tableName . " (dateof, patientid, type, extremity, " . $questions . ") VALUES ($this->dateof, $this->patient_id, $this->type, $this->extremity, " . $answers . ")";
         return $queryString;
     }
 
     public function generateReadQuery() {
         $queryString = "";
-        if (isset($this->patient_id) && isset($this->type)) {
-            $queryString = "SELECT * FROM  " . SF36::tableName . "  WHERE type = $this->type AND patientid = $this->patient_id";
+        if (isset($this->patient_id) && isset($this->type) && isset($this->extremity)) {
+            $queryString = "SELECT * FROM  " . SF36::tableName . "  WHERE type = $this->type AND patientid = $this->patient_id AND extremity = $this->extremity";
         } else {
             echo "Error: there was an error in the parameters of the retrievable DatabaseObject";
         }
@@ -98,9 +102,10 @@ use TimeComparison;
         return $query;
     }
 
-    public static function createRetrievableDatabaseObject($patientid, $type) {
+    public static function createRetrievableDatabaseObject($patientid, $type, $extremity) {
         $dbObj = new SF36($patientid);
         $dbObj->setType($type);
+        $dbObj->setExtremity($extremity);
         return $dbObj;
     }
 
@@ -142,6 +147,25 @@ use TimeComparison;
 
     public function setDateOfByTimeStamp($value) {
         $this->dateof = $this->cleanInt($value);
+    }
+    
+    public function getExtremity(){
+        return $this->cleanInput($this->extremity);
+    }
+    
+    public function getExtremityFormatted(){
+        switch($this->extremity){
+            case 1:
+                return 'L';
+                break;
+            case 2:
+                return 'R';
+                break;
+        }
+    }
+    
+    public function setExtremity($value){
+        $this->extremity = $this->cleanInt($value);
     }
 
     public function getAnswer($index) {

@@ -13,7 +13,7 @@
 class Post implements DatabaseObject{
     
     const tableName = "post_answers";
-    private $id, $pat_id, $sur_id, $type, $dateof, $dateofexam = "", $painmedused, $dosepainmedused, $answerArray, $questionArray;
+    private $id, $pat_id, $sur_id, $type, $dateof, $dateofexam = "", $painmedused, $dosepainmedused, $extremity, $answerArray, $questionArray;
 
     use Clean {
         cleanInput as private;
@@ -26,7 +26,7 @@ use CustomArrayOperations {
         subsetOfArray as private;
     }
     
-    public function __construct($patientid = 0, $month = 1, $day = 1, $year = 1900) {
+    public function __construct($patientid, $month = 1, $day = 1, $year = 1900) {
         $this->setPatientID($patientid);
         $this->setDateOf($month, $day, $year);
         $this->questionArray = array("Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14");
@@ -65,8 +65,12 @@ use CustomArrayOperations {
             $this->setType($paramArray['type']); 
         }
         
+        if(array_key_exists('extremity', $paramArray)){
+            $this->setExtremity($paramArray['extremity']);
+        }
+        
         foreach ($paramArray as $key => $var) {
-            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofexam' || $key === 'sur_id' || $key === 'painmedused' || $key === 'dosepainmedused' || $key === 'type') {
+            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofexam' || $key === 'sur_id' || $key === 'painmedused' || $key === 'dosepainmedused' || $key === 'type' || $key === 'extremity') {
             } else {
                 $this->setAnswer($key, $var);
                 //echo "$key => $var", "\n";
@@ -80,7 +84,7 @@ use CustomArrayOperations {
         if (isset($this->sur_id) && isset($this->painmedused) && isset($this->dosepainmedused) && isset($this->dateofexam)) { 
             $answers = implode(", ", $this->answerArray); 
             $questions = implode(", ", array_keys($this->answerArray)); 
-            $queryString = "INSERT INTO " . Post::tableName.  " (dateof, pat_id, sur_id, dateofexam, painmedused, dosepainmedused, type, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofexam, $this->painmedused, $this->dosepainmedused, $this->type, " . $answers . ")";  
+            $queryString = "INSERT INTO " . Post::tableName.  " (dateof, pat_id, sur_id, dateofexam, painmedused, dosepainmedused, type, extremity, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofexam, $this->painmedused, $this->dosepainmedused, $this->type, $this->extremity, " . $answers . ")";  
         } else { 
             echo "Error: Attempting to create a DatabaseObject with missing parameters";
             
@@ -94,8 +98,8 @@ use CustomArrayOperations {
 
     public function generateReadQuery() {
         $queryString = ""; 
-        if (isset($this->pat_id) && isset($this->dateof)) { 
-            $queryString = "SELECT * FROM  " . Post::tableName.  "  WHERE pat_id = $this->pat_id AND type = $this->type"; 
+        if (isset($this->pat_id) && isset($this->type) && isset($this->extremity)) { 
+            $queryString = "SELECT * FROM  " . Post::tableName.  "  WHERE pat_id = $this->pat_id AND type = $this->type AND extremity = $this->extremity"; 
         } else { 
             echo "Error: there was an error in the parameters of the retrievable DatabaseObject"; 
         } 
@@ -120,9 +124,10 @@ use CustomArrayOperations {
         return $queryString; 
     }
     
-    public static function createRetrievableDatabaseObject($patientid, $type) { 
+    public static function createRetrievableDatabaseObject($patientid, $type, $extremity) { 
         $dbObj = new Post($patientid); 
         $dbObj->setType($type);
+        $dbObj->setExtremity($extremity);
         return $dbObj;
     }
     
@@ -187,6 +192,25 @@ use CustomArrayOperations {
   
     public function setDateOfExamByTimeStamp($value) { 
         $this->dateofexam = $this->cleanInt($value); 
+    }
+    
+    public function getExtremity(){
+        return $this->cleanInput($this->extremity);
+    }
+    
+    public function getExtremityFormatted(){
+        switch($this->extremity){
+            case 1:
+                return 'L';
+                break;
+            case 2:
+                return 'R';
+                break;
+        }
+    }
+    
+    public function setExtremity($value){
+        $this->extremity = $this->cleanInt($value);
     }
     
     public function getPainMedUsed(){

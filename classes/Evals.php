@@ -10,9 +10,6 @@
  *
  * @author Ping
  */
-require_once dirname(dirname(__FILE__)) . '/Classes/DatabaseObject.php';
-require_once dirname(dirname(__FILE__)) . '/Traits/Clean.php';
- 
 class Evals implements DatabaseObject {
 
     const tableName = "eval_answers";
@@ -68,7 +65,7 @@ use CustomArrayOperations {
         }
 
         foreach ($paramArray as $key => $var) {
-            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofexam' || $key === 'sur_id') {
+            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofexam' || $key === 'sur_id' || $key === 'extremity') {
             } else {
                 //filtered out keys we don't want in answerArray
                 $this->setAnswer($key, $var);
@@ -80,7 +77,7 @@ use CustomArrayOperations {
     public function generateCreateQuery() {
         $queryString = "";
 
-        if (isset($this->sur_id)) {
+        if (isset($this->sur_id) && isset($this->extremity)) {
             $answers = implode("', '", $this->answerArray);
             $questions = implode(", ", array_keys($this->answerArray));
             $queryString = "INSERT INTO " . Evals::tableName . " (dateof, pat_id, sur_id, dateofexam, extremity, height, weight, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofexam, $this->extremity, $this->height, $this->weight, '" . $answers . "')";
@@ -96,8 +93,8 @@ use CustomArrayOperations {
 
     public function generateReadQuery() {
         $queryString = "";
-        if (isset($this->pat_id)) {
-            $queryString = "SELECT * FROM  " . Evals::tableName . "  WHERE pat_id = $this->pat_id";
+        if (isset($this->pat_id) && isset($this->extremity)) {
+            $queryString = "SELECT * FROM  " . Evals::tableName . "  WHERE pat_id = $this->pat_id AND extremity = $this->extremity";
         } else {
             echo "Error: there was an error in the parameters of the retrievable DatabaseObject";
         }
@@ -122,14 +119,15 @@ use CustomArrayOperations {
         return $queryString;
     }
 
-    public static function createRetrievableDatabaseObject($patientid) {
-        return new Evals($patientid);
+    public static function createRetrievableDatabaseObject($patientid, $extremity) {
+        $dbObj = new Evals($patientid);
+        $dbObj->setExtremity($extremity);
+        return $dbObj;
     }
 
     /*
      * Gets doctor id for this evaluation
      */
-
     public function getSurId() {
         return $this->cleanInput($this->sur_id);
     }

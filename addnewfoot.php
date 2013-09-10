@@ -29,10 +29,11 @@ if ($session->getUserType() === Patient::tableName) {
     $patient = $session->getUserObject();
     $patientID = $patient->getID();
 } else {
-    $patientID = $_GET['patid'] or die('Patient ID has not been set in URL');
+    $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die('Patient ID has not been set in URL');
     $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 }
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID)) or die("Pre eval form for patient has not been filled yet.");
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
 
 $currTime = getdate();
 
@@ -90,6 +91,7 @@ if (isset($_POST['SUBMIT'])) {
     if ($noInvalidFields && $noEmptyFields) {
         $foot = new Foot($patientID, $_POST['M'], $_POST['D'], $_POST['Y']);
         $foot->setType($type);
+        $foot->setExtremity($extremity);
         foreach ($_POST as $key => $val) {
             if ($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y') { //filter out unwanted keys
             } else {
@@ -113,7 +115,7 @@ if (isset($_POST['SUBMIT'])) {
     </head>
     <body>
         <?php echo Functions::formTitle($type, "Foot Health Status Questionnaire");?>
-        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type"; ?>" method="POST">
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&type=$type"; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>
                     <table>

@@ -13,7 +13,7 @@
 class Surgical implements DatabaseObject {
     
     const tableName = "surgical_answers"; 
-    private $id, $pat_id, $sur_id, $dateof, $dateofsurgery, $answerArray, $questionArray; 
+    private $id, $pat_id, $sur_id, $dateof, $dateofsurgery, $extremity, $answerArray, $questionArray; 
   
     use Clean { 
         cleanInput as private; 
@@ -52,9 +52,13 @@ use CustomArrayOperations {
         if(array_key_exists('sur_id', $paramArray)){ 
             $this->setSurId($paramArray['sur_id']); 
         }
+        
+        if(array_key_exists('extremity', $paramArray)){
+            $this->setExtremity($paramArray['extremity']);
+        }
           
         foreach ($paramArray as $key => $var) { 
-            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofsurgery' || $key === 'sur_id') { 
+            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofsurgery' || $key === 'sur_id' || $key === 'extremity') { 
             } 
             else {
                 $this->setAnswer($key, $var);
@@ -69,7 +73,7 @@ use CustomArrayOperations {
         if (isset($this->sur_id) && isset($this->dateofsurgery)) { 
             $answers = implode("', '", $this->answerArray); 
             $questions = implode(", ", array_keys($this->answerArray)); 
-            $queryString = "INSERT INTO " . Surgical::tableName.  " (dateof, pat_id, sur_id, dateofsurgery, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofsurgery, '" . $answers . "')";  
+            $queryString = "INSERT INTO " . Surgical::tableName.  " (dateof, pat_id, sur_id, dateofsurgery, extremity, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofsurgery, $this->extremity, '" . $answers . "')";  
         } else { 
             echo "Error: Attempting to create a DatabaseObject with missing parameters";
             
@@ -83,8 +87,8 @@ use CustomArrayOperations {
 
     public function generateReadQuery() {
         $queryString = ""; 
-        if (isset($this->pat_id) && isset($this->dateof)) { 
-            $queryString = "SELECT * FROM  " . Surgical::tableName.  "  WHERE pat_id = $this->pat_id"; 
+        if (isset($this->pat_id) && isset($this->extremity)) { 
+            $queryString = "SELECT * FROM  " . Surgical::tableName.  "  WHERE pat_id = $this->pat_id AND extremity = $this->extremity"; 
         } else { 
             echo "Error: there was an error in the parameters of the retrievable DatabaseObject"; 
         } 
@@ -109,8 +113,10 @@ use CustomArrayOperations {
         return $queryString;
     }
     
-    public static function createRetrievableDatabaseObject($patientid) { 
-        return new Surgical($patientid); 
+    public static function createRetrievableDatabaseObject($patientid, $extremity) { 
+        $dbObj = new Surgical($patientid);
+        $dbObj->setExtremity($extremity);
+        return $dbObj; 
     }
     
     public function getSurId(){
@@ -167,6 +173,25 @@ use CustomArrayOperations {
   
     public function setDateOfSurgeryByTimeStamp($value) { 
         $this->dateofsurgery = $this->cleanInt($value); 
+    }
+    
+    public function getExtremity(){
+        return $this->cleanInput($this->extremity);
+    }
+    
+    public function getExtremityFormatted(){
+        switch($this->extremity){
+            case 1:
+                return 'L';
+                break;
+            case 2:
+                return 'R';
+                break;
+        }
+    }
+    
+    public function setExtremity($value){
+        $this->extremity = $this->cleanInt($value);
     }
   
     public function getAnswer($index) { 

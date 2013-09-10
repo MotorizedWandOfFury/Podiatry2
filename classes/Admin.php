@@ -11,9 +11,6 @@
  * @author Yaw
  */
 
-require_once dirname(dirname(__FILE__)).'/Traits/Clean.php';
-require_once dirname(dirname(__FILE__)).'/Classes/DatabaseObject.php';
-
 class Admin implements DatabaseObject {
     
     const tableName = "login";

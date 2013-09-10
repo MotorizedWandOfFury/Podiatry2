@@ -16,19 +16,18 @@ require_once dirname(dirname(__FILE__)).'/Classes/Physician.php';
 
 class PhysicianPatientsAssociation implements AssociationObject {
 
-    private $physician, $patientArray, $physicianId;
+    private $physician, $patientArray;
 
-    public function __construct() {
-        
-		 
+    public function __construct(Physician $physician) {
+        $this->setPhysician($physician);
     }
 
     public function generateAssociationRetrieveQuery() {
         $query = "";
-        if (!isset($this->physicianId)) {
+        if (!isset($this->physician)) {
             echo 'Attempting to create AssociationObject with missing parameters';
         } else {
-            $query = "SELECT * FROM " . Patient::tableName . " WHERE doctor = " . $this->getPhysicianId() . "";
+            $query = "SELECT * FROM " . Patient::tableName . " WHERE doctor = " . $this->physician->getId() . "";
         }
 
         return $query;
@@ -46,29 +45,20 @@ class PhysicianPatientsAssociation implements AssociationObject {
 
     public function setPhysician(Physician $physician) {
         $this->physician = $physician;
-		$this->physicianId = $this->physician->getId();
     }
 
     public function getPhysician() {
         return $this->physician;
     }
-	
-	public function getPhysicianId(){
-		return $this->physicianId;
-	}
-	
-	public function setPhysicianId($id){
-		$this->physicianId = $id;
-		//echo "ID SET: ",$this->physicianId;
-	}
 
     public function getPatient($id) {
         return $this->patientArray[$id];
     }
-	
-	public function getPatientArray(){
-		return $this->patientArray;
-	}
+    
+    public function getPatientArray(){
+        return $this->patientArray;
+    }
+
 }
 
 ?>

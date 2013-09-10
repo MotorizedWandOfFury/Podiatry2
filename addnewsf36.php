@@ -21,19 +21,20 @@ $nav = new Navigator();
 
 $database = new Database();
 $patient = null;
-$patientId = 0;
+$patientID = 0;
 $type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options'=>array('min_range' => 1, 'max_range'=>5))) or die("Type value is invalid");
 if($type == 2){ //2 is not a valid type for this form
     die("Type value is invalid");
 }
 if ($session->getUserType() === Patient::tableName) {
     $patient = $session->getUserObject();
-    $patientId = $patient->getID();
+    $patientID = $patient->getID();
 } else {
-    $patientId = $_GET['patid'] or die('Patient ID has not been set in URL');
-    $patient = $database->read(Patient::createRetrievableDatabaseObject($patientId));
+    $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die('Patient ID has not been set in URL');
+    $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 }
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patient->getID())) or die("Pre eval form for patient has not been filled yet.");
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
 $currTime = getdate();
 
 $noMissingFields = true;
@@ -92,6 +93,7 @@ if (isset($_POST['SUBMIT'])) {
         $sf36 = new SF36($patient->getId());
         $sf36->setDateOf($_POST['M'], $_POST['D'], $_POST['Y']);
         $sf36->setType($type);
+        $sf36->setExtremity($extremity);
 
         foreach ($_POST as $key => $value) {
             if (($key === 'M') || ($key === 'D') || ($key === 'Y') || ($key === 'SUBMIT')) {
@@ -101,6 +103,7 @@ if (isset($_POST['SUBMIT'])) {
                 $sf36->setAnswer($key, $value);  //get the answers
             }
         }
+
         //echo $sf36->generateCreateQuery();
         //var_dump($sf36);
         $database->create($sf36);
@@ -118,7 +121,7 @@ if (isset($_POST['SUBMIT'])) {
     </head>
     <body>
         <?php echo Functions::formTitle($type, "SF-36");?>
-        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientId" . "&type=$type"; ?>" method='post'>
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&type=$type"; ?>" method='post'>
             <div class='container'>
                 <div class='greybox'>
                     <p>1) Patient: <?php echo $patient->getFirstName(); ?>&nbsp;&nbsp;&nbsp;

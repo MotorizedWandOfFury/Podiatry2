@@ -13,7 +13,7 @@
 class Mcgillpain implements DatabaseObject {
     
     const tableName = "mcgillpain_answers";
-    private $id, $pat_id, $sur_id, $type, $dateof, $answerArray, $questionArray;
+    private $id, $pat_id, $sur_id, $type, $dateof, $extremity, $answerArray, $questionArray;
 
     use Clean {
         cleanInput as private;
@@ -53,8 +53,12 @@ use CustomArrayOperations {
             $this->setType($paramArray['type']);
         }
         
+        if(array_key_exists('extremity', $paramArray)){
+            $this->setExtremity($paramArray['extremity']);
+        }
+        
         foreach ($paramArray as $key => $var) {
-            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'sur_id' || $key === 'type') {
+            if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'sur_id' || $key === 'type' || $key === 'extremity') {
             } else {
                 $this->setAnswer($key, $var);
                 //echo "$key => $var", "\n";
@@ -70,7 +74,7 @@ use CustomArrayOperations {
         } else {
             $answers = implode(", ", $this->answerArray);
             $questions = implode(", ", array_keys($this->answerArray));
-            $queryString = "INSERT INTO " . Mcgillpain::tableName.  " (dateof, pat_id, sur_id, type, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->type, " . $answers . ")";
+            $queryString = "INSERT INTO " . Mcgillpain::tableName.  " (dateof, pat_id, sur_id, type, extremity, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->type, $this->extremity, " . $answers . ")";
         }
         return $queryString;
     }
@@ -81,8 +85,8 @@ use CustomArrayOperations {
 
     public function generateReadQuery() {
         $queryString = "";
-        if (isset($this->pat_id) && isset($this->type)) {
-            $queryString = "SELECT * FROM  " . Mcgillpain::tableName.  "  WHERE pat_id = $this->pat_id AND type = $this->type";
+        if (isset($this->pat_id) && isset($this->type) && isset($this->extremity)) {
+            $queryString = "SELECT * FROM  " . Mcgillpain::tableName.  "  WHERE pat_id = $this->pat_id AND type = $this->type AND extremity = $this->extremity";
         } else {
             echo "Error: there was an error in the parameters of the retrievable DatabaseObject";
         }
@@ -107,9 +111,10 @@ use CustomArrayOperations {
         return $queryString;
     }   
     
-    public static function createRetrievableDatabaseObject($patientid, $type) {
+    public static function createRetrievableDatabaseObject($patientid, $type, $extremity) {
         $dbObj = new Mcgillpain($patientid);
         $dbObj->setType($type);
+        $dbObj->setExtremity($extremity);
         return $dbObj;
     }
     
@@ -158,6 +163,25 @@ use CustomArrayOperations {
 
     public function setDateOfByTimeStamp($value) {
         $this->dateof = $this->cleanInt($value);
+    }
+    
+    public function getExtremity(){
+        return $this->cleanInput($this->extremity);
+    }
+    
+    public function getExtremityFormatted(){
+        switch($this->extremity){
+            case 1:
+                return 'L';
+                break;
+            case 2:
+                return 'R';
+                break;
+        }
+    }
+    
+    public function setExtremity($value){
+        $this->extremity = $this->cleanInt($value);
     }
 
     public function getAnswer($index) {

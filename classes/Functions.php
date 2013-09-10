@@ -74,152 +74,7 @@ class Functions
                 break;   
             case 1://returns a button for editing a doctor   
                 return '<button type="button" id="'. $btnId .'" class="btn btn-info" onclick="loadIn('. $userId .','. $btnId .',\''. $lastN .'\')">' . $text . '';   
-                break;
-			case 2://dropdown with options to edit patient's various infos forms   
-                return '<div class="btn-group">   
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">'. $text .'
-                <span class="caret"></span>  
-                </a>  
-                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">   
-                    <li class="nav-header">'. $lastN .'\'s Forms</li>      
-                    <li class="dropdown-submenu">  
-                        <a tabindex="0" href="#"> Pre-Op Eval Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addneweval.php?patid='. $userId .'">Fill Pre-Op Evaluation</a>  
-                            </li>  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyeval.php?patid='. $userId .'">View/Edit Pre-Op Evaluation</a>
-                            </li>
-                        </ul>  
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="1" href="#"> Demographic Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewdemo.php?patid='. $userId .'">Fill Demographic</a>  
-                            </li>  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../viewandmodifydemo.php?patid='. $userId .'">View/Edit Demographic</a>  
-                            </li>  
-                        </ul>  
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="2" href="#"> McGill Pain Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid='. $userId .'&type=1">Fill Pre-Op McGill Pain</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid='. $userId .'&type=2">Fill Post-Op McGill Pain</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid='. $userId .'&type=3">Fill 3 Month McGill Pain</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid='. $userId .'&type=4">Fill 6 Month McGill Pain</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid='. $userId .'&type=5">Fill 12 Month McGill Pain</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=1">View/Edit McGill Pain</a>  
-                            </li>  
-                        </ul>  
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="3" href="#"> SF36 Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid='. $userId .'&type=1">Fill Pre-Op SF36</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid='. $userId .'&type=3">Fill 3 Month SF36</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid='. $userId .'&type=4">Fill 6 Month SF36</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid='. $userId .'&type=5">Fill 12 Month SF36</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=2">View/Edit SF36</a>
-                            </li>  
-                        </ul>  
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="4" href="#"> Foot Health Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid='. $userId .'&type=1">Fill Pre-Op Foot Health</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid='. $userId .'&type=3">Fill 3 Month Foot Health</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid='. $userId .'&type=4">Fill 6 Month Foot Health</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid='. $userId .'&type=5">Fill 12 Month Foot Health</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=3">View/Edit Foot Health</a>  
-                            </li>  
-                        </ul>  
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="5" href="#"> X-ray Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid='. $userId .'&type=1">Fill Pre-Op X-ray</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid='. $userId .'&type=3">Fill 3 Month X-ray</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid='. $userId .'&type=4">Fill 6 Month X-ray</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid='. $userId .'&type=5">Fill 12 Month X-ray</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=4">View/Edit X-ray</a>  
-                            </li>  
-                        </ul>  
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="6" href="#"> Surgical Data Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewsurgical.php?patid='. $userId .'">Fill Surgical Data</a>  
-                            </li>  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifysurgical.php?patid='. $userId .'">View/Edit Surgical Data</a>  
-                            </li>  
-                        </ul>   
-                    </li> 
-                    <li class="dropdown-submenu">  
-                        <a tabindex="7" href="#"> Post-Evaluation Actions</a>  
-                        <ul class="dropdown-menu">  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=2">Fill Post-Op Evaluation</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=3">Fill 3 Month Evaluation</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=4">Fill 6 Month Evaluation</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=5">Fill 12 Month Evaluation</a>  
-                            </li> 
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=5">View/Edit Post-Evaluation</a>  
-                            </li>  
-                        </ul>       
-                    </li>  
-                </ul>';   
-                break;				
+                break;   
             case 3://returns a button that will display a modal for viewing a patient's profile   
                 return '<a class="btn btn-info" onclick="displayModal('. $userId. ',\''. $btnId .'\')">' . $text . '</a>   
                 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">   
@@ -235,7 +90,7 @@ class Functions
                   
                 </div>';   
                 break;   
-            /*case 2://dropdown with options to edit patient's various infos forms   
+            case 4://dropdown with options to edit patient's various infos(profile, forms, etc.)   
                 return '<div class="btn-group">   
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">'. $text .'
                 <span class="caret"></span>  
@@ -249,8 +104,8 @@ class Functions
                                 <a role="menuitem" tabindex="-1" href="../doctor/addneweval.php?patid='. $userId .'">Fill Pre-Op Evaluation</a>  
                             </li>  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyeval.php?patid='. $userId .'">View/Edit Pre-Op Evaluation</a>
-                            </li>
+                                <a role="menuitem" tabindex="-1" href="../viewandmodifyeval.php?patid='. $userId .'">View/Edit Pre-Op Evaluation</a>  
+                            </li>  
                         </ul>  
                     </li> 
                     <li class="dropdown-submenu">  
@@ -283,7 +138,7 @@ class Functions
                                 <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid='. $userId .'&type=5">Fill 12 Month McGill Pain</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=1">View/Edit McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../viewandmodifymcgillpain.php?patid='. $userId .'">View/Edit McGill Pain</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -303,7 +158,7 @@ class Functions
                                 <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid='. $userId .'&type=5">Fill 12 Month SF36</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=2">View/Edit SF36</a>
+                                <a role="menuitem" tabindex="-1" href="../viewandmodifysf36.php?patid='. $userId .'">View/Edit SF36</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -323,7 +178,7 @@ class Functions
                                 <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid='. $userId .'&type=5">Fill 12 Month Foot Health</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=3">View/Edit Foot Health</a>  
+                                <a role="menuitem" tabindex="-1" href="../viewandmodifyfoot.php?patid='. $userId .'">View/Edit Foot Health</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -343,7 +198,7 @@ class Functions
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid='. $userId .'&type=5">Fill 12 Month X-ray</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=4">View/Edit X-ray</a>  
+                                <a role="menuitem" tabindex="-1" href="../viewandmodifyxray.php?patid='. $userId .'">View/Edit X-ray</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -362,7 +217,7 @@ class Functions
                         <a tabindex="7" href="#"> Post-Evaluation Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=2">Fill Post-Op Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=1">Fill Post-Op Evaluation</a>  
                             </li> 
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=3">Fill 3 Month Evaluation</a>  
@@ -374,12 +229,12 @@ class Functions
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid='. $userId .'&type=5">Fill 12 Month Evaluation</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid='. $userId .'&type=5">View/Edit Post-Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyposteval.php?patid='. $userId .'">View/Edit Post-Evaluation</a>  
                             </li>  
                         </ul>       
                     </li>  
                 </ul>';   
-                break; */  
+                break;   
         }   
     }   
   
@@ -389,31 +244,12 @@ class Functions
     
     public static function formTitle($type, $formName, $withHTML = true){
         $title = "";
-		if ($formName == "POST-OPERATIVE Evaluation")
-		{
-			switch($type){
-            case Constants::POST_OP:
-                $title = $title;
-                break;
-            case Constants::THREE_MONTH:
-                $title = $title . "THREE MONTH";
-                break;
-            case Constants::SIX_MONTH:
-                $title = $title . "SIXTH MONTH";
-                break;
-            case Constants::TWELVE_MONTH:
-                $title = $title . "TWELVETH MONTH";
-                break;
-			}
-		}
-		else
-		{
         switch($type){
             case Constants::PRE_OP:
-                $title = $title . "PRE-OPERATIVE";
+                $title = $title . "PRE OPERATIVE";
                 break;
             case Constants::POST_OP:
-                $title = $title . "POST-OPERATIVE";
+                $title = $title . "POST OPERATIVE";
                 break;
             case Constants::THREE_MONTH:
                 $title = $title . "THREE MONTH";
@@ -425,7 +261,6 @@ class Functions
                 $title = $title . "TWELVETH MONTH";
                 break;
         }
-		}
         $title = $title . " " . $formName;
         return ($withHTML ? Functions::doText($title, "") : $title);
         

@@ -17,9 +17,9 @@ class PatientXraysAssociation implements AssociationObject {
         $this->setPatient($patient);
     }
 
-    public function buildFromMySQLResult($mysqlResult) {     
-	   while ($row = mysql_fetch_assoc($mysqlResult)) {
-            $xray = new Xrays($this->patient->getId());
+    public function buildFromMySQLResult($mysqlResult) {
+        while ($row = mysql_fetch_assoc($mysqlResult)) {
+            $xray = new Xrays();
             $xray->constructFromDatabaseArray($row);
             $this->xraysArray[$xray->getType()] = $xray;
         }

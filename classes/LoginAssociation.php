@@ -10,9 +10,6 @@
  *
  * @author Yaw
  */
-require_once './Classes/AssociationObject.php';
-require_once './Classes/DatabaseObject.php';
-require_once './Traits/Clean.php';
 
 class LoginAssociation implements AssociationObject {
 
@@ -28,7 +25,6 @@ class LoginAssociation implements AssociationObject {
         $this->setUsername($username);
         $this->setPassword($password);
         $this->setTable($table);
-		
     }
 
     public function generateAssociationRetrieveQuery() {
@@ -37,7 +33,8 @@ class LoginAssociation implements AssociationObject {
         if (!isset($this->username) || !isset($this->password) || !isset($this->table)) {
             echo 'Attempting to create AssociationObject with missing parameters';
         } else {
-            $query = "SELECT * FROM " . $this->table . " WHERE username IN ('" . $this->username . "') AND password IN ('" . $this->password . "')";
+            $query = "SELECT * FROM " . $this->table . " WHERE username IN ('" . $this->username . "') AND `password` IN ('" . $this->password . "')";
+            //echo $query;
         }
 
         return $query;
@@ -48,20 +45,20 @@ class LoginAssociation implements AssociationObject {
         if ($row) {
             $dbObj = null;
             switch ($this->table) {
-                case 'physicians':
+                case Physician::tableName:
                     $dbObj = new Physician();
                     break;
-                case 'patients':
+                case Patient::tableName:
                     $dbObj = new Patient();
                     break;
-                case 'login':
+                case Admin::tableName:
                     $dbObj = new Admin();
                     break;
             }
             $dbObj->constructFromDatabaseArray($row);
             $this->dbObj = $dbObj;
         } else {
-            echo '';
+            //echo 'DatabaseObject not found with given parameters';
         }
     }
 

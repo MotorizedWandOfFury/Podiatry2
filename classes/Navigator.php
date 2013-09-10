@@ -26,7 +26,7 @@ class Navigator {
     }
 
     public function doGo($to, $msg) {
-        header("refresh: 1; url=" . Constants::PROJECT_PATH . $to);
+        header("refresh: 1; url=" . Constants::PROJECT_PATH . "/" . $to);
         // Print the message.
         echo $this->doMSG($msg);
     }

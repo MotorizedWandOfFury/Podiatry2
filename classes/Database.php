@@ -49,19 +49,28 @@ class Database {
     public function create(DatabaseObject $dbObj) {
         if ($this->checkIfExists($dbObj)) {
             //trigger_error("DatabaseObject already exists in the database", E_USER_NOTICE);
+            return false;
         } else {
-            $this->runQuery($dbObj->generateCreateQuery());
+           return $this->runQuery($dbObj->generateCreateQuery());
+           
+           
         }
     }
 
     public function read(DatabaseObject $dbObj) {
         if ($this->checkIfExists($dbObj)) {
             $result = $this->runQuery($dbObj->generateReadQuery());
+            
+            if($result == FALSE){
+                return false;
+            }
+            
             $row = mysql_fetch_assoc($result);
             $dbObj->constructFromDatabaseArray($row);
             return $dbObj;
         } else {
             //trigger_error("DatabaseObject does not exist in the database", E_USER_NOTICE);
+            return false;
         }
     }
 
@@ -71,27 +80,30 @@ class Database {
      */
     public function update(DatabaseObject $dbObj) {
         if ($this->checkIfExists($dbObj)) {
-            $this->runQuery($dbObj->generateUpdateQuery());
+           return $this->runQuery($dbObj->generateUpdateQuery());
         } else {
             //trigger_error("Attempting to update a DatabaseObject that does not exist in the database", E_USER_NOTICE);
+            return false;
         }
     }
 
     public function delete(DatabaseObject $dbObj) {
         if ($this->checkIfExists($dbObj)) {
-            $this->runQuery($dbObj->generateDeleteQuery());
+            return $this->runQuery($dbObj->generateDeleteQuery());
         } else {
             //trigger_error("Attempting to delete a DatabaseObject that does not exist in the database or has not been saved to it", E_USER_NOTICE);
+            return false;
         }
     }
 
     private function runQuery($query) {
-       // echo "<p>executing query: ",$query, "</p>";
+        //echo "<p>executing query: ",$query, "</p>";
         $queryResult = mysql_query($query);
         if ($queryResult) {
             return $queryResult;
         } else {
             echo "<p>", mysql_error($this->db_connection), "</p>";
+            return false;
         }
     }
 
