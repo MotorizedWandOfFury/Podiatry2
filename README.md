@@ -1,4 +1,4 @@
-Podiatry2
+Podiatry
 =========
 
-Podiatry Application
+A PHP-based application for managing the medical documentation for a Podiatry clinic.
