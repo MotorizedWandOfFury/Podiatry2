@@ -39,6 +39,7 @@ if ($allPatients->getPatientArray() == 0)
 }
 else
 {
+    $i = 0;
 	foreach ($allPatients->getPatientArray() as $admin_pat)
 	{
 		$patientEval = new PatientEvalsAssociation($admin_pat);

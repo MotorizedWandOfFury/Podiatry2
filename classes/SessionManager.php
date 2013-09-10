@@ -52,7 +52,7 @@ class SessionManager {
                             //echo "doctors and admins only";
                             $nav->redirectUser($this->userType, Navigator::UNAUTHORIZED_NAVIGATION_ACTION, "Doctors and Admins only");
                         }
-                        break;
+                        break; 
                 }
             }
         }
