@@ -1,3 +1,4 @@
 .dropbox
 *.dat
-.nbproject
+nbproject/
+database config/
