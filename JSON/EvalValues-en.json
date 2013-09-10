@@ -1,0 +1,103 @@
+{
+    "extremity": {"left" : "L", "right" : "R"},
+    "gender" : {"m" : 1, "f" : 2},
+    "Q10": {
+        "Opt1": { "val" : 1, "name" : "Bump pain "},
+        "Opt2": { "val" : 2, "name" : "Joint pain "},
+        "Opt3": { "val" : 3, "name" : "Limitus "},
+        "Opt4": { "val" : 4, "name" : "Neurtic "},
+        "Opt5": { "val" : 5, "name" : "Other"}
+    },
+    "Q11": {
+        "Opt1": { "val" : 1, "name"  : "Bump pain "},
+        "Opt2": { "val" : 2, "name"  : "Joint pain "},
+        "Opt3": { "val" : 3, "name"  : "Limitus "},
+        "Opt4": { "val" : 4, "name"  : "Neurtic "},
+        "Opt5": { "val" : 5, "name" : "Other"}
+    },
+    "Q12": {
+        "Opt1": { "val" : 1, "name"  : "Y "},
+        "Opt2": { "val" : 2, "name"  : "N "}
+    },
+    "Q13": {
+        "Opt1": { "val" : 1, "name"  : "Y "},
+        "Opt2": { "val" : 2, "name"  : "N "}
+    },
+    "Q14": {
+        "Opt1": { "val" : 1, "name"  : "Y "},
+        "Opt2": { "val" : 2, "name"  : "N "}
+    },
+    "Q16": {
+        "Opt1": { "val" : 1, "name"  : "Y "},
+        "Opt2": { "val" : 2, "name"  : "N "}
+    },
+    "Q17": {
+        "Opt1": { "val" : 1, "name"  : "Diabetes"},
+        "Opt2": { "val" : 2, "name"  : "PVD"},
+        "Opt3": { "val" : 3, "name"  : "Rheumatoid"},
+        "Opt4": { "val" : 4, "name"  : "Osteoarthritis"},
+        "Opt5": { "val" : 5, "name"  : "Osteoporosis"},
+        "Opt6": { "val" : 6, "name"  : "Depression"},
+        "Opt7": { "val" : 7, "name"  : "Anxiety"},
+        "Opt8": { "val" : 8, "name"  : "Heart Dx."},
+        "Opt9": { "val" : 9, "name"  : "Back pain"},
+        "Opt10": { "val" : 10, "name"  : "Knee pain"},
+        "Opt11": { "val" : 11, "name"  : "Other"},
+        "Opt12": { "val" : 12, "name"  : "Hormone replacement"}
+    },
+    "Q18": {
+        "Opt1": { "val" : 1, "name"  : "Steroids"},
+        "Opt2": { "val" : 2, "name"  : "ASA"},
+        "Opt3": { "val" : 3, "name"  : "NSAID's"},
+        "Opt4": { "val" : 4, "name"  : "COX2"},
+        "Opt5": { "val" : 5, "name"  : "Antibiotics"},
+        "Opt6": { "val" : 6, "name"  : "Other"}
+    },
+    "Q21": {
+        "Opt1": { "val" : 1, "name"  : "None "},
+        "Opt2": { "val" : 2, "name"  : "NSAID ''s "},
+        "Opt3": { "val" : 3, "name"  : "Orthotics "},
+        "Opt4": { "val" : 4, "name"  : "Injection "},
+        "Opt5": { "val" : 5, "name"  : "PT "},
+        "Opt6": { "val" : 6, "name"  : "Shoe modification "}
+    },
+    "Q22": {
+        "Opt1": { "val" : 1, "name"  : "Y "},
+        "Opt2": { "val" : 2, "name"  : "N "}
+    },
+    "Q23": {
+        "Opt1": { "val" : 1, "name"  : "Y "},
+        "Opt2": { "val" : 2, "name"  : "N "}
+    },
+    "Q24": {
+        "Opt1": { "val" : 1, "name"  : "None"},
+        "Opt2": { "val" : 2, "name"  : "Father"},
+        "Opt3": { "val" : 3, "name"  : "Mother"},
+        "Opt4": { "val" : 4, "name"  : "Siblings"},
+        "Opt5": { "val" : 5, "name"  : "Children"},
+        "Opt6": { "val" : 6, "name"  : "Grandparents"}
+    },
+    "Q25": {
+        "Opt1": { "val" : 1, "name"  : "None "},
+        "Opt2": { "val" : 2, "name"  : "Desk/Sitting "},
+        "Opt3": { "val" : 3, "name"  : "Light duty "},
+        "Opt4": { "val" : 4, "name"  : "Standing "},
+        "Opt5": { "val" : 5, "name"  : "Walking "},
+        "Opt6": { "val" : 6, "name"  : "Heavy duty "}
+    },
+    "Q26": {
+        "Opt1": { "val" : 1, "name"  : "None "},
+        "Opt2": { "val" : 2, "name"  : "Occasional "},
+        "Opt3": { "val" : 3, "name"  : "Regular (>= 3x / week) "}
+    },
+    "Q27": {
+        "Opt1": { "val" : 1, "name"  : "None"},
+        "Opt2": { "val" : 2, "name"  : "Walking"},
+        "Opt3": { "val" : 3, "name"  : "Running"},
+        "Opt4": { "val" : 4, "name"  : "Aerobics"},
+        "Opt5": { "val" : 5, "name"  : "Swim"},
+        "Opt6": { "val" : 6, "name"  : "Game sports"}
+    }
+
+}
+    

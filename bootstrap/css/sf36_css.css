@@ -1,0 +1,230 @@
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                body {
+    
+    font-family: "Trebuchet MS", verdana, tahoma;
+    font-size: 13px;
+    margin: 0px;
+    background-position: top;
+    background-attachment: fixed;
+}
+
+
+div#fade {
+    background-image: url('bg_black.png');
+    background-position: top;
+    background-repeat: repeat-x;
+    margin: 0px;
+    padding: 0px;
+}
+
+a, a:link, a:visited, a:hover, a:active
+{
+    color: blue;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div
+{
+    margin-top: 2.5px;
+    margin-bottom: 2.5px;
+    margin-right: 2.5px;
+    margin-left: 2.5px;
+    padding: 2.5px;
+    overflow: hidden;
+}
+
+div.data
+{
+    width: 200px;
+    height: 200px;
+    border: 1px solid #000000;
+}
+
+div#body
+{
+    margin: auto;
+    padding: 5px;
+    clear: both;
+    width: 1200px;
+    
+    background-repeat: repeat-x;
+    
+    
+}
+
+div#header
+{
+    clear: both;
+    
+}
+
+div.container
+{
+    clear: both;
+}
+
+img
+{
+    border: none;
+    vertical-align: middle;
+}
+
+div.line
+{
+    background-image: url('test.png');
+    background-repeat: no-repeat;
+}
+
+table, tr, td
+{
+    border-collapse: collapse;
+    padding: 0px;
+    margin: 0px;
+    vertical-align: top;
+}
+
+table.data
+{
+    border-collapse: collapse;
+    border: 1px solid #000000;
+    padding: 5px;
+}
+
+table.data td.row1
+{
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    padding: 2.5px;
+    margin: 2.5px;
+    
+}
+
+table.data td.row2
+{
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    padding: 2.5px;
+    margin: 2.5px;
+    
+}
+
+
+table.data td.head
+{
+    font-weight: bold;
+    text-align: center;
+    font-size: 12px;
+    background-color: #CCCCCC;
+}
+
+table.data td.cate
+{
+    border-left: 1px solid #000000;
+    border-top: 1px solid #000000;
+    font-weight: bold;
+    text-align: center;
+    font-size: 11px;
+    }
+
+table td.left
+{
+    width: 140px;
+}
+
+table td.right
+{
+    padding-left: 4px;
+}
+
+dt, dd
+{
+    margin: 0px;
+    padding: 0px;
+    padding-left: 4px;
+    margin-right: 4px;
+    line-height: 1.8em;
+    // background-image: url('blk_line.png');
+    background-repeat: no-repeat;
+}
+
+dd a
+{
+    display:block;
+}
+
+dt
+{
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+/*
+dd a:hover {
+    //-moz-border-radius: 10px; 
+    //-webkit-border-radius: 10px;
+    //border-radius: 10px;
+}
+*/
+
+form
+{
+    margin: 0px;
+    padding: 1px;
+}
+
+input.text {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #000000;
+    background-color: transparent;
+}
+
+input[type='submit']
+{
+    border: 1px solid #000000;
+    cursor: pointer;
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+/*
+ class='submit' onmouseover=\"this.style.backgroundPosition='left -40px'\" onmouseout=\"this.style.backgroundPosition='left top'\"
+input.submit {
+	width:143px;
+	height:40px;
+	background:url("bg11.jpg") no-repeat right top;
+	color:#FFFFFF;
+margin:0; padding:0;
+border: none;
+cursor:pointer;
+}*/
+
+div#tooltip
+{
+    max-width: 500px;
+    border: 1px solid #000000;
+    background-color: #FFFFCC;
+    position: absolute;
+    z-index: 999;
+    color: #000000;
+}
+
+div.greybox, div.whitebox
+{
+    -moz-border-radius: 10px; 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+div.greybox
+{
+    background-color: #CCCCCC;
+    border: 1px solid #000000;
+}
+
+div.whitebox
+{
+    background-color: #FFFFFF;
+    border: 1px solid #000000;
+}

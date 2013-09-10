@@ -1,0 +1,20 @@
+{
+    "fn": "First name: ",
+    "ln": "Last name: ",
+    "gen": "Gender: ",
+    "age": "Age: ",
+    "dob": "Date of Birth: ",
+    "m": "Month",
+    "d": "Day",
+    "y": "Year",
+    "un": "Username: ",
+    "pass": "Password: ",
+    "street": "Street: ",
+    "city": "City: ",
+    "state": "State: ",
+    "zip": "Zip: ",
+    "phone": "Phone number: ",
+    "email": "Email Address: ",
+    "exp" : "Experience: "
+
+}

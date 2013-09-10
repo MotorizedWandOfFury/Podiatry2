@@ -1,0 +1,225 @@
+{
+    "Q4": {
+        "Opt1": {"name": "Excellent", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "Very Good", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "Good", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "Fair", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "Poor", "pre_val": 5, "fin_val": 0}
+    },
+    "Q5": {
+        "Opt1": {"name": "Much better now", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "Somewhat better", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "About the same", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "Somewhat worse", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "Much worse", "pre_val": 5, "fin_val": 0}
+    },
+    "Q7": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q8": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q9": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q10": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q11": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q12": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q13": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q14": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q15": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q16": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 3}
+    },
+    "Q18": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q19": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q20": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q21": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q23": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q24": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q25": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 1},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 2}
+    },
+    "Q26": {
+        "Opt1": {"name": "Not at all", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "Slightly", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "Moderately", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "Quite a bit", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "Extremely", "pre_val": 5, "fin_val": 0}
+    },
+    "Q27": {
+        "Opt1": {"name": "None", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "Very Mild", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "Mild", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "Moderate", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "Severe", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "Very severe", "pre_val": 6, "fin_val": 0}
+    },
+    "Q28": {
+        "Opt1": {"name": "Not at all", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "Slightly", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "Moderately", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "Quite a bit", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "Extremely", "pre_val": 5, "fin_val": 0}
+    },
+    "Q31": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+        
+    },
+    "Q32": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q33": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q34": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q35": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q36": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q37": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q38": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q39": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0},
+        "Opt6": {"name": "", "pre_val": 6, "fin_val": 0}
+    },
+    "Q40": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0}
+    },
+    "Q42": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0}
+    },
+    "Q43": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0}
+    },
+    "Q44": {
+        "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0}
+    },
+    "Q45": {
+       "Opt1": {"name": "", "pre_val": 1, "fin_val": 0},
+        "Opt2": {"name": "", "pre_val": 2, "fin_val": 0},
+        "Opt3": {"name": "", "pre_val": 3, "fin_val": 0},
+        "Opt4": {"name": "", "pre_val": 4, "fin_val": 0},
+        "Opt5": {"name": "", "pre_val": 5, "fin_val": 0}
+    }
+
+}

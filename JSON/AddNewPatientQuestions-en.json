@@ -1,0 +1,20 @@
+{
+    "fn" : "First name: ",
+    "ln" : "Last name: ",
+    "gen" : "Gender: ",
+    "age" : "Age: ",
+    "dob" : "Date of Birth: ",
+    "m" : "Month",
+    "d" : "Day",
+    "y" : "Year",
+    "un" : "Username: ",
+    "pass" : "Password: ",
+    "street" : "Street: ",
+    "city" : "City: ",
+    "state" : "State: ",
+    "zip" : "Zip: ",
+    "doc" : "Assigned Doctor: ",
+    "mednum" : "Medical Record Number: ",
+    "phone" : "Phone Number: ",
+    "email" : "Email Address: "
+}

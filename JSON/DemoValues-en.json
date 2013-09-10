@@ -1,0 +1,50 @@
+{ 
+    "Q1": {
+        "Opt1": { "val" : 1, "name" : "White"},
+        "Opt2": { "val" : 2, "name" : "Black"},
+        "Opt3": { "val" : 3, "name" : "Asian/Pacific Islander"},
+        "Opt4": { "val" : 4, "name" : "Other"}
+    },
+    "Q2": {
+        "Opt1": { "val" : 1, "name" : "European - American (Hispanic)"},
+        "Opt2": { "val" : 2, "name" : "African American"},
+        "Opt3": { "val" : 3, "name" : "European - American (not Hispanic)"},
+        "Opt4": { "val" : 4, "name" : "Asian American"},
+        "Opt5": { "val" : 5, "name" : "Other"}
+    },
+    "Q3": {
+        "Opt1": { "val" : 1, "name" : "Less than high school"},
+        "Opt2": { "val" : 2, "name" : "High school graduate"},
+        "Opt3": { "val" : 3, "name" : "Some college"},
+        "Opt4": { "val" : 4, "name" : "Associate degree"},
+        "Opt5": { "val" : 5, "name" : "Bachelor's degree"},
+        "Opt6": { "val" : 6, "name" : "Graduate or professional degree"}
+    },
+    "Q4": {
+        "Opt1": { "val" : 1, "name" : "Professional and technical (e.g., doctor, teacher engineer, artist, accountant)"},
+        "Opt2": { "val" : 2, "name" : "Administrator or manager (e.g., banker, executive, high government official)"},
+        "Opt3": { "val" : 3, "name" : "Clerical (e.g., clear, office manager, secretary, bookkeeper)"},
+        "Opt4": { "val" : 4, "name" : "Sales (e.g., sales manager, shop owner or asssistant, buyer, insurance agent)"},
+        "Opt5": { "val" : 5, "name" : "Service (e.g., restaurant owner, policeman, barber, janitor)"},
+        "Opt6": { "val" : 6, "name" : "Skilled worker (e.g., foreman, motor mechanic, printer, seamstress, electrician)"},
+        "Opt7": { "val" : 7, "name" : "Less skilled (e.g., laborer, porter, unskilled factory worker)"},
+        "Opt8": { "val" : 8, "name" : "Farm (e.g., farmer, farm laborer, tractor driver)"},
+        "Opt9": { "val" : 9, "name" : "Never had a job"}
+    },
+    "Q5": {
+        "Opt1": { "val" : 1, "name" : "Under $10, 1000"},
+        "Opt2": { "val" : 2, "name" : "$10,000 to $19,000"},
+        "Opt3": { "val" : 3, "name" : "$20,000 to $29,999"},
+        "Opt4": { "val" : 4, "name" : "$30,000 to $39,999"},
+        "Opt5": { "val" : 5, "name" : "$40,000 to $40,999"},
+        "Opt6": { "val" : 6, "name" : "$50,000 to $74,999"},
+        "Opt7": { "val" : 7, "name" : "$75,000 to $99,999"},
+        "Opt8": { "val" : 8, "name" : "Over $100, 000"}
+    },
+    "Q6": {
+        "Opt1": { "val" : 1, "name" : "Lower class"},
+        "Opt2": { "val" : 2, "name" : "Upper class"},
+        "Opt3": { "val" : 3, "name" : "Working class"},
+        "Opt4": { "val" : 4, "name" : "Middle class"}
+    }
+}

@@ -1,0 +1,4 @@
+{
+    "extremity": {"left" : "L", "right" : "R"},
+    "gender" : {"m" : 1, "f" : 2}
+}

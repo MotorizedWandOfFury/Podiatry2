@@ -1,0 +1,115 @@
+{
+    
+    "Q5": {
+        "Opt1": { "val" : 1,  "name" :  "Silver" },
+        "Opt2": { "val" : 2,  "name" : "Austin" },
+        "Opt3": { "val" : 3,  "name" : "Scarf" },
+        "Opt4": { "val" : 4,  "name" : "Base Wedge" },
+        "Opt5": { "val" : 5,  "name" : "Keller" },
+        "Opt6": { "val" : 6,  "name" : "McBride"},
+        "Opt7": { "val" : 7,  "name" : "Kalish"},
+        "Opt8": { "val" : 8,  "name" : "Mau"},
+        "Opt9": { "val" : 9,  "name" : "Lapidus"},
+        "Opt10": { "val" : 10, "name" : "Implant"},
+        "Opt11": { "val" : 11,  "name" : "Akin"},
+        "Opt12": { "val" : 12,  "name" : "Sagittal Z"},
+        "Opt13": { "val" : 13,  "name" : "Crescentic"},
+        "Opt14": { "val" : 14,  "name" : "Arthrodesis"},
+        "Opt15": { "val" : 15,  "name" : "Reverdin-Green-Laird"},
+        "Opt16": { "val" : 16,  "name" : "Other"}
+    },
+    "Q6": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q7": {
+       "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q8": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q9": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q10": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q11": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q12": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q13": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q14": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q15": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q16": {
+        "Opt1": { "val" : 1,  "name" : "Intact" },
+        "Opt2": { "val" : 2,  "name" : "Partial degeneration" },
+        "Opt3": { "val" : 3,  "name" : "Full degeneration" }
+    },
+    "Q17": {
+        "Opt1": { "val" : 1,  "name" : "Smooth K-wire" },
+        "Opt2": { "val" : 2,  "name" : "Threaded K-wire" },
+        "Opt3": { "val" : 3,  "name" : "Screw" },
+        "Opt4": { "val" : 4,  "name" : "Absorbable" },
+        "Opt5": { "val" : 5,  "name" : "Cerclage" },
+        "Opt6": { "val" : 6,  "name" : "Other"}
+    },
+    "Q18": {
+        "Opt1": { "val" : 1,  "name" : "1" },
+        "Opt2": { "val" : 2,  "name" : "2" },
+        "Opt3": { "val" : 3,  "name" : "3+" }
+    },
+    "Q19": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q20": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q21": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q22": {
+        "Opt1": { "val" : 1,  "name" : "General" },
+        "Opt2": { "val" : 2,  "name" : "MAC" },
+        "Opt3": { "val" : 3,  "name" : "Spinal" },
+        "Opt4": { "val" : 4,  "name" : "Local" }
+    },
+    "Q23": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q24": {
+        "Opt1": { "val" : 1,  "name" : "Y" },
+        "Opt2": { "val" : 2,  "name" : "N" }
+    },
+    "Q25": {
+        "Opt1": { "val" : 1,  "name" : "None" },
+        "Opt2": { "val" : 2,  "name" : "Lidocaine" },
+        "Opt3": { "val" : 3,  "name" : "Marcaine" }
+    },
+    "Q26": {
+        "Opt1": { "val" : 1,  "name" : "Dexmethasone" },
+        "Opt2": { "val" : 2,  "name" : "Toradol" },
+        "Opt3": { "val" : 3,  "name" : "Other" }
+    }
+}

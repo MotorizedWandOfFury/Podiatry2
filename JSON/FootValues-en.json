@@ -1,0 +1,94 @@
+{
+    "Q4": {
+        "Opt1": { "val" : 1, "name"  :  "None"},
+        "Opt2": { "val" : 2, "name"  :  "Very Mild"},
+        "Opt3": { "val" : 3, "name"  :  "Mild"},
+        "Opt4": { "val" : 4, "name"  :  "Moderate"},
+        "Opt5": { "val" : 5, "name"  :  "Severe"}
+    },
+    "Q6": {
+        "Opt1": { "val" : 1, "name"  :  "Never"},
+        "Opt2": { "val" : 2, "name"  :  "Occasionally"},
+        "Opt3": { "val" : 3, "name"  :  "Fairly Many Times"},
+        "Opt4": { "val" : 4, "name"  :  "Very Often"},
+        "Opt5": { "val" : 5, "name"  :  "Always"}
+    },
+    "Q7": {
+        "Opt1": { "val" : 1, "name"  :  "Never"},
+        "Opt2": { "val" : 2, "name"  :  "Occasionally"},
+        "Opt3": { "val" : 3, "name"  :  "Fairly Many Times"},
+        "Opt4": { "val" : 4, "name"  :  "Very Often"},
+        "Opt5": { "val" : 5, "name"  :  "Always"}
+    },
+    "Q8": {
+        "Opt1": { "val" : 1, "name"  :  "Never"},
+        "Opt2": { "val" : 2, "name"  :  "Occasionally"},
+        "Opt3": { "val" : 3, "name"  :  "Fairly Many Times"},
+        "Opt4": { "val" : 4, "name"  :  "Very Often"},
+        "Opt5": { "val" : 5, "name"  :  "Always"}
+    },
+    "Q10": {
+        "Opt1": { "val" : 1, "name"  :  "Not at All"},
+        "Opt2": { "val" : 2, "name"  :  "Slightly"},
+        "Opt3": { "val" : 3, "name"  :  "Moderately"},
+        "Opt4": { "val" : 4, "name"  :  "Quite a Bit"},
+        "Opt5": { "val" : 5, "name"  :  "Extremely"}
+    },
+    "Q11": {
+        "Opt1": { "val" : 1, "name"  :  "Not at All"},
+        "Opt2": { "val" : 2, "name"  :  "Slightly"},
+        "Opt3": { "val" : 3, "name"  :  "Moderately"},
+        "Opt4": { "val" : 4, "name"  :  "Quite a Bit"},
+        "Opt5": { "val" : 5, "name"  :  "Extremely"}
+    },
+    "Q13": {
+        "Opt1": { "val" : 1, "name"  :  "Not at All"},
+        "Opt2": { "val" : 2, "name"  :  "Slightly"},
+        "Opt3": { "val" : 3, "name"  :  "Moderately"},
+        "Opt4": { "val" : 4, "name"  :  "Quite a Bit"},
+        "Opt5": { "val" : 5, "name"  :  "Extremely"}
+    },
+    "Q14": {
+        "Opt1": { "val" : 1, "name"  :  "Not at All"},
+        "Opt2": { "val" : 2, "name"  :  "Slightly"},
+        "Opt3": { "val" : 3, "name"  :  "Moderately"},
+        "Opt4": { "val" : 4, "name"  :  "Quite a Bit"},
+        "Opt5": { "val" : 5, "name"  :  "Extremely"}
+    },
+    "Q15": {
+        "Opt1": { "val" : 1, "name"  :  "Excellent"},
+        "Opt2": { "val" : 2, "name"  :  "Very Good"},
+        "Opt3": { "val" : 3, "name"  :  "Good"},
+        "Opt4": { "val" : 4, "name"  :  "Fair"},
+        "Opt5": { "val" : 5, "name"  :  "Poor"}
+    },
+    "Q17": {
+        "Opt1": { "val" : 1, "name"  :  "Strongly Agree"},
+        "Opt2": { "val" : 2, "name"  :  "Agree"},
+        "Opt3": { "val" : 3, "name"  :  "Neither agree or Disagree"},
+        "Opt4": { "val" : 4, "name"  :  "Disagree"},
+        "Opt5": { "val" : 5, "name"  :  "Strongly Disagree"}
+    },
+    "Q18": {
+        "Opt1": { "val" : 1, "name"  :  "Strongly Agree"},
+        "Opt2": { "val" : 2, "name"  :  "Agree"},
+        "Opt3": { "val" : 3, "name"  :  "Neither agree or Disagree"},
+        "Opt4": { "val" : 4, "name"  :  "Disagree"},
+        "Opt5": { "val" : 5, "name"  :  "Strongly Disagree"}
+    },
+    "Q19": {
+        "Opt1": { "val" : 1, "name"  :  "Strongly Agree"},
+        "Opt2": { "val" : 2, "name"  :  "Agree"},
+        "Opt3": { "val" : 3, "name"  :  "Neither agree or Disagree"},
+        "Opt4": { "val" : 4, "name"  :  "Disagree"},
+        "Opt5": { "val" : 5, "name"  :  "Strongly Disagree"}
+    },
+    "Q20": {
+        "Opt1": { "val" : 1, "name"  :  "Excellent"},
+        "Opt2": { "val" : 2, "name"  :  "Very Good"},
+        "Opt3": { "val" : 3, "name"  :  "Good"},
+        "Opt4": { "val" : 4, "name"  :  "Fair"},
+        "Opt5": { "val" : 5, "name"  :  "Poor"}
+    }    
+    
+}

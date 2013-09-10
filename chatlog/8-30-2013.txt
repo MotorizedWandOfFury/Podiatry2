@@ -1,0 +1,139 @@
+I have it opened for you.
+
+Okay. Let me try the form. This is too strange of a bug.
+
+Wait, which form? addnewsf36 or viewandmodify3636?
+
+add new. I just added this sf36 to Han's.
+
+You have to be logged in as a patient for the check to activate. So I'm going to relogin in as a patient.
+
+Oh you had it set only for patient. I thought you meant for admin. Then that is fine.
+
+Oh. Yeah, LaPointe said he wanted the patients to have to fill out everything. 
+
+Yeah I rememeber that. Then is there a way you can prompt for a confirmation for admin/doctor if they really want to submit and unfilled form?
+
+I don't think we need to. LaPointe also said he wanted the admins/doctors to be able to fill in as much as they want, because the paper forms they're going to be inputting themselves haven't been fully filled out.
+
+That is not my worry. My worry is that LaPointe doesn't expect to make mistakes while filling the forms out. What if he did miss something and still submitted it, then threw it away? Well maybe not throw it away but maybe the data is inaccurate?
+
+I imagine he can edit the data again. But, there's only so much we can do to account for human error. We could put a confirmation thing up, though, for admins and doctors. Maybe a javascript alert? 
+
+Yeah you can use the modal function or I can try to get a javascript thing setup. Right now the modal is created in html.
+
+Well we'll just ask whenever he wants to check it out again.
+
+I want to make a list here of things that needs clarification:
+1. Confirm submission of unfilled forms by admin/doctor
+2. Will patients ever review forms?
+3. What if we just stored the birthday, and calculated age based on that?
+4. Go back over duplicating a patient but for the other foot.
+5. 
+
+Hey wait, let me change sf36 real quick.
+
+Go.
+
+Alright
+
+Anything to add to the list?
+
+Yaw you still there?
+
+
+Yeah. You're wondering about the doc thing? It stores the doctor's ID. You'll need something else to get the name, for example. 
+
+Yo, you could just do $doc = $database->read(Phys...blah blah blah)
+
+Can the id go into the argument and that's it?
+
+Yeah. The patient stores the id of the doctor, which is used as a parameter in the $database->read(Physician...) thing.
+
+Is it not creatassociationobject?
+
+No wait. You only need to do $doctor = $database->read(Physician::createRetrievableDatabaseObject($patient->getDoctor()))
+Damn that's wordy.
+
+Yeah.
+
+For the case where we have a patient, but two feet in the system, didn't he just want us to repeat the patient?
+
+I told Reichgelt about it and he said we should build the system with good design and implementation. You are right in not duplicating the data. So, I don't know if Reichgelt can convince him otherwise if we cannot. If he still wants it that way then so be it.
+
+The thing is, LaPoint seems to want the left and right foots to be obvious. He doesn't want it hidden. If we can think of a way to present those options to him, we can find a middle ground here. How exactly we can surface both feet with one row if we need to, is an exercise left to the programmers. (us).
+
+There is something with the pre eval form that we can maybe accomplish. I don't know really.
+
+If I understood him correctly, those forms are associated with one foot. And so if a patient has both feet in the system, there will be two sets of forms associated with them. So we'd need a way to to quickly and obviously distinguish between left and right feet and their related forms. Wait....
+What if the column that contains the forms had two dropdowns, instead of one? One that said "left", and the other that said "right"? 
+
+That could work. There just needs to be another post/get or whatever to tell which form to pull up for that specific foot.
+Perhaps &foot=L or R?
+
+Hmm, I'm thinking. Okay, I realized the architecture and checks and all that I designed can't handle two sets of forms. So we're probably gonna need a new parameter on all the forms.
+ 
+ So something like "type"?
+
+Yeah. Basically what you suggested, with the parameter being named "foot".
+Or something.
+
+Well we'll keep that option opened. I feel we should just ask if he wants to stick with what he wanted or would he like our idea. Plus, we'll need to kind of project any possible errors that can come up.
+
+Hell, even if we have to repeat a patient in the table listing, we'd still probably need to add that parameter to distinguish between feet. But it doesn't happen very often according to him, so whatever we decide should be relatively simple.
+
+No wait wouldn't need to add it because they will differ in pat_id. I am passing that and type only.
+
+The forms for the same patient, but different feet?
+
+YEah because we'll duplicate the data(add another new patient) that will generate a new pat_id.
+
+Anything else? If not I am going to log off and eat something.
+
+Hmmm. Okay, the easiest thing would be too duplicate the data. But is it the right thing? I doubt it.
+
+For Reichgelt he wouldn't want it. For LaPointe, if he wants it like that then fine, though we need to bring up potential risks that might happen. I personally do not know what might happen.
+
+If a patient needs something in their profile changed, it wouldn't be reflected in the other copy. 
+But we could be a bit sneaky and do what he wants (like repeating a patient) without actually creating a new patient. It'd still require some modifications to our code, though.
+
+Would it be possible that a change happens you check the DB if a similar one exists and then update that too? Is it dangerous to do so?
+
+It would require some finagling for what I assume is little benefit. I think a better option would be to link all the other forms to an eval form. So every set of forms would match an associated eval, which would distinguish between left and right feet. 
+
+That was something I had suggested before relating it back to the pre eval.
+HAondw it would happen I don't know just yet.
+
+It would require another field in every form. We could simply just store a patientextremity field, and that would match the associated pre eval form. 
+
+Yeah makes sense. Though there needs to be a limit of 2 pre eval forms and also a check so they don't duplicate the same form for the same foot.
+
+Hmmm.... I wonder how we could accomplish that. Well, we could make the extremity a distinguishing parameter, and so it would mean that only two pre evals could exist for one patient, since there are only two possible extremity values. This would also cover duplication, since it would check for the eval form and its extremity to deteremine uniqueness.
+
+Right now I don't think it is a big concern. If you have time play with the idea and prototype it. See if it works well. I just thought of something I might need to address later and that is pagination.
+
+Pagination?
+
+Pages for the list of patients. He is going to enter in a whole lot of stuff. The page will load slowly trying to get all of them onto 1 page.
+
+Right. You'd also could add ways to sort that data? Or search through it to find a certain patient. Oh fuck that's more work.
+
+Searching would be when he wants it. Not going to add stuff he didn't mention. Pagination is there when he starts, I just know it. But it is w/e I have a lot of other crap to do before this though.
+
+Yeah, search on the backburner. I'm writing down what I should be working on. So I should investigate the patientextremity field and making pre eval forms distinguishable by foot.
+
+That's fine. For now I think we got what he wanted from us from that day. Whenever he is ready to test it again we'll set a date. 
+
+Okay, if he can meet with us some time next week, let's not make any changes to the server versions of our code. So we can present it to him. Walk him through operations. 
+
+Well that is that. Make sure to get theslides for requirements somewhat ready by like Wed.
+
+I'm planning on starting on that today. 
+
+Alright. I'll send out an email to that sign up sheet that we filled on Wed in case anyone forgot what is it that they need to cover.
+
+Oh crap. I might need that. But I'm sure my section is how to do it. The prototype thing. Yeah.
+
+Going to sign off and get something to eat. Laters.
+
+aight

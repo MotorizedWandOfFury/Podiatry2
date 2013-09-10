@@ -1,0 +1,26 @@
+{
+    "Q4": "Date of surgery",
+    "Q5": "PROCEDURE (select all appropriate)",
+    "Q6": "Adductor tendon release",
+    "Q7": "Fib. ses. ligament",
+    "Q8": "Tenotomy FHB (lateral)",
+    "Q9": "Lateral capsule release",
+    "Q10": "Excise fibular. sesamoid",
+    "Q11": "Adductor tendon transfer",
+    "Q12": "Medial capsulorraphy",
+    "Q13": "Subchondral drilling",
+    "Q14": "EHB tenotomy",
+    "Q15": "EHL lengthening",
+    "Q16": "Condition of cartilage",
+    "Q17": "Fixation",
+    "Q18": "Points of fixation",
+    "Q19": "Adjunct procedure",
+    "Q20": "Tourniquet",
+    "Q21": "Epinephrine",
+    "Q22": "Anethesia",
+    "Q23": "Pre-op antibiotics",
+    "Q24": "Post-op antibiotics",
+    "Q25": "Post-op local anesthetic (select all used)",
+    "Q26": "Post op injection (select all used)"
+}
+

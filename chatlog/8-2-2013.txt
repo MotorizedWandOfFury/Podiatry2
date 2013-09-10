@@ -1,0 +1,127 @@
+ok thanks for helping on that new sessionmanager
+it would seem the edit doc/pat page might need an update
+does the dropdown cause a bit of jerkiness when you click on it?
+
+It seems to. Also, sometimes it loads weirdly. Like, most of it won't show up unless you hover over it. But that might be my internet connection.
+
+that is strange. I have not seen that happen. 
+
+Well can't fix that right now. Anything else you want to look at?
+
+My testing plan involved using every form at least once.
+Should be very simple.
+
+Ok I guess I will start filling them out and then try to view them.
+
+Basically.
+
+You saw that? 
+
+Try it again.
+
+Hold up. Let me check my local copy.
+Found the issue!
+
+
+o wait not all should be like that right?
+
+Yeah. Only the ones comparing strings need to be ===
+It's a PHP thing
+
+whoops sorry. Also PHP. all yours again.
+
+Okay. On to the next one.
+
+Would all the other view and modify forms have the same problem?
+
+They shouldn't. But after that one, it's plausible.
+
+Yeah I believe so.
+
+That question might need to be fixed up for legibility.
+
+Which one?
+
+Text is smushed.
+I mean no biggie right now. I can maybe think of something to fix it up.
+
+I think it'll be as simple as padding it with extra spaces. the &nbsp or whatever.
+Time to investigate
+All yours
+
+What was that about?
+So I cannot select 0 procedures?
+
+It looks like if you don't select anything, what was stored initially is saved? Let me see. Just as I expected.
+It won't update because the key won't show up if nothing is selected. Sorry, took a call.
+
+Maybe you should make the user select something like an error message highlighting it. 
+
+I left it like that because I assumed not every question needs to be answered. If that's not the case, then we can change it.
+
+Well as of now it can't be left blank can it?
+Like I have to pick an option or else that question won't update.
+
+It's a php/html thing. Actually, we can't blank any of the other questions.
+
+Then we'll keep that mind for that question whenever we demo it.
+
+It can be blanked, but it requires more work. And I dunno why anyone would want that.
+
+I know it makes no sense that anyone who seeks this doc's help does not get a procedure, but it just looks like a bug that we allow it without handling it properly.
+
+I see what you mean. I guess we can spit out an error message if the user happens to blank it.
+
+Not an issue now. 
+
+We'll come back to handling error messages later I guess. Cause there are other places I think should have better error message handling like not having a form submitted but you try to view/edit it.
+
+I got that one in mind. It'll be a simple check and kill the script if the specified object doesn't exist. I'll also write down the blank thing in my to do.
+
+So yeah handle the error stuff together just get most of this page right. Do you need to fix the page back up again?
+
+Yep. To the next!
+
+Ok looks like the forms are in order for now.
+
+Excellent.
+
+The only thing would be the view sf36 one but I neeed to play with how to pick out which of the sf36 to display.
+Also, is there like a system in place of when you can fill out the other sf36?
+
+I have a method, but it's not being used to check dates. 
+
+So I would need to fill out multiple forms and just changed the date to simulate it.
+
+Yeah. Uhm, We could do the check before you even get to the form. Like the box that has "add new sf36" is disabled if it hasn't been more than 90 days between now and the last filled out form. You can get this info by using the PatientSF36Association class. The info being the timestamps of the previous SF36 forms.
+
+2 things. As for the disabling I think that would only apply to patients since we want the admin to be able to do anything. Doctors might be the same or might be restricted it depends. The second thing is do you know how to read those timestamps? I think I have to convert it. 
+
+Actually, we could kill the script if it hasn't been more than 90 days between the last filled out form and now when you try to load the addnewsf36 page
+
+Read the timestamps? I was thinking of direct comparisons and manipulation of timestamps. What were you thinking of?
+
+See here 1375419600 no idea of the time. Also, how to tell which is the latest one unless I can do a straight compare on which is the larger number. Though, I think there is a php method to convert it into something readable.
+
+You are correct. date() does that. I actually do that in the SF36::getDateOfFormatted method. Btw, to find the latest one, you just compare which is bigger.
+
+Alright you already did. I got it maybe. Though When I pass it as a POST does it have to be in the original format or I can use the converted?
+
+Keep it as a timestamp if you're doing any comparing or manipulating. It'll be easier that way. But you can investigate if there are methods to compare converted timestamps. Probably, I dunno.
+
+Seems like comparing the bigger timestamp would be easier and just passing it. Remove the extra work that is unecessary.
+
+You kinda need to keep it as a timestamp if you're pulling it from the database. So yeah. Btw, the method I created to check if it's been more than 90 days is in the Traits folder. It's called TimeComparison. You probably could create a new sf36 object to call the method. Something like $sf36->timeCompare($sf36->getDateOf, time()), and it'll give you a way to test if it's been more than 90 days
+I don't remember the name of the method, but it does take two parameters
+
+Good to know. Though I don't think I'll be needing it for now. I'm just going to see if I can populate a dropdown with sf36's belonging to an ID and when you select it it will pull up the view/edit sf36. The time check stuff would be for later.
+
+Aight. I gotta dip.
+
+Samee see ya. Just saving to remember stuff if we forget.
+
+Okie dokie
+
+
+
+

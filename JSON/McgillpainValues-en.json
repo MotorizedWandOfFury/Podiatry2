@@ -1,0 +1,156 @@
+{
+    "Q5": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Limits exercise" },
+        "Opt3": { "val" : 3, "name" : "Limits activity after 4 hours" },
+        "Opt4": { "val" : 4, "name" : "Limits activity all the time" }
+    },
+    "Q6": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Reduced performance" },
+        "Opt3": { "val" : 3, "name" : "Limits duties" },
+        "Opt4": { "val" : 4, "name" : 0, "name" : "Changed jobs due to foot pain" }
+    },
+    "Q7": {
+        "Opt1": { "val" : 1, "name" : 0, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : 0, "name" : "Restricted to sneakers/wide shoes" },
+        "Opt3": { "val" : 3, "name" : "Very limited in shoes" },
+        "Opt4": { "val" : 4, "name" : "Sandals/surgical shoe only" }
+    },
+    "Q8": {
+        "Opt1": { "val" : 1, "name" : "Satisfied" },
+        "Opt2": { "val" : 2, "name" : "Limited motion without pain" },
+        "Opt3": { "val" : 3, "name" : "Pain with restricted motion" }
+    },
+    "Q9": {
+        "Opt1": { "val" : 1, "name" : "Good, pleased" },
+        "Opt2": { "val" : 2, "name" : "Fair" },
+        "Opt3": { "val" : 3, "name" : "Poor, unhappy" }
+    },
+    "Q10": {
+        "Opt1": { "val" : 1, "name" : "No pain" },
+        "Opt2": { "val" : 2, "name" : "Mild on occasion" },
+        "Opt3": { "val" : 3, "name" : "Moderate daily" },
+        "Opt4": { "val" : 4, "name" : "Severe daily" }
+    },
+    "Q11": {
+        "Opt1": { "val" : 1, "name" : "Y" },
+        "Opt2": { "val" : 2, "name" : "N" }
+    },
+    "Q12": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Slight" },
+        "Opt3": { "val" : 3, "name" : "Constant" }
+    },
+    "Q13": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q14": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q15": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q16": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q17": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q18": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q19": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q20": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q21": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q22": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q23": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q24": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q25": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q26": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q27": {
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Moderate" },
+        "Opt4": { "val" : 4, "name" : "Severe" }
+    },
+    "Q28": {
+        "Opt1": { "val" : 1, "name" : "No Pain" },
+        "Opt2": { "val" : 2, "name" : "Mild" },
+        "Opt3": { "val" : 3, "name" : "Discomforting" },
+        "Opt4": { "val" : 4, "name" : "Distressing" },
+        "Opt5": { "val" : 5, "name" : "Horrible" },
+        "Opt6": { "val" : 6, "name" : "Excruciating"}
+    },
+    "Q29": {
+        "Opt1": { "val" : 1, "name" : "1" },
+        "Opt2": { "val" : 2, "name" : "2" },
+        "Opt3": { "val" : 3, "name" : "3" },
+        "Opt4": { "val" : 4, "name" : "4" },
+        "Opt5": { "val" : 5, "name" : "5" },
+        "Opt6": { "val" : 6, "name" : "6"},
+        "Opt7": { "val" : 7, "name" : "7"},
+        "Opt8": { "val" : 8, "name" : "8"},
+        "Opt9": { "val" : 9, "name" : "9"},
+        "Opt10": { "val" : 10, "name" : "10"}
+    }
+    
+}
