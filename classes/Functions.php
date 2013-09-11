@@ -59,7 +59,7 @@ class Functions {
     }
 
     //new way to display the buttons on the table for the admin(tentative) page to select the doctor's patients and editing a doctor   
-    public function doButton($userId, $lastN, $btnId, $text, $select) {
+    public function doButton($userId, $lastN, $btnId, $text, $select, $extremity = 1) {
         switch ($select) {
             case 0://returns a button for viewing the patients that belong to a doctor   
                 return '<button type="button" id="' . $btnId . '" class="btn btn-info" onclick="loadIn(' . $userId . ',' . $btnId . ',\'' . $lastN . '\')">' . $text . '';
