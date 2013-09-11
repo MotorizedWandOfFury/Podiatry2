@@ -12,7 +12,7 @@
  */
 class PatientEvalsAssociation implements AssociationObject {
 
-    private $patient, $evalArray = null;
+    private $patient, $evalArray = Array();
 
     public function __construct(Patient $patient) {
         $this->setPatient($patient);
