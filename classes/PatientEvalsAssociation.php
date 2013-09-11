@@ -12,20 +12,18 @@
  */
 class PatientEvalsAssociation implements AssociationObject {
 
-    private $patient, $eval = null;
+    private $patient, $evalArray = null;
 
     public function __construct(Patient $patient) {
         $this->setPatient($patient);
     }
 
     public function buildFromMySQLResult($mysqlResult) {
-        $row = mysql_fetch_assoc($mysqlResult); 
-        if (is_array($row)) {
+        while ($row = mysql_fetch_assoc($mysqlResult)) {
             $evals = new Evals($this->patient->getID());
             $evals->constructFromDatabaseArray($row);
-            $this->eval = $evals;
+            $this->evalArray[$evals->getExtremity()] = $evals;
         }
-        
     }
 
     public function generateAssociationRetrieveQuery() {
@@ -47,8 +45,8 @@ class PatientEvalsAssociation implements AssociationObject {
         return $this->patient;
     }
 
-    public function getEval() {
-        return $this->eval;
+    public function getEvalArray() {
+        return $this->evalArray;
     }
 
 }
