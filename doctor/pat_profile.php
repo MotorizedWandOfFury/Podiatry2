@@ -79,14 +79,19 @@ $doc = $database->read(Physician::createRetrievableDatabaseObject($docID));
 				
 				$patientEval = new PatientEvalsAssociation($pat);
 				$database->createAssociationObject($patientEval);
-				$eval = $patientEval->getEval();
-				if ($eval == NULL)
+				//$eval = $patientEval->getEval();
+				$evalCheck = $patientEval->getEvalArray();
+				if(empty($evalCheck))
 				{
 					echo "Evaluation not filled";
 				}
 				else
-				{
-					echo $eval->getExtremityFormatted();
+				{	
+					foreach ($patientEval->getEvalArray() as $eval)
+					{
+					echo $eval->getExtremityFormatted() . "&nbsp; &nbsp; &nbsp; &nbsp;";
+					
+					}
 				}
 				?></td>
     </tr>

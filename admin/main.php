@@ -89,8 +89,8 @@ if (array_key_exists($var->getLoggedInUserType(), $_SESSION)) { //have the sessi
                         echo "<td class='row2' style='width: 15%; text-align: center;'>", $admin_doc->getUserName(), "</td>";
                         echo "<td class='row1' style='width: 10%; text-align: center;'>", $admin_doc->getFirstName() . "</td>";
                         echo "<td class='row2' style='width: 10%; text-align: center;'>", $admin_doc->getLastName(), "</td>";
-                        echo "<td class='row1' style='width: 5%; text-align: center;'>", $func->doButton($admin_doc->getId(), $admin_doc->getLastName(), "editDoc", "Edit", 0), "</td>";
-                        echo "<td class='row2' style='width: 5%; text-align: center;'>", $func->doButton($admin_doc->getId(), $admin_doc->getLastName(), "viewPatients", "Patients", 1), "</td>";
+                        echo "<td class='row1' style='width: 5%; text-align: center;'>", $func->doButton($admin_doc->getId(), $admin_doc->getLastName(), "editDoc", "Edit", 0, 0), "</td>";
+                        echo "<td class='row2' style='width: 5%; text-align: center;'>", $func->doButton($admin_doc->getId(), $admin_doc->getLastName(), "viewPatients", "Patients", 1, 0), "</td>";
                         echo "</tr>";
                     }
                     ?>

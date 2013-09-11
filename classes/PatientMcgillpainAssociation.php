@@ -23,7 +23,7 @@ class PatientMcgillpainAssociation implements AssociationObject{
         while ($row = mysql_fetch_assoc($mysqlResult)) {
             $mcgill = new Mcgillpain();
             $mcgill->constructFromDatabaseArray($row);
-            $this->mcgillpainArray[$mcgill->getType()] = $mcgill;
+            $this->mcgillpainArray[$mcgill->getID()] = $mcgill;
         }
     }
 
@@ -46,9 +46,9 @@ class PatientMcgillpainAssociation implements AssociationObject{
         return $this->patient;
     }
 
-    public function getMcgillpain($type) {
-        return $this->mcgillpainArray[$type];
-    }
+    //public function getMcgillpain($type) {
+    //    return $this->mcgillpainArray[$type];
+    //}
     
     public function getMcgillpainArray(){
         return $this->mcgillpainArray;

@@ -129,7 +129,7 @@ if (isset($_POST['SUBMIT'])) {
                 $eval->setAnswer($key, $value);
             }
         }
-        //echo $eval->generateCreateQuery();
+        echo $eval->generateCreateQuery();
         //var_dump($eval);
         if ($database->create($eval)) {
             $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
@@ -148,6 +148,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
+	<?php echo $errors; ?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'], "?patid=", $patientID; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>

@@ -31,13 +31,10 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 					{
 						$patientmcgill = new PatientMcgillpainAssociation($patient);
 						$database->createAssociationObject($patientmcgill);
-						echo "<h2 class='text-left'>Filled McGill Pain Forms</h2>
-							  <div class='btn-toolbar'>
-						      <div class='btn-group'>
-						";
+						echo "<h2 class='text-left'>Filled McGill Pain Forms</h2>";
 						foreach ($patientmcgill->getMcgillpainArray() as $mcgill)
 							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a>";
+								echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a><br> <br />";
 							}
 					}
 					else if ($type == 2)

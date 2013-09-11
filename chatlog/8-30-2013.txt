@@ -137,3 +137,12 @@ Oh crap. I might need that. But I'm sure my section is how to do it. The prototy
 Going to sign off and get something to eat. Laters.
 
 aight
+
+I want to make a list here of things that needs clarification:
+1. Confirm submission of unfilled forms by admin/doctor
+2. Will patients ever review forms?
+3. What if we just stored the birthday, and calculated age based on that?
+4. Go back over duplicating a patient but for the other foot.
+5. Duplicate a row for the other foot. Will the doctor use another unique medical record #?
+6. JS for form validation.
+7. Group by column displaying forms. count to 5 new td.

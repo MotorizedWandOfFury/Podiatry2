@@ -59,7 +59,7 @@ class Functions {
     }
 
     //new way to display the buttons on the table for the admin(tentative) page to select the doctor's patients and editing a doctor   
-    public function doButton($userId, $lastN, $btnId, $text, $select, $extremity = 1) {
+    public function doButton($userId, $lastN, $btnId, $text, $select, $extremity) {
         switch ($select) {
             case 0://returns a button for viewing the patients that belong to a doctor   
                 return '<button type="button" id="' . $btnId . '" class="btn btn-info" onclick="loadIn(' . $userId . ',' . $btnId . ',\'' . $lastN . '\')">' . $text . '';
@@ -100,19 +100,19 @@ class Functions {
                         <a tabindex="2" href="#"> McGill Pain Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=1">Fill Pre-Op McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=1&extremity=' . $extremity .'">Fill Pre-Op McGill Pain</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=2">Fill Post-Op McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=2&extremity=' . $extremity .'">Fill Post-Op McGill Pain</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=3">Fill 3 Month McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=3&extremity=' . $extremity .'">Fill 3 Month McGill Pain</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=4">Fill 6 Month McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=4&extremity=' . $extremity .'">Fill 6 Month McGill Pain</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=5">Fill 12 Month McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month McGill Pain</a>  
                             </li> 
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&type=1">View/Edit McGill Pain</a>  
@@ -123,16 +123,16 @@ class Functions {
                         <a tabindex="3" href="#"> SF36 Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=1">Fill Pre-Op SF36</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=1&extremity=' . $extremity .'">Fill Pre-Op SF36</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=3">Fill 3 Month SF36</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=3&extremity=' . $extremity .'">Fill 3 Month SF36</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=4">Fill 6 Month SF36</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=4&extremity=' . $extremity .'">Fill 6 Month SF36</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=5">Fill 12 Month SF36</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month SF36</a>  
                             </li> 
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&type=2">View/Edit SF36</a>
@@ -143,16 +143,16 @@ class Functions {
                         <a tabindex="4" href="#"> Foot Health Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=1">Fill Pre-Op Foot Health</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=1&extremity=' . $extremity .'">Fill Pre-Op Foot Health</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=3">Fill 3 Month Foot Health</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=3&extremity=' . $extremity .'">Fill 3 Month Foot Health</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=4">Fill 6 Month Foot Health</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=4&extremity=' . $extremity .'">Fill 6 Month Foot Health</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=5">Fill 12 Month Foot Health</a>  
+                                <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month Foot Health</a>  
                             </li> 
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&type=3">View/Edit Foot Health</a>  
@@ -163,16 +163,16 @@ class Functions {
                         <a tabindex="5" href="#"> X-ray Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=1">Fill Pre-Op X-ray</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=1&extremity=' . $extremity .'">Fill Pre-Op X-ray</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=3">Fill 3 Month X-ray</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=3&extremity=' . $extremity .'">Fill 3 Month X-ray</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=4">Fill 6 Month X-ray</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=4&extremity=' . $extremity .'">Fill 6 Month X-ray</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=5">Fill 12 Month X-ray</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month X-ray</a>  
                             </li> 
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&type=4">View/Edit X-ray</a>  
@@ -183,7 +183,7 @@ class Functions {
                         <a tabindex="6" href="#"> Surgical Data Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewsurgical.php?patid=' . $userId . '">Fill Surgical Data</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewsurgical.php?patid=' . $userId . '&extremity=' . $extremity .'">Fill Surgical Data</a>  
                             </li>  
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifysurgical.php?patid=' . $userId . '">View/Edit Surgical Data</a>  
@@ -194,16 +194,16 @@ class Functions {
                         <a tabindex="7" href="#"> Post-Evaluation Actions</a>  
                         <ul class="dropdown-menu">  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=2">Fill Post-Op Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=2&extremity=' . $extremity .'">Fill Post-Op Evaluation</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=3">Fill 3 Month Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=3&extremity=' . $extremity .'">Fill 3 Month Evaluation</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=4">Fill 6 Month Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=4&extremity=' . $extremity .'">Fill 6 Month Evaluation</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=5">Fill 12 Month Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month Evaluation</a>  
                             </li> 
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&type=5">View/Edit Post-Evaluation</a>  
