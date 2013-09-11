@@ -37,7 +37,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						";
 						foreach ($patientmcgill->getMcgillpainArray() as $mcgill)
 							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "'>". $label[$mcgill->getType()] ."McGill Pain</a>";
+								echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a>";
 							}
 					}
 					else if ($type == 2)
