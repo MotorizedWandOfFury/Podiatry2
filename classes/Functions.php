@@ -57,6 +57,38 @@ class Functions {
                 break;
         }
     }
+	public function doFormButtonDefault($userId, $lastN, $text)
+	{
+		return '<div class="btn-group">   
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">' . $text . '
+                <span class="caret"></span>  
+                </a>  
+                <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dLabel">   
+                    <li class="nav-header">' . $lastN . '\'s Forms</li>      
+                    <li class="dropdown-submenu">  
+                        <a tabindex="0" href="#"> Pre-Op Eval Actions</a>  
+                        <ul class="dropdown-menu">  
+                            <li>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addneweval.php?patid=' . $userId . '">Fill Pre-Op Evaluation</a>  
+                            </li>  
+                            <li>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyeval.php?patid=' . $userId . '">View/Edit Pre-Op Evaluation</a>
+                            </li>
+                        </ul>  
+                    </li> 
+                    <li class="dropdown-submenu">  
+                        <a tabindex="1" href="#"> Demographic Actions</a>  
+                        <ul class="dropdown-menu">  
+                            <li>  
+                                <a role="menuitem" tabindex="-1" href="../addnewdemo.php?patid=' . $userId . '">Fill Demographic</a>  
+                            </li>  
+                            <li>  
+                                <a role="menuitem" tabindex="-1" href="../viewandmodifydemo.php?patid=' . $userId . '">View/Edit Demographic</a>  
+                            </li>  
+                        </ul>  
+                    </li>   
+                </ul>';
+	}
 	
 	public function doFormButton($userId, $lastN, $text, $extremity)
 	{
