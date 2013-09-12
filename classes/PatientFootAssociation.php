@@ -20,9 +20,9 @@ class PatientFootAssociation implements AssociationObject {
     
     public function buildFromMySQLResult($mysqlResult) {
         while ($row = mysql_fetch_assoc($mysqlResult)) {
-            $foot = new Foot();
+            $foot = new Foot($this->patient->getID());
             $foot->constructFromDatabaseArray($row);
-            $this->footArray[$foot->getType()] = $foot;
+            $this->footArray[$foot->getID()] = $foot;
         }
     }
 
