@@ -35,7 +35,7 @@ class PatientSF36Association implements AssociationObject {
         while ($row = mysql_fetch_assoc($mysqlResult)) {
             $sf36 = new SF36();
             $sf36->constructFromDatabaseArray($row);
-            $this->sf36Array[$sf36->getType()] = $sf36;
+            $this->sf36Array[$sf36->getID()] = $sf36;
         }
     }
 

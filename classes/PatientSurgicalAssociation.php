@@ -12,18 +12,17 @@
  */
 class PatientSurgicalAssociation implements AssociationObject {
 
-    private $patient, $surgical;
+    private $patient, $surgicalArray = Array();
 
     public function __construct(Patient $patient) {
         $this->setPatient($patient);
     }
 
     public function buildFromMySQLResult($mysqlResult) {
-        $row = mysql_fetch_assoc($mysqlResult);
-        if (is_array($row)) {
+        while ($row = mysql_fetch_assoc($mysqlResult)) {
             $surgical = new Surgical();
             $surgical->constructFromDatabaseArray($row);
-            $this->surgical = $surgical;
+            $this->surgical[$surgical->getID()] = $surgical;
         }
     }
 
@@ -46,8 +45,8 @@ class PatientSurgicalAssociation implements AssociationObject {
         return $this->patient;
     }
 
-    public function getSurgical() {
-        return $this->surgical;
+    public function getSurgicalArray() {
+        return $this->surgicalArray;
     }
 
 }

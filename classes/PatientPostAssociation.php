@@ -23,7 +23,7 @@ class PatientPostAssociation implements AssociationObject {
         while ($row = mysql_fetch_assoc($mysqlResult)) {
             $post = new Post();
             $post->constructFromDatabaseArray($row);
-            $this->postArray[$post->getType()] = $post;
+            $this->postArray[$post->getID()] = $post;
         }
     }
 
