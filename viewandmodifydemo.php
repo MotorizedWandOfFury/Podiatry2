@@ -22,9 +22,9 @@ $func = new Functions();
 $mode = isset($_GET['mode']) ? $_GET['mode'] : "view"; // default mode for page is viewing, if the mode attribute has not been set
 
 $database = new Database();
-$patientID = $_GET['patid'] or die("Patient ID not set");
+$patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
-$demo = $database->read(Demo::createRetrievableDatabaseObject($patientID));
+$demo = $database->read(Demo::createRetrievableDatabaseObject($patientID)) or die("Demographic form has not been filled out.");
 
 
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
