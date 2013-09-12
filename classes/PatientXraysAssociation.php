@@ -11,7 +11,7 @@
  * @author Ping
  */
 class PatientXraysAssociation implements AssociationObject {
-    private $patient, $xraysArray = null;
+    private $patient, $xraysArray = Array();
     
     public function __construct(Patient $patient) {
         $this->setPatient($patient);

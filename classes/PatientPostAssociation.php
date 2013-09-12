@@ -12,7 +12,7 @@
  */
 class PatientPostAssociation implements AssociationObject {
  
-    private $patient, $postArray = null;
+    private $patient, $postArray = Array();
     
     public function __construct(Patient $patient) {
         $this->setPatient($patient);

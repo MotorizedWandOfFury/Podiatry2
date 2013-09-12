@@ -13,7 +13,7 @@
 
 class PatientSF36Association implements AssociationObject {
 
-    private $patient, $sf36Array = null;
+    private $patient, $sf36Array = Array();
 
     public function __construct(Patient $patient) {
         $this->setPatient($patient);

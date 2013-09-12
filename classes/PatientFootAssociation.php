@@ -12,7 +12,7 @@
  */
 class PatientFootAssociation implements AssociationObject {
     
-    private $patient, $footArray = null;
+    private $patient, $footArray = Array();
     
     public function __construct(Patient $patient) {
         $this->setPatient($patient);
