@@ -35,20 +35,13 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						echo "<h2 class='text-left'>Filled McGill Pain Forms</h2>";
 						foreach ($patientmcgill->getMcgillpainArray() as $mcgill)
 						{
-							if ($counter < 6)
+							echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a>";
+							
+							if ($counter == 5)
 							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a>";
+								echo "<br> <br />";
 							}
-							else if ($counter == 6)
-							{	
-								echo "<br> </br>
-								<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a>";
-							}
-							else
-							{	
-								echo "<a class='btn' id='selectForm' href='viewandmodifymcgillpain.php?patid=" . $patientID . "&type=" . $mcgill->getType() . "&extremity=" . $mcgill->getExtremity() . "'>". $label[$mcgill->getType()] ."McGill Pain (" . $mcgill->getExtremityFormatted() . ")</a>";
-							}
-								$counter++;
+							$counter++;
 						}
 					}
 					else if ($type == 2)
@@ -58,18 +51,12 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						echo "<h2 class='text-left'>Filled SF36 Forms</h2>";
 						foreach ($patientsf36->getSF36Array() as $sf36)
 						{
-							if ($counter < 5)
+
+							echo "<a class='btn' id='selectForm' href='viewandmodifysf36.php?patid=" . $patientID . "&type=" . $sf36->getType() . "&extremity=" .  $sf36->getExtremity() . "'>". $label[$sf36->getType()] ."SF36 (" . $sf36->getExtremityFormatted() . ")</a>";
+							
+							if ($counter == 4)
 							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifysf36.php?patid=" . $patientID . "&type=" . $sf36->getType() . "&extremity=" .  $sf36->getExtremity() . "'>". $label[$sf36->getType()] ."SF36 (" . $sf36->getExtremityFormatted() . ")</a>";
-							}
-							else if ($counter == 5)
-							{
-								echo "<br> <bf />
-								<a class='btn' id='selectForm' href='viewandmodifysf36.php?patid=" . $patientID . "&type=" . $sf36->getType() . "&extremity=" .  $sf36->getExtremity() . "'>". $label[$sf36->getType()] ."SF36 (" . $sf36->getExtremityFormatted() . ")</a>";
-							}
-							else
-							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifysf36.php?patid=" . $patientID . "&type=" . $sf36->getType() . "&extremity=" .  $sf36->getExtremity() . "'>". $label[$sf36->getType()] ."SF36 (" . $sf36->getExtremityFormatted() . ")</a>";
+								echo "<br> <br />";
 							}
 							$counter++;
 						}
@@ -81,18 +68,11 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						echo "<h2 class='text-left'>Filled Foot Health Forms</h2>";
 						foreach ($patientsfoot->getFootArray() as $foot)
 						{
-							if ($counter < 5)
+							echo "<a class='btn' id='selectForm' href='viewandmodifyfoot.php?patid=" . $patientID . "&type=" . $foot->getType() . "&extremity=" . $foot->getExtremity() . "'>". $label[$foot->getType()] ."Foot Health (" . $foot->getExtremityFormatted() . ")</a>";
+							
+							if ($counter == 4)
 							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifyfoot.php?patid=" . $patientID . "&type=" . $foot->getType() . "&extremity=" . $foot->getExtremity() . "'>". $label[$foot->getType()] ."Foot Health (" . $foot->getExtremityFormatted() . ")</a>";
-							}
-							else if ($counter == 5)
-							{
-								echo "<br> <br/>
-								<a class='btn' id='selectForm' href='viewandmodifyfoot.php?patid=" . $patientID . "&type=" . $foot->getType() . "&extremity=" . $foot->getExtremity() . "'>". $label[$foot->getType()] ."Foot Health (" . $foot->getExtremityFormatted() . ")</a>";
-							}
-							else
-							{
-								echo "<a class='btn' id='selectForm' href='viewandmodifyfoot.php?patid=" . $patientID . "&type=" . $foot->getType() . "&extremity=" . $foot->getExtremity() . "'>". $label[$foot->getType()] ."Foot Health (" . $foot->getExtremityFormatted() . ")</a>";
+								echo "<br> <br />";
 							}
 							$counter++;
 						}
@@ -104,18 +84,11 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						echo "<h2 class='text-left'>Filled X-ray Forms</h2>";
 						foreach ($patientsxray->getXraysArray() as $xray)
 						{
-							if ($counter < 5)
+							echo "<a class='btn' id='selectForm' href='doctor/viewandmodifyxray.php?patid=" . $patientID . "&type=" . $xray->getType() . "&extremity=" . $xray->getExtremity() . "'>". $label[$xray->getType()] ."X-rays (" . $xray->getExtremityFormatted() . ")</a>";
+							
+							if ($counter == 4)
 							{
-								echo "<a class='btn' id='selectForm' href='doctor/viewandmodifyxray.php?patid=" . $patientID . "&type=" . $xray->getType() . "&extremity=" . $xray->getExtremity() . "'>". $label[$xray->getType()] ."X-rays (" . $xray->getExtremityFormatted() . ")</a>";
-							}
-							else if ($counter == 5)
-							{
-								echo "<br><br />
-								<a class='btn' id='selectForm' href='doctor/viewandmodifyxray.php?patid=" . $patientID . "&type=" . $xray->getType() . "&extremity=" . $xray->getExtremity() . "'>". $label[$xray->getType()] ."X-rays (" . $xray->getExtremityFormatted() . ")</a>";
-							}
-							else
-							{
-								echo "<a class='btn' id='selectForm' href='doctor/viewandmodifyxray.php?patid=" . $patientID . "&type=" . $xray->getType() . "&extremity=" . $xray->getExtremity() . "'>". $label[$xray->getType()] ."X-rays (" . $xray->getExtremityFormatted() . ")</a>";
+								echo "<br> <br />";
 							}
 							$counter++;
 						}
@@ -127,18 +100,10 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						echo "<h2 class='text-left'>Filled Post-Evaluation Forms</h2>";
 						foreach ($patientspost->getPostArray() as $post)
 						{
-							if ($counter < 5)
+							echo "<a class='btn' id='selectForm' href='doctor/viewandmodifyposteval.php?patid=" . $patientID . "&type=" . $post->getType() . "&extremity=" . $post->getExtremity() . "'>". $label[$post->getType()] ."Evaluation (" . $post->getExtremityFormatted() . ")</a>";
+							if ($counter == 4)
 							{
-								echo "<a class='btn' id='selectForm' href='doctor/viewandmodifyposteval.php?patid=" . $patientID . "&type=" . $post->getType() . "&extremity=" . $post->getExtremity() . "'>". $label[$post->getType()] ."Evaluation (" . $post->getExtremityFormatted() . ")</a>";
-							}
-							else if ($counter == 5)
-							{
-								echo "<br> </br>
-								<a class='btn' id='selectForm' href='doctor/viewandmodifyposteval.php?patid=" . $patientID . "&type=" . $post->getType() . "&extremity=" . $post->getExtremity() . "'>". $label[$post->getType()] ."Evaluation (" . $post->getExtremityFormatted() . ")</a>";
-							}
-							else
-							{
-								echo "<a class='btn' id='selectForm' href='doctor/viewandmodifyposteval.php?patid=" . $patientID . "&type=" . $post->getType() . "&extremity=" . $post->getExtremity() . "'>". $label[$post->getType()] ."Evaluation (" . $post->getExtremityFormatted() . ")</a>";
+								echo "<br> <br />";
 							}
 						}
 					}
