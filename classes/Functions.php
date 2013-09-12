@@ -71,9 +71,6 @@ class Functions {
                             <li>  
                                 <a role="menuitem" tabindex="-1" href="../doctor/addneweval.php?patid=' . $userId . '">Fill Pre-Op Evaluation</a>  
                             </li>  
-                            <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyeval.php?patid=' . $userId . '">View/Edit Pre-Op Evaluation</a>
-                            </li>
                         </ul>  
                     </li> 
                     <li class="dropdown-submenu">  
@@ -105,7 +102,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../doctor/addneweval.php?patid=' . $userId . '">Fill Pre-Op Evaluation</a>  
                             </li>  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyeval.php?patid=' . $userId . '">View/Edit Pre-Op Evaluation</a>
+                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifyeval.php?patid=' . $userId . '&extremity=' . $extremity .'">View/Edit Pre-Op Evaluation</a>
                             </li>
                         </ul>  
                     </li> 
@@ -210,7 +207,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewsurgical.php?patid=' . $userId . '&extremity=' . $extremity .'">Fill Surgical Data</a>  
                             </li>  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifysurgical.php?patid=' . $userId . '">View/Edit Surgical Data</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifysurgical.php?patid=' . $userId . '&extremity=' . $extremity .'">View/Edit Surgical Data</a>  
                             </li>  
                         </ul>   
                     </li> 
