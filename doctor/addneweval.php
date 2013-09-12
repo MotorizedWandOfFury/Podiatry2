@@ -19,7 +19,7 @@ $nav = new Navigator();
 
 $database = new Database();
 $loggedInUser = $session->getUserObject();
-$patientID = $_GET['patid'] or die("Patient ID not set");
+$patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 
 $currTime = getdate();
@@ -129,7 +129,7 @@ if (isset($_POST['SUBMIT'])) {
                 $eval->setAnswer($key, $value);
             }
         }
-        echo $eval->generateCreateQuery();
+        //echo $eval->generateCreateQuery();
         //var_dump($eval);
         if ($database->create($eval)) {
             $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");

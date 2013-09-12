@@ -12,7 +12,7 @@
  */
 class PatientMcgillpainAssociation implements AssociationObject{
     
-     private $patient, $mcgillpainArray = null;
+     private $patient, $mcgillpainArray = Array();
     
     public function __construct(Patient $patient) {
         $this->setPatient($patient);
