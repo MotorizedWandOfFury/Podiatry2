@@ -1,0 +1,116 @@
+wait, which folder?
+So the form didn't exist and I forgot to do a null check to kill the script if it didn't exist
+
+It good now?
+
+If the form doesn't exist, it'll kill the script. When I added the new extremity field, I defaulted it to 1. Just be aware of that.
+
+ok. I was thinking of just deleting the forms that existed before.
+
+Sure. Then we can work through and each some forms. Do you think we should submit every form?
+
+Actually why not just go into the db and set the eztremity to the first patient. I know it should be a 2.
+ew
+Sure
+
+Yeah because I was going to test the same patient's other foot. That should be equivalent to resubmitting everything again.
+Wait 1 is left?
+
+Yeah
+
+Yeah, don't know how I can create a link for something not there. Wait it's there.
+
+Oh wow, I feel dumb. But it was late at night when I added extremity fields to the stuff. I guess I missed one.
+
+Good?
+
+Can I vardump that?
+
+Wait, which part?
+
+Yeah.
+
+Well that was strange. Hey is that suppose to be labelled that way?
+
+Nope. I dunno how that typo occurred. Good catch.
+
+Now I wonder are there other places that happened.
+
+Doubtful. We'd have seen them. Running through the forms should confirm or deny this. Just keep a lookout, I guess.
+
+what were the git commands you used again?
+
+git add -A to stage the files
+git commit -m "commit message blah blah" to commit them
+
+You think I should change that post variable name? Instead of type? I use that for the "switch" statment for the formselection menu.
+/formselection.php?patid=' . $userId . '&type=3
+
+You definitely should. Call it "form" maybe?
+
+Ok I think we're stable enough right now. Have any new questions we need to ask?
+
+Not that I can think of. Btw, real quick: let's test the change password for patients. Like, just pick a patient and change the password, log in, change it again, log in again.
+
+Log in as admin or that patient?
+
+Change the password as an admin, then log in as the patient, log out, log in as the admin, change it again, and once more log in as the patient
+
+Well isn't the patient's main page broken right now?
+
+Oh, darn. I'll put fixing it up on my to do. Well, back end stuff wise.
+
+We could try changing it and look in the db and see if the slurry or letters change.
+
+That might be enough. But I'd like to log in as well, just to make sure I guess.
+
+IA'cltluly do it to doctor. I think he said patient is kind of low priority. He wants to submit his forms and tell other doctors to submit their data if they can.
+
+Right. It's the same between them, so either doctor or patient we can test this with. Let's use one a patient or doctor we haven't touched. Maybe Dr. Newton?
+47d826cdcc8efeef05347aedb74610e8588e5cd0
+
+Well yeah it changed it. Ooops. uh...
+
+Can't log out.
+
+The session will timeout in 30.
+
+There. So yeah you can sign in with new pass. Ok I think it works what you said to do.
+
+Great. I was worried there was a bug lurking there. Also, we may have to change the password hashing algo to something else. Maybe bcrypt.
+I Idon't know encryption so all up to you.
+
+I'll investigate it later.
+
+Though should we have some mechanism for the admin to get back in if the info is lost?
+pas
+Like password recovery?
+
+Actually we'll think that later. But yeah that is the obvious choice.
+
+I guess so? Let's consider it later.
+
+So what time tomorrow is good with you?
+
+After 4 I guess.
+
+I'll ask what time is good between 4-7 for him. Ddc i think server can't take it anymore.
+
+Okay. That was strange. But we're pretty solid on this right? The functionality he cared more about seems stable, so now he's just gotta check it out.
+
+Yeah. So another Google hangout for conferencing. 
+
+Yep.
+
+I sent the email to him. I'll text you the time when I get it. Going to log for now.
+
+Later. I'm signing out now.
+
+
+
+
+
+
+
+
+
