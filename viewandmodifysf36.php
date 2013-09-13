@@ -30,7 +30,7 @@ if($type == 2){ //2 is not a valid type for this form
 $patient = ($session->getUserType() === Patient::tableName) ? $session->getUserObject() : $database->read(Patient::createRetrievableDatabaseObject($patientID)); //if the logged in user is a patient use that patient, else pull the patient from database
 $extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
 $sf36 = $database->read(SF36::createRetrievableDatabaseObject($patientID, $type, $extremity)) or die("Form has not been filled out for this patient");
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID)) or die("Pre eval form for patient has not been filled yet.");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
 
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
     if (isset($_POST['SUBMIT'])) {
