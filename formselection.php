@@ -105,6 +105,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 							{
 								echo "<br> <br />";
 							}
+							$counter++;
 						}
 					}
 					else

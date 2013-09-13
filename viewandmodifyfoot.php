@@ -80,7 +80,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                             <?php
                             foreach ($footValues['Q4'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q4'  value = '" . $opt['val'] . "' " . (($foot->getAnswer('Q4') == $opt['val']) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['val'];
+                                echo "<input type = 'radio' name = 'Q4'  value = '" . $opt['val'] . "' " . (($foot->getAnswer('Q4') == $opt['val']) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'];
                                 echo "</td>";
                             }
                             ?>

@@ -41,32 +41,43 @@ foreach ($allPatients->getPatientsArray() as $admin_pat)
 	{
 		$patientEval = new PatientEvalsAssociation($admin_pat);
 		$database->createAssociationObject($patientEval);
-		$eval = $patientEval->getEval();
 		$doctor = $database->read(Physician::createRetrievableDatabaseObject($admin_pat->getDoctor()));
-		echo "
-			<tr>
-				<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" . $admin_pat->getId() . "</td>
-				<td class='" . $func->doRows($i) . "' style='width: 15%; text-align: center;'>" . $admin_pat->getLastName() . "</td>
-				<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getFirstName() . "</td>
+		$evalCheck = $patientEval->getEvalArray();
+		if(empty($evalCheck))
+		{
+			echo "
+				<tr>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" . $admin_pat->getId() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 15%; text-align: center;'>" . $admin_pat->getLastName() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getFirstName() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>Evaluation not filled</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $doctor->getLastName() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doFormButtonDefault($admin_pat->getId(), $admin_pat->getLastName(), "Forms"). "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2). "</td>
+				</tr>		
 			";
-			if ($eval == NULL)
+		}
+		else 
+		{
+			foreach ($patientEval->getEvalArray() as $eval)
 			{
-				echo "<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>Evaluation not filled</td>";
-			}
-			else
-			{
-				echo "<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $eval->getExtremityFormatted() . " </td>";
-			}
-		echo "
-				<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
-				<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
-				<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $doctor->getlastName() . "</td>
-				<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "managePat", "Forms", 2). "</td>
-				<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 3). "</td>
-				
-			</tr>
-			
+			echo "
+				<tr>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" . $admin_pat->getId() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 15%; text-align: center;'>" . $admin_pat->getLastName() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getFirstName() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $eval->getExtremityFormatted() . " </td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $doctor->getLastName() . "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doFormButton($admin_pat->getId(), $admin_pat->getLastName(), "Forms", $eval->getExtremity()). "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2). "</td>
+				</tr>		
 			";
+			}
+		}
 	}
 
 echo "
