@@ -12,7 +12,7 @@ $func = new Functions();
 $database = new Database();
 $layout = new Layout();
 $patientID = $_GET['patid'] or die('Patient ID has not been set in URL');
-$type = $_GET['type'] or die('Form Type has not been set in URL');
+$form = $_GET['form'] or die('Form Type has not been set in URL');
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 //$patientsf36 = new PatientSF36Association($patient);
 //$database->createAssociationObject($patientsf36);
@@ -28,7 +28,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 		<div class="container">
 			<form class="admin-form">
 					<?php
-					if ($type == 1)
+					if ($form == 1)
 					{
 						$patientmcgill = new PatientMcgillpainAssociation($patient);
 						$database->createAssociationObject($patientmcgill);
@@ -44,7 +44,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 							$counter++;
 						}
 					}
-					else if ($type == 2)
+					else if ($form == 2)
 					{
 						$patientsf36 = new PatientSF36Association($patient);
 						$database->createAssociationObject($patientsf36);
@@ -61,7 +61,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 							$counter++;
 						}
 					}	
-					else if ($type == 3)
+					else if ($form == 3)
 					{
 						$patientsfoot = new PatientFootAssociation($patient);
 						$database->createAssociationObject($patientsfoot);
@@ -77,7 +77,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 							$counter++;
 						}
 					}
-					else if ($type == 4)
+					else if ($form == 4)
 					{
 						$patientsxray = new PatientXraysAssociation($patient);
 						$database->createAssociationObject($patientsxray);
@@ -93,7 +93,7 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 							$counter++;
 						}
 					}
-					else if ($type == 5)
+					else if ($form == 5)
 					{
 						$patientspost = new PatientPostAssociation($patient);
 						$database->createAssociationObject($patientspost);
