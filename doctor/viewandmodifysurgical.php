@@ -25,7 +25,7 @@ $database = new Database();
 $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
-$surgical = $database->read(Surgical::createRetrievableDatabaseObject($patientID, $extremity));
+$surgical = $database->read(Surgical::createRetrievableDatabaseObject($patientID, $extremity)) or die("Form has not been filled out yet");
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($surgical->getSurID()));
 $eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
  

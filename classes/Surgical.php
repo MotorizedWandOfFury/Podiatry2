@@ -119,10 +119,10 @@ use CustomArrayOperations {
         return $dbObj; 
     }
     
-    public function getSurId(){
+    public function getSurID(){
         return $this->cleanInput($this->sur_id);
     }
-    public function setSurId($value){
+    public function setSurID($value){
         $this->sur_id = $this->cleanInt($value);
     }
     
