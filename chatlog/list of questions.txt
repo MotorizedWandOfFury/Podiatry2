@@ -7,3 +7,5 @@ TODO/ Ask list
 6. JS for form validation.
 7. Group by column displaying forms. count to 5 new td.
 8. Will there be a need to not fill out a pre eval form in any situation.
+
+1.Scoring the forms Mcgill?, sf36, foot, comparing eval.
