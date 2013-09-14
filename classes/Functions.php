@@ -136,7 +136,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../addnewmcgillpain.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month McGill Pain</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=1">View/Edit McGill Pain</a>  
+                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=1&extremity=' . $extremity .'">View/Edit McGill Pain</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -156,7 +156,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../addnewsf36.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month SF36</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=2">View/Edit SF36</a>
+                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=2&extremity=' . $extremity . '">View/Edit SF36</a>
                             </li>  
                         </ul>  
                     </li> 
@@ -176,7 +176,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../addnewfoot.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month Foot Health</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=3">View/Edit Foot Health</a>  
+                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=3&extremity=' . $extremity . '">View/Edit Foot Health</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -196,7 +196,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewxray.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month X-ray</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=4">View/Edit X-ray</a>  
+                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=4&extremity=' . $extremity . '">View/Edit X-ray</a>  
                             </li>  
                         </ul>  
                     </li> 
@@ -207,7 +207,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewsurgical.php?patid=' . $userId . '&extremity=' . $extremity .'">Fill Surgical Data</a>  
                             </li>  
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifysurgical.php?patid=' . $userId . '&extremity=' . $extremity .'">View/Edit Surgical Data</a>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifysurgical.php?patid=' . $userId . '&extremity=' . $extremity . '">View/Edit Surgical Data</a>  
                             </li>  
                         </ul>   
                     </li> 
@@ -227,7 +227,7 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../doctor/addnewposteval.php?patid=' . $userId . '&type=5&extremity=' . $extremity .'">Fill 12 Month Evaluation</a>  
                             </li> 
                             <li>  
-                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=5">View/Edit Post-Evaluation</a>  
+                                <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=5&extremity=' . $extremity . '">View/Edit Post-Evaluation</a>  
                             </li>  
                         </ul>       
                     </li>  

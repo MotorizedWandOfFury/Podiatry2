@@ -66,6 +66,8 @@ class Layout
 										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Menu Navigation <b class='caret'></b></a>
 										<ul class='dropdown-menu'>
 											<li class='nav-header'>Doctors</li>
+											<li><a href="main.php">Home</a></li>
+											<li class='divider'></li>
 											<li><a href='" . $dir . "admin/main.php'>View Doctors</a></li>
 											<li><a href='" . $dir . "admin/addnewdoctor.php'>Add Doctor</a></li>
 											<li class='divider'></li>

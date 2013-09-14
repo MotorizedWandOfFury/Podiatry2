@@ -107,7 +107,7 @@ if (isset($_POST['SUBMIT'])) {
         //echo $sf36->generateCreateQuery();
         //var_dump($sf36);
         $database->create($sf36);
-        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "SF36 Form successfully submitted");
+		$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "SF36 Form successfully submitted");
     }
 }
 ?>

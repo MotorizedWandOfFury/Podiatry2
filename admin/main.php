@@ -48,6 +48,8 @@ if (array_key_exists($var->getLoggedInUserType(), $_SESSION)) { //have the sessi
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu Navigation <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+									<li><a href="main.php">Home</a></li>
+									<li class='divider'></li>
                                     <li class="nav-header">Doctors</li>
                                     <li><a href="main.php">View Doctors</a></li>
                                     <li><a href="addnewdoctor.php">Add Doctor</a></li>
