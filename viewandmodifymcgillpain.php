@@ -55,7 +55,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         <link rel='stylesheet' href='bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "McGill Pain Questionnaire")?>
+        <?php echo Functions::formTitle($type, "McGill Pain Questionnaire", $extremity)?>
         &nbsp;
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type". "&extremity=$extremity" . "&mode=$mode"; ?>" method="POST">

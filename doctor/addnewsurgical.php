@@ -105,6 +105,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
+        <?php echo Functions::formTitle("", "Surgical Evaluation", $extremity)?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME']. "?patid=$patientID" . "&extremity=$extremity"; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>

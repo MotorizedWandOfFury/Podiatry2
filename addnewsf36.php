@@ -120,7 +120,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "SF-36");?>
+        <?php echo Functions::formTitle($type, "SF-36", $extremity);?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&type=$type"; ?>" method='post'>
             <div class='container'>
                 <div class='greybox'>

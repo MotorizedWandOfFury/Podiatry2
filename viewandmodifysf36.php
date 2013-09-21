@@ -58,7 +58,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
     </head>
     <body>
 		&nbsp;
-        <?php echo Functions::formTitle($type, "SF-36");?><br />&nbsp;
+        <?php echo Functions::formTitle($type, "SF-36", $extremity);?><br />&nbsp;
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&mode=$mode"; ?>" method="POST">
             <div class='container'>

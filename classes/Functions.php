@@ -8,7 +8,7 @@ class Functions {
      *   
      * @return string <p>We are returning the string as an image.</p>  
      */
-    public static function doText($string, $color) {
+    public static function doText($string) {
         return "<b><em>" . $string . "</em></b>";
     }
 
@@ -264,8 +264,16 @@ class Functions {
         return ($mode === 'view') ? "disabled='disabled'" : "";
     }
 
-    public static function formTitle($type, $formName, $withHTML = true) {
+    public static function formTitle($type, $formName, $extremity = "", $withHTML = true) {
         $title = "";
+        
+        $extremityText = ""; 
+        if($extremity == 1){
+            $extremityText = "(L)";
+        } else if($extremity == 2) { 
+            $extremityText = "(R)";
+        }
+        
         if ($formName == "POST-OPERATIVE Evaluation") {
             switch ($type) {
                 case Constants::POST_OP:
@@ -298,10 +306,12 @@ class Functions {
                 case Constants::TWELVE_MONTH:
                     $title = $title . "TWELVETH MONTH";
                     break;
+                default: 
+                    $title = "";
             }
         }
-        $title = $title . " " . $formName;
-        return ($withHTML ? Functions::doText($title, "") : $title);
+        $title = $title . " " . $formName . " " . $extremityText;
+        return ($withHTML ? Functions::doText($title) : $title);
     }
 
 }
