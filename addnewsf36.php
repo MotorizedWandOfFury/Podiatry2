@@ -22,8 +22,8 @@ $nav = new Navigator();
 $database = new Database();
 $patient = null;
 $patientID = 0;
-$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options'=>array('min_range' => 1, 'max_range'=>5))) or die("Type value is invalid");
-if($type == 2){ //2 is not a valid type for this form
+$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 5))) or die("Type value is invalid");
+if ($type == 2) { //2 is not a valid type for this form
     die("Type value is invalid");
 }
 if ($session->getUserType() === Patient::tableName) {
@@ -33,61 +33,45 @@ if ($session->getUserType() === Patient::tableName) {
     $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die('Patient ID has not been set in URL');
     $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 }
-$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1), 'max_range' => 2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
 $currTime = getdate();
 
 $noMissingFields = true;
 $noInvalidFields = true;
 
 if (isset($_POST['SUBMIT'])) {
-    foreach ($_POST as $key => $value) {
-        if ($value){ //validate fields have proper values
-            switch ($key) {
-                case 'M':
-                    $monthOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 12,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $monthOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'D':
-                    $dayOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 31,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $dayOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'Y':
-                    $yearOptions = array(
-                        'options' => array(
-                            'min_range' => 1900,
-                            'max_range' => getdate()['year'],
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $yearOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-            }
-        }
+
+    if (isset($_POST['M'], $_POST['D'], $_POST['Y'])) {
+      $dateCheck =  checkdate($_POST['M'], $_POST['D'], $_POST['Y']);
+      if(!$dateCheck){ //if check fails
+          $noInvalidFields = false;
+          echo "<p>Date is invalid</p>";
+      }
+    } else {
+        echo "<p>Date is missing</p>";
+        $noMissingFields = false;
     }
     
-    if(($session->getUserType() === Patient::tableName) && (count($_POST) < 40)) {
-            echo "<p>You are required to answer every question.</p>";
+    foreach (SF36::getQuestionArray() as $question) {
+        if (!isset($_POST[$question])){
             $noMissingFields = false;
+            echo "<p>$question is empty </p>";
         }
+    }
+
+    if (($session->getUserType() === Patient::tableName) && !$noMissingFields) {
+        echo "<p>You are required to answer every question.</p>";
+        $noMissingFields = false;
+    }
+    else { // user is admin or doctor
+        echo "<script type='text/javascript'>" 
+        + "alert('Some questions have not been answered out. The form will be submitted, but the form values can be modified later.');"
+        + "</script>";
+        
+       $noMissingFields = $noInvalidFields = true; 
+        
+    }
 
     if ($noInvalidFields && $noMissingFields) { //everything has been validated
         $sf36 = new SF36($patient->getId());
@@ -103,11 +87,13 @@ if (isset($_POST['SUBMIT'])) {
                 $sf36->setAnswer($key, $value);  //get the answers
             }
         }
+        
+        
 
         //echo $sf36->generateCreateQuery();
         //var_dump($sf36);
         $database->create($sf36);
-		$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "SF36 Form successfully submitted");
+        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "SF36 Form successfully submitted");
     }
 }
 ?>
@@ -120,7 +106,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "SF-36", $extremity);?>
+        <?php echo Functions::formTitle($type, "SF-36", $extremity); ?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&type=$type"; ?>" method='post'>
             <div class='container'>
                 <div class='greybox'>
@@ -222,7 +208,7 @@ if (isset($_POST['SUBMIT'])) {
                             <td>
                                 13) <?php echo $sf36Questions['Q13']; ?> &nbsp;&nbsp;&nbsp;
                             </td>
-                             <?php
+                            <?php
                             foreach ($sf36Values['Q13'] as $opt) {
                                 echo "<td align='center'><input type='radio' name = 'Q13' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q13']) && $_POST['Q13'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/></td>";
                             }
@@ -425,7 +411,7 @@ if (isset($_POST['SUBMIT'])) {
                         </tr>
                         <tr>
                             <td>33) <?php echo $sf36Questions['Q33']; ?> &nbsp;&nbsp;&nbsp;</td>
-                           <?php
+                            <?php
                             foreach ($sf36Values['Q31'] as $opt) {
                                 echo "<td align='center'><input type='radio' name ='Q33' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q33']) && $_POST['Q33'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>" . $opt['name'] . "&nbsp;&nbsp;&nbsp;</input></td>";
                             }
@@ -441,7 +427,7 @@ if (isset($_POST['SUBMIT'])) {
                         </tr>
                         <tr>
                             <td>35) <?php echo $sf36Questions['Q35']; ?> &nbsp;&nbsp;&nbsp;</td>
-                           <?php
+                            <?php
                             foreach ($sf36Values['Q31'] as $opt) {
                                 echo "<td align='center'><input type='radio' name ='Q35' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q35']) && $_POST['Q35'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>" . $opt['name'] . "&nbsp;&nbsp;&nbsp;</input></td>";
                             }
@@ -499,7 +485,7 @@ if (isset($_POST['SUBMIT'])) {
                         <tr>
                             <td>&nbsp;</td>
                             <?php
-                            foreach($sf36Values['Q40'] as $opt){
+                            foreach ($sf36Values['Q40'] as $opt) {
                                 echo "<td align='center'>&nbsp;&nbsp;&nbsp;<input type='radio' name ='Q40' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q40']) && $_POST['Q40'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>&nbsp;&nbsp;&nbsp;</td>";
                             }
                             ?>
@@ -516,8 +502,8 @@ if (isset($_POST['SUBMIT'])) {
                         </tr>
                         <tr><td>
                                 42) <?php echo $sf36Questions['Q42']; ?> &nbsp;&nbsp;&nbsp;</td>
-                           <?php
-                            foreach($sf36Values['Q42'] as $opt){
+                            <?php
+                            foreach ($sf36Values['Q42'] as $opt) {
                                 echo "<td align='center'>&nbsp;&nbsp;&nbsp;<input type='radio' name ='Q42' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q42']) && $_POST['Q42'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>&nbsp;&nbsp;&nbsp;</td>";
                             }
                             ?>
@@ -525,7 +511,7 @@ if (isset($_POST['SUBMIT'])) {
                         <tr><td>
                                 43) <?php echo $sf36Questions['Q43']; ?> &nbsp;&nbsp;&nbsp;</td>
                             <?php
-                            foreach($sf36Values['Q43'] as $opt){
+                            foreach ($sf36Values['Q43'] as $opt) {
                                 echo "<td align='center'>&nbsp;&nbsp;&nbsp;<input type='radio' name ='Q43' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q43']) && $_POST['Q43'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>&nbsp;&nbsp;&nbsp;</td>";
                             }
                             ?>
@@ -533,7 +519,7 @@ if (isset($_POST['SUBMIT'])) {
                         <tr><td>
                                 44) <?php echo $sf36Questions['Q44']; ?> &nbsp;&nbsp;&nbsp;</td>
                             <?php
-                            foreach($sf36Values['Q44'] as $opt){
+                            foreach ($sf36Values['Q44'] as $opt) {
                                 echo "<td align='center'>&nbsp;&nbsp;&nbsp;<input type='radio' name ='Q44' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q44']) && $_POST['Q44'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>&nbsp;&nbsp;&nbsp;</td>";
                             }
                             ?>
@@ -541,7 +527,7 @@ if (isset($_POST['SUBMIT'])) {
                         <tr><td>
                                 45) <?php echo $sf36Questions['Q45']; ?> &nbsp;&nbsp;&nbsp;</td>
                             <?php
-                            foreach($sf36Values['Q45'] as $opt){
+                            foreach ($sf36Values['Q45'] as $opt) {
                                 echo "<td align='center'>&nbsp;&nbsp;&nbsp;<input type='radio' name ='Q45' value='" . $opt['pre_val'] . "'" . ((isset($_POST['Q45']) && $_POST['Q45'] == $opt['pre_val']) ? 'checked = "checked"' : '') . "/>&nbsp;&nbsp;&nbsp;</td>";
                             }
                             ?>

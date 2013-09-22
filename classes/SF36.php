@@ -10,7 +10,8 @@ class SF36 implements DatabaseObject {
 
     const tableName = "sf36_answers";
 
-    private $id, $patient_id, $type, $dateof, $extremity, $answerArray, $questionArray;
+    private static $questionArray = array("Q4", "Q5", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q18", "Q19", "Q20", "Q21", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q31", "Q32", "Q33", "Q34", "Q35", "Q36", "Q37", "Q38", "Q39", "Q40", "Q42", "Q43", "Q44", "Q45");
+    private $id, $patient_id, $type, $dateof, $extremity, $answerArray;//, $questionArray;
 
     use Clean {
         cleanInput as private;
@@ -28,7 +29,7 @@ use TimeComparison;
     public function __construct($patientid = 0, $month = 1, $day = 1, $year = 1900) {
         $this->setPatientID($patientid);
         $this->setDateOf($month, $day, $year);
-        $this->questionArray = array("Q4", "Q5", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q18", "Q19", "Q20", "Q21", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q31", "Q32", "Q33", "Q34", "Q35", "Q36", "Q37", "Q38", "Q39", "Q40", "Q42", "Q43", "Q44", "Q45");
+        //$this->questionArray = array("Q4", "Q5", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q18", "Q19", "Q20", "Q21", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q31", "Q32", "Q33", "Q34", "Q35", "Q36", "Q37", "Q38", "Q39", "Q40", "Q42", "Q43", "Q44", "Q45");
     }
 
     public function constructFromDatabaseArray(array $paramArray) {
@@ -125,6 +126,7 @@ use TimeComparison;
         $this->patient_id = $this->cleanInt($value);
     }
     
+   
     public function setType($value) {
         $this->type = $this->cleanInt($value);
     }
@@ -167,6 +169,11 @@ use TimeComparison;
     public function setExtremity($value){
         $this->extremity = $this->cleanInt($value);
     }
+    
+     public static function getQuestionArray(){
+        return SF36::$questionArray;
+    }
+    
 
     public function getAnswer($index) {
         if (array_key_exists($index, $this->answerArray)) {
@@ -177,7 +184,7 @@ use TimeComparison;
     }
 
     public function setAnswer($index, $answer) {
-        if(in_array($index, $this->questionArray)){
+        if(in_array($index, SF36::$questionArray)){
             $this->answerArray[$this->cleanString($index)] = $this->cleanInt($answer);
         }      
     }
