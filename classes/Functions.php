@@ -313,5 +313,6 @@ class Functions {
         $title = $title . " " . $formName . " " . $extremityText;
         return ($withHTML ? Functions::doText($title) : $title);
     }
+    
 
 }
