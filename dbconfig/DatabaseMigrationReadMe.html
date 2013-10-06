@@ -11,6 +11,14 @@ and open the template in the editor.
     <body>
         <div>README</div>
         <div>When migrating, be sure to transfer the form tables first before updating the patient table. This is extremely important, as a failure to do so will result in a loss of data.</div>
+        <div>
+            <p>Steps</p>
+            <p>
+                1) Run the form scripts first. They depend on data in the previous version of the database
+                2) Run each script individually and verify results before continuing
+                3) Once every form script has been run and verified, run the remaining scripts (patients, physicians, extremity, etc)
+            </p>
+        </div>
         <div>Some current limitations: </div>
     </body>
 </html>
