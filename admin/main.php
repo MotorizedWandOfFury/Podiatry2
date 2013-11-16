@@ -46,7 +46,7 @@ if (array_key_exists($var->getLoggedInUserType(), $_SESSION)) { //have the sessi
                         <ul class="nav">
                             <!--<li><a href="../../contact.html">Contact</a></li>-->
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu Navigation <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin Actions<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
 									<li><a href="main.php">Home</a></li>
 									<li class='divider'></li>

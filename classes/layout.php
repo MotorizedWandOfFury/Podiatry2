@@ -63,7 +63,7 @@ class Layout
 								<ul class='nav'>
 									<!--<li><a href='../../contact.html'>Contact</a></li>-->
 									<li class='dropdown'>
-										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Menu Navigation <b class='caret'></b></a>
+										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin Actions<b class='caret'></b></a>
 										<ul class='dropdown-menu'>
 											<li class='nav-header'>Doctors</li>
 											<li><a href='main.php'>Home</a></li>
