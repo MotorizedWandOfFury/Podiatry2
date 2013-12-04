@@ -101,7 +101,7 @@ $session->validate();
         </div> <!--/ container --> 
 
         <script type="text/javascript" src="js/hachet.js"></script> 
-        <script type='text/javascript' src='js/forms.js'></script> 
+        <script type='text/javascript' src='js/form.js'></script> 
         <script src="bootstrap/js/jquery.js"></script> 
         <script src="bootstrap/js/bootstrap.js"></script> 
 
