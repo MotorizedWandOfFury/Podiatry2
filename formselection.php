@@ -128,8 +128,6 @@ $label = [1 => "Pre-Op ", 2 => "Post-Op ", 3 => "3 Months ", 4 => "6 Months ", 5
 						echo "<h4>Form type number invalid.</h4>";
 					}
 					?>
-				</div>
-				</div>
 			</form>
 		</div>
 	</body>
