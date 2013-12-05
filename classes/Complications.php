@@ -15,7 +15,7 @@ class Complications implements DatabaseObject {
     const tableName = "complications_answers";
 
     private static $questionArray = array("Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13");
-    private $id, $pat_id, $sur_id, $dateofexam, $dateof, $dateofrevisionalsurgery, $dateofothercomplications, $extremity, $answerArray;
+    private $id, $pat_id, $sur_id, $dateofexam, $dateof, $dateofrevisionalsurgery = 0, $dateofothercomplications = 0, $extremity, $answerArray;
 
     use Clean {
         cleanInput as private;

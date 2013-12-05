@@ -32,21 +32,21 @@ else {
 $currTime = getdate();
 $noInvalidFields = true;
 if (isset($_POST['SUBMIT'])) {
-    if (isset($_POST['M'], $_POST['D'], $_POST['Y'])) {
+    if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
       $dateCheck =  checkdate($_POST['M'], $_POST['D'], $_POST['Y']);
       if(!$dateCheck){ //if check fails
           $noInvalidFields = false;
           echo "<p>Exam Date is invalid</p>";
       }
     }
-    if (isset($_POST['RM'], $_POST['RD'], $_POST['RY'])) {
+    if (!empty($_POST['RM']) && !empty($_POST['RD']) && !empty($_POST['RY'])) {
       $dateCheck =  checkdate($_POST['RM'], $_POST['RD'], $_POST['RY']);
       if(!$dateCheck){ //if check fails
           $noInvalidFields = false;
           echo "<p>Revisional Date is invalid</p>";
       }
     }
-    if (isset($_POST['OM'], $_POST['OD'], $_POST['OY'])) {
+    if (!empty($_POST['OM']) && !empty($_POST['OD']) && !empty($_POST['OY'])) {
       $dateCheck =  checkdate($_POST['OM'], $_POST['OD'], $_POST['OY']);
       if(!$dateCheck){ //if check fails
           $noInvalidFields = false;
@@ -56,10 +56,14 @@ if (isset($_POST['SUBMIT'])) {
     
     if($noInvalidFields){
         $complications = new Complications($patientID);
-        $complications->setDateOf($currTime['mon'], $currTime['mday'], $currTime['year']);
+        $complications->setDateOf($currTime['mon'], $currTime['mday'], $currTime['year']);    
         $complications->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);
-        $complications->setDateOfRevisionalSurgery($_POST['RM'], $_POST['RD'], $_POST['RY']);
-        $complications->setDateOfOtherComplications($_POST['OM'], $_POST['OD'], $_POST['OY']);
+        if (!empty($_POST['RM']) && !empty($_POST['RD']) && !empty($_POST['RY'])) { //insert date only when there is something entered
+            $complications->setDateOfRevisionalSurgery($_POST['RM'], $_POST['RD'], $_POST['RY']);
+        }
+        if (!empty($_POST['OM']) && !empty($_POST['OD']) && !empty($_POST['OY'])) { //insert date only when there is something entered
+             $complications->setDateOfOtherComplications($_POST['OM'], $_POST['OD'], $_POST['OY']);
+        }
         $complications->setExtremity($extremity);
         $complications->setSurID($doctor->getID());
         $complications->setPatientID($patientID);
@@ -67,11 +71,10 @@ if (isset($_POST['SUBMIT'])) {
         foreach ($_POST as $key => $value) {
             $complications->setAnswer($key, $value);
         }
-        
-        echo $complications->generateCreateQuery();
+        //echo $complications->generateCreateQuery();
         //var_dump($complications);
-        //$database->create($complications);
-        //$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Complications Form successfully submitted");
+        $database->create($complications);
+        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Complications Form successfully submitted");
     }
 }
 ?>
@@ -184,9 +187,9 @@ if (isset($_POST['SUBMIT'])) {
                         <tr>
                             <td>11) <?php echo $complicationQuestions['Q11'] . ": "; ?></td>
                             <td><input type='text' name='Q11' size="60" value='<?php echo isset($_POST['Q11']) ? $_POST['Q11'] : ""; ?>'/></td>
-                            <td>Date: <input type='text' size='2' name='RM' value='<?php echo (isset($_POST['RM']) ? $_POST['RM'] : $currTime['mon']); ?>'>-
-                                <input type='text' size='2' name='RD' value='<?php echo (isset($_POST['RD']) ? $_POST['RD'] : $currTime['mday']); ?>'>-
-                                <input type='text' size='4' name='RY' value='<?php echo (isset($_POST['RY']) ? $_POST['RY'] : $currTime['year']); ?>'>
+                            <td>Date: <input type='text' size='2' name='RM' value='<?php echo (isset($_POST['RM']) ? $_POST['RM'] : null); ?>'>-
+                                <input type='text' size='2' name='RD' value='<?php echo (isset($_POST['RD']) ? $_POST['RD'] : null); ?>'>-
+                                <input type='text' size='4' name='RY' value='<?php echo (isset($_POST['RY']) ? $_POST['RY'] : null); ?>'>
                             </td>
                         </tr>
                         <tr>
