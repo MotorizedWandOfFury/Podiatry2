@@ -112,7 +112,7 @@ use CustomArrayOperations {
         if (!isset($this->id)) {
             echo "Error: attempting to update uncreated DatabaseObject";
         } else {
-            $queryString = "UPDATE  " . Complications::tableName . "  SET " . $fields . "' WHERE id = " . $this->id;
+            $queryString = "UPDATE  " . Complications::tableName . "  SET dateofrevisionalsurgery = '$this->dateofrevisionalsurgery', dateofothercomplications = '$this->dateofothercomplications', dateofexam = '$this->dateofexam', " . $fields . "' WHERE id = " . $this->id;
         }
 
         return $queryString;
@@ -169,7 +169,7 @@ use CustomArrayOperations {
     }
 
     public function getDateOfExamFormatted() {
-        return date("m-d-Y", $this->cleanInput($this->dateofexam));
+        return ($this->dateofexam > 0) ? date("m-d-Y", $this->cleanInput($this->dateofexam)) : "No date set";
     }
 
     public function setDateOfExam($month, $day, $year) {
@@ -184,8 +184,8 @@ use CustomArrayOperations {
         return $this->cleanInput($this->dateofrevisionalsurgery);
     }
 
-    public function getDateOfRevisionalFormatted() {
-        return date("m-d-Y", $this->cleanInput($this->dateofrevisionalsurgery));
+    public function getDateOfRevisionalSurgeryFormatted() {
+        return ($this->dateofrevisionalsurgery > 0 ) ? date("m-d-Y", $this->cleanInput($this->dateofrevisionalsurgery)) : "No date set";
     }
 
     public function setDateOfRevisionalSurgery($month, $day, $year) {
@@ -201,7 +201,7 @@ use CustomArrayOperations {
     }
 
     public function getDateOfOtherComplicationsFormatted() {
-        return date("m-d-Y", $this->cleanInput($this->dateofothercomplications));
+        return ($this->dateofothercomplications > 0) ? date("m-d-Y", $this->cleanInput($this->dateofothercomplications)) : "No date set";
     }
 
     public function setDateOfOtherComplications($month, $day, $year) {

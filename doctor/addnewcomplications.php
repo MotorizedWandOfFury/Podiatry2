@@ -76,10 +76,10 @@ if (isset($_POST['SUBMIT'])) {
             }
            
         }
-        echo $complications->generateCreateQuery();
+        //echo $complications->generateCreateQuery();
         //var_dump($complications);
-        //$database->create($complications);
-        //$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Complications Form successfully submitted");
+        $database->create($complications);
+        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Complications Form successfully submitted");
     }
 }
 ?>
