@@ -35,7 +35,7 @@ use CustomArrayOperations {
 
     public function constructFromDatabaseArray(array $paramArray) {
         if (array_key_exists('pat_id', $paramArray)) {
-            $this->setPatientID($paramArray['patientid']);
+            $this->setPatientID($paramArray['pat_id']);
         }
 
         if (array_key_exists('id', $paramArray)) {
@@ -246,7 +246,7 @@ use CustomArrayOperations {
 
     public function setAnswer($index, $answer) {
         if(in_array($index, Complications::$questionArray)){
-            $this->answerArray[$this->cleanString($index)] = $this->cleanInt($answer);
+            $this->answerArray[$this->cleanString($index)] = $this->cleanString($answer);
         }      
     }
 

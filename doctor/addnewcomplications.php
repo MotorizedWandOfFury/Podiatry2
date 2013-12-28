@@ -69,12 +69,17 @@ if (isset($_POST['SUBMIT'])) {
         $complications->setPatientID($patientID);
         
         foreach ($_POST as $key => $value) {
-            $complications->setAnswer($key, $value);
+           if($key === 'Q7' || $key === 'Q8' || $key === 'Q9'){
+                $complications->setAnswer($key, implode("|", $value));
+           } else{
+                 $complications->setAnswer($key, $value);
+            }
+           
         }
-        //echo $complications->generateCreateQuery();
+        echo $complications->generateCreateQuery();
         //var_dump($complications);
-        $database->create($complications);
-        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Complications Form successfully submitted");
+        //$database->create($complications);
+        //$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Complications Form successfully submitted");
     }
 }
 ?>
