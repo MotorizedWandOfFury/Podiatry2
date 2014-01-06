@@ -80,7 +80,7 @@ use CustomArrayOperations {
         if (isset($this->sur_id) && isset($this->extremity)) {
             $answers = implode("', '", $this->answerArray);
             $questions = implode(", ", array_keys($this->answerArray));
-            $queryString = "INSERT INTO " . Evals::tableName . " (dateof, pat_id, sur_id, dateofexam, extremity, height, weight, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofexam, $this->extremity, $this->height, $this->weight, '" . $answers . "')";
+            $queryString = "INSERT INTO " . Evals::tableName . " (dateof, pat_id, sur_id, dateofexam, extremity, height, weight, " . $questions . ") VALUES ('$this->dateof', '$this->pat_id', '$this->sur_id', '$this->dateofexam', '$this->extremity', '$this->height', '$this->weight', '" . $answers . "')";
         } else {
             echo "Error: Attempting to create a DatabaseObject with missing parameters";
         }
@@ -94,7 +94,7 @@ use CustomArrayOperations {
     public function generateReadQuery() {
         $queryString = "";
         if (isset($this->pat_id) && isset($this->extremity)) {
-            $queryString = "SELECT * FROM  " . Evals::tableName . "  WHERE pat_id = $this->pat_id AND extremity = $this->extremity";
+            $queryString = "SELECT * FROM  " . Evals::tableName . "  WHERE pat_id = '$this->pat_id' AND extremity = '$this->extremity'";
         } else {
             echo "Error: there was an error in the parameters of the retrievable DatabaseObject";
         }

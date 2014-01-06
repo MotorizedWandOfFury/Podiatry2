@@ -27,115 +27,94 @@ $currTime = getdate();
 $errors = "";
 
 $noInvalidFields = true;
+$noMissingFields = true;
 if (isset($_POST['SUBMIT'])) {
-    foreach ($_POST as $key => $value) {
-        if ($value) {
-            switch ($key) {
-                case 'M':
-                    $monthOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 12,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $monthOptions) === false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'D':
-                    $dayOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 31,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $dayOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'Y':
-                    $yearOptions = array(
-                        'options' => array(
-                            'min_range' => 1900,
-                            'max_range' => getdate()['year'],
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $yearOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "HEIGHT":
-                    $heightOptions = array(
-                        'options' => array(
-                            'min_range' => 20,
-                            'max_range' => 90,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $heightOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "WEIGHT":
-                    $weightOptions = array(
-                        'options' => array(
-                            'min_range' => 30,
-                            'max_range' => 800,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $weightOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'Q15':
-                    if (filter_var($_POST['Q15'], FILTER_VALIDATE_INT) === false) {
-                        $noInvalidFields = false;
-                        echo "<p>$key is not valid</p>";
-                    }
-                    break;
-                case 'Q19':
-                    if (filter_var($_POST['Q19'], FILTER_VALIDATE_INT) === false) {
-                        $noInvalidFields = false;
-                        echo "<p>$key is not valid</p>";
-                    }
-                    break;
-                case 'Q20':
-                    if (filter_var($_POST['Q20'], FILTER_VALIDATE_INT) === false) {
-                        $noInvalidFields = false;
-                        echo "<p>$key is not valid</p>";
-                    }
-                    break;
-            }
+    
+    if(empty($_POST['EXTREMITY']) || (array_key_exists("DOCTOR", $_POST) && empty($_POST['DOCTOR']))){
+        echo "Extremity and Doctor is required";
+        $noMissingFields = false;
+    }
+
+    if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
+        $dateCheck = checkdate($_POST['M'], $_POST['D'], $_POST['Y']);
+        if (!$dateCheck) { //if check fails
+            $noInvalidFields = false;
+            echo "<p>Date is invalid</p>";
         }
     }
 
-    if ($noInvalidFields) {
+    if (!empty($_POST['HEIGHT'])) {
+        $heightOptions = array(
+            'options' => array(
+                'min_range' => 20,
+                'max_range' => 90,
+            )
+        );
+        if (filter_var($_POST['HEIGHT'], FILTER_VALIDATE_INT, $heightOptions) == false) {
+            $errors = $errors . "<p>Height is not valid</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if (!empty($_POST['WEIGHT'])) {
+        $weightOptions = array(
+            'options' => array(
+                'min_range' => 30,
+                'max_range' => 800,
+            )
+        );
+        if (filter_var($_POST['WEIGHT'], FILTER_VALIDATE_INT, $weightOptions) == false) {
+            $errors = $errors . "<p>Weight is not valid</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if (!empty($_POST['Q15'])) {
+        if (filter_var($_POST['Q15'], FILTER_VALIDATE_INT) == false) {
+            $errors = $errors . "<p>Question 15 needs to be an integer</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if (!empty($_POST['Q19'])) {
+        if (filter_var($_POST['Q19'], FILTER_VALIDATE_INT) == false) {
+            $errors = $errors . "<p>Question 19 needs to be an integer</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if (!empty($_POST['Q20'])) {
+        if (filter_var($_POST['Q20'], FILTER_VALIDATE_INT) == false) {
+            $errors = $errors . "<p>Question 20 needs to be an integer</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if ($noInvalidFields && $noMissingFields) {
         $eval = new Evals($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
-        $eval->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);
+        if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
+            $eval->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);
+        }
+        
         $eval->setSurId(isset($_POST['DOCTOR']) ? $_POST['DOCTOR'] : $loggedInUser->getId());
         $eval->setExtremity($_POST['EXTREMITY']);
         $eval->setHeight($_POST['HEIGHT']);
         $eval->setWeight($_POST['WEIGHT']);
 
         foreach ($_POST as $key => $value) {
-            if ($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y' || $key === 'DOCTOR') {   //filtering out unwanted keys
-            } else if ($key === 'Q17' || $key === 'Q18' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
+            if ($key === 'Q17' || $key === 'Q18' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
                 $eval->setAnswer($key, implode("|", $value));
             } else {
                 $eval->setAnswer($key, $value);
             }
         }
-        //echo $eval->generateCreateQuery();
-        //var_dump($eval);
-        if ($database->create($eval)) {
-            $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
-        } else {
-            die("Form has already been filled for patient");
-        }
+        echo $eval->generateCreateQuery();
+//        var_dump($eval);
+//        if ($database->create($eval)) {
+//            $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
+//        } else {
+//            die("Form has already been filled for patient");
+//        }
     }
 }
 ?>
@@ -148,7 +127,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-	<?php echo $errors; ?>
+        <?php echo $errors; ?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'], "?patid=", $patientID; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>

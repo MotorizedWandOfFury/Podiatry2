@@ -266,7 +266,7 @@ class Patient implements DatabaseObject {
 
     public function getAge() {
         if($this->dob <= 0){
-            return "Date of Birth not set";
+            return "Birthdate not set";
         }
         
         $age = date("Y") - date("Y", $this->dob);
