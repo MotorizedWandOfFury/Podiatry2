@@ -69,12 +69,7 @@ if (isset($_POST['SUBMIT'])) {
     }
 
     if (!empty($_POST['EMAIL'])) {
-        $phoneOptions = array(
-            'options' => array(
-                'regexp' => '/(\()?[0-9]{3}(\))?(.)?[0-9]{3}(.)?[0-9]{4}/'
-            )
-        );
-        if (filter_var($_POST['EMAIL'], FILTER_VALIDATE_REGEXP, $phoneOptions) == false) {
+        if (filter_var($_POST['EMAIL'], FILTER_VALIDATE_EMAIL) == false) {
             $errors = $errors . "<p>Email is not valid</p>";
             $noInvalidFields = false;
         }
