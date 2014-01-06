@@ -60,7 +60,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         if ($noInvalidFields) {
             foreach ($_POST as $key => $value) {
                 if ($key === 'SUBMIT') {   //filtering out unwanted keys
-                } else if ($key === 'Q17' || $key === 'Q18' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
+                } else if ($key === 'Q10' || $key === 'Q11' || $key === 'Q17' || $key === 'Q18' || $key === 'Q21' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
                     $eval->setAnswer($key, implode("|", $value));
                 } else {
                     $eval->setAnswer($key, $value);
@@ -118,7 +118,8 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                             <?php
                             foreach ($evalValues['Q10'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q10'  value = '" . $opt['val'] . "' " . (($eval->getAnswer("Q10") == $opt['val']) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                echo "<input type = 'checkbox' name = 'Q10[]'  value = '" . $opt['val'] . "' " . (in_array($opt['val'], explode("|", $eval->getAnswer("Q10"))) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                //echo "<input type = 'radio' name = 'Q10'  value = '" . $opt['val'] . "' " . (($eval->getAnswer("Q10") == $opt['val']) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
                                 echo "</td>";
                             }
                             ?>
@@ -128,7 +129,8 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                             <?php
                             foreach ($evalValues['Q11'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q11'  value = '" . $opt['val'] . "' " . ($eval->getAnswer("Q11") == $opt['val'] ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                echo "<input type = 'checkbox' name = 'Q11[]'  value = '" . $opt['val'] . "' " . (in_array($opt['val'], explode("|", $eval->getAnswer("Q11"))) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                //echo "<input type = 'radio' name = 'Q11'  value = '" . $opt['val'] . "' " . ($eval->getAnswer("Q11") == $opt['val'] ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
                                 echo "</td>";
                             }
                             ?></tr>
@@ -223,7 +225,8 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                         <?php
                         foreach ($evalValues['Q21'] as $opt) {
                             echo "<td>";
-                            echo "<input type = 'radio' name = 'Q21'  value = '" . $opt['val'] . "' " . ($eval->getAnswer("Q21") == $opt['val'] ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+                            echo "<input type = 'checkbox' name = 'Q21[]'  value = '" . $opt['val'] . "' " . (in_array($opt['val'], explode("|", $eval->getAnswer("Q21"))) ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
+                            //echo "<input type = 'radio' name = 'Q21'  value = '" . $opt['val'] . "' " . ($eval->getAnswer("Q21") == $opt['val'] ? "checked='checked'" : "") . $func->disableElement($mode) . "/> " . $opt['name'] . "&nbsp;&nbsp;&nbsp;&nbsp;";
                             echo "</td>";
                         }
                         ?>

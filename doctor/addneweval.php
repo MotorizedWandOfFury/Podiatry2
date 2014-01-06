@@ -29,8 +29,8 @@ $errors = "";
 $noInvalidFields = true;
 $noMissingFields = true;
 if (isset($_POST['SUBMIT'])) {
-    
-    if(empty($_POST['EXTREMITY']) || (array_key_exists("DOCTOR", $_POST) && empty($_POST['DOCTOR']))){
+
+    if (empty($_POST['EXTREMITY']) || (array_key_exists("DOCTOR", $_POST) && empty($_POST['DOCTOR']))) {
         echo "Extremity and Doctor is required";
         $noMissingFields = false;
     }
@@ -95,26 +95,26 @@ if (isset($_POST['SUBMIT'])) {
         if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
             $eval->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);
         }
-        
+
         $eval->setSurId(isset($_POST['DOCTOR']) ? $_POST['DOCTOR'] : $loggedInUser->getId());
         $eval->setExtremity($_POST['EXTREMITY']);
         $eval->setHeight($_POST['HEIGHT']);
         $eval->setWeight($_POST['WEIGHT']);
 
         foreach ($_POST as $key => $value) {
-            if ($key === 'Q17' || $key === 'Q18' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
+            if ($key === 'Q10' || $key === 'Q11' || $key === 'Q17' || $key === 'Q18' || $key === 'Q21' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
                 $eval->setAnswer($key, implode("|", $value));
             } else {
                 $eval->setAnswer($key, $value);
             }
         }
-        echo $eval->generateCreateQuery();
+//        echo $eval->generateCreateQuery();
 //        var_dump($eval);
-//        if ($database->create($eval)) {
-//            $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
-//        } else {
-//            die("Form has already been filled for patient");
-//        }
+        if ($database->create($eval)) {
+            $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
+        } else {
+            die("Form has already been filled for patient");
+        }
     }
 }
 ?>
@@ -185,7 +185,8 @@ if (isset($_POST['SUBMIT'])) {
                             <?php
                             foreach ($evalValues['Q10'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q10'  value = '", $opt['val'], "' ", (isset($_POST['Q10']) && $_POST['Q10'] == $opt['val']) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                echo "<input type = 'checkbox' name = 'Q10[]'  value = '", $opt['val'], "' ", (isset($_POST['Q10']) && in_array($opt['val'], $_POST['Q10'])) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                //echo "<input type = 'radio' name = 'Q10'  value = '", $opt['val'], "' ", (isset($_POST['Q10']) && $_POST['Q10'] == $opt['val']) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
                                 echo "</td>";
                             }
                             ?>
@@ -195,7 +196,8 @@ if (isset($_POST['SUBMIT'])) {
                             <?php
                             foreach ($evalValues['Q11'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q11'  value = '", $opt['val'], "' ", (isset($_POST['Q11']) && $_POST['Q11'] == $opt['val']) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                echo "<input type = 'checkbox' name = 'Q11[]'  value = '", $opt['val'], "' ", (isset($_POST['Q11']) && in_array($opt['val'], $_POST['Q11'])) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                //echo "<input type = 'radio' name = 'Q11'  value = '", $opt['val'], "' ", (isset($_POST['Q11']) && $_POST['Q11'] == $opt['val']) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
                                 echo "</td>";
                             }
                             ?></tr>
@@ -289,7 +291,8 @@ if (isset($_POST['SUBMIT'])) {
                             <?php
                             foreach ($evalValues['Q21'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q21'  value = '", $opt['val'], "' ", (isset($_POST['Q21']) && $_POST['Q21'] == $opt['val']) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                echo "<input type = 'checkbox' name = 'Q21[]'  value = '", $opt['val'], "' ", (isset($_POST['Q21']) && in_array($opt['val'], $_POST['Q21'])) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
+                                //echo "<input type = 'radio' name = 'Q21'  value = '", $opt['val'], "' ", (isset($_POST['Q21']) && $_POST['Q21'] == $opt['val']) ? "checked='checked'" : "", "/> ", $opt['name'], "&nbsp;&nbsp;&nbsp;&nbsp;";
                                 echo "</td>";
                             }
                             ?>
