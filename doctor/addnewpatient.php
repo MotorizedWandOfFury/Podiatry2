@@ -104,7 +104,7 @@ if (isset($_POST['SUBMIT'])) {
         //var_dump($patient);
         //echo "<p>", $patient->generateCreateQuery(), "</p>";
         $database->create($patient);
-        //$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "New Patient added successfully");
+        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "New Patient added successfully");
     }
 }
 ?>
