@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `patients`;
 CREATE TABLE IF NOT EXISTS `patients` (
 
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `medicalrecordnumber` int(30) NOT NULL,
+  `medicalrecordnumber` int(30) DEFAULT NULL,
   `username` varchar(20) NOT NULL,
   `firstname` varchar(20) NOT NULL,
   `lastname` varchar(20) NOT NULL,
@@ -53,8 +53,7 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `phone` varchar(12) DEFAULT NULL,
   `email` varchar(59) DEFAULT NULL,
   `street` varchar(50) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL
   `state` varchar(50) DEFAULT NULL,
   `zip` int(11) DEFAULT NULL
 

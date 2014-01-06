@@ -16,7 +16,7 @@ class Patient implements DatabaseObject {
     const tableName = "patients";
 
     private $id, $username = "", $role = 1, $firstname = "", $lastname = "", $password = "", $doctor = 0,
-            $dob = 0, $street = "", $city = "", $state = "", $zip = 0, $sex, $age = 0, $email, $phone, $medicalrecordnumber;
+            $dob = 0, $street = "", $city = "", $state = "", $zip = 0, $sex, $email, $phone, $medicalrecordnumber;
 
     use Clean {
         cleanInput as private;
@@ -48,8 +48,8 @@ class Patient implements DatabaseObject {
         if (isset($this->id)) {
             echo 'Error: Creating a DatabaseObject that already exists';
         } else {
-            $query = "INSERT INTO " . Patient::tableName . " (username, role, firstname, lastname, password, doctor, dob, street, city, state, zip, sex, age, email, phone, medicalrecordnumber)
-        VALUES ('$this->username', '$this->role', '$this->firstname', '$this->lastname', '$this->password', '$this->doctor', '$this->dob', '$this->street', '$this->city', '$this->state', '$this->zip', '$this->sex', '$this->age', '$this->email', '$this->phone', '$this->medicalrecordnumber')";
+            $query = "INSERT INTO " . Patient::tableName . " (username, role, firstname, lastname, password, doctor, dob, street, city, state, zip, sex, email, phone, medicalrecordnumber)
+        VALUES ('$this->username', '$this->role', '$this->firstname', '$this->lastname', '$this->password', '$this->doctor', '$this->dob', '$this->street', '$this->city', '$this->state', '$this->zip', '$this->sex', '$this->email', '$this->phone', '$this->medicalrecordnumber')";
         }
 
         return $query;
@@ -71,7 +71,7 @@ class Patient implements DatabaseObject {
         if (!isset($this->id)) {
             echo 'Error: Attempting to update uncreated DatabaseObject';
         } else {
-            $query = "UPDATE  " . Patient::tableName . "  SET firstname='$this->firstname', lastname='$this->lastname', username = '$this->username', password = '$this->password', age = '$this->age', dob = '$this->dob', street = '$this->street', city = '$this->city', state = '$this->state', zip = '$this->zip', phone = '$this->phone', email = '$this->email' WHERE id='$this->id'";
+            $query = "UPDATE  " . Patient::tableName . "  SET firstname='$this->firstname', lastname='$this->lastname', username = '$this->username', password = '$this->password', dob = '$this->dob', street = '$this->street', city = '$this->city', state = '$this->state', zip = '$this->zip', phone = '$this->phone', email = '$this->email' WHERE id='$this->id'";
         }
 
         return $query;
@@ -265,11 +265,21 @@ class Patient implements DatabaseObject {
     }
 
     public function getAge() {
-        return $this->cleanInput($this->age);
-    }
-
-    public function setAge($value) {
-        $this->age = $this->cleanInt($value);
+        if($this->dob <= 0){
+            return "Date of Birth not set";
+        }
+        
+        $age = date("Y") - date("Y", $this->dob);
+        
+        $currMonth = date("n");
+        $birthMonth = date("n", $this->dob);
+        $currDay = date("j");
+        $birthDay = date("j", $this->dob);
+        if($currMonth <  $birthMonth || $currMonth == $birthMonth && $currDay < $birthDay){ //subtract a year if birthday has not yet been reached
+            $age--;
+        }
+        
+        return $age;
     }
 
     public function getPhone() {

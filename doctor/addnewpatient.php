@@ -28,101 +28,68 @@ $noMissingFields = true;
 $noInvalidFields = true;
 
 if (isset($_POST['SUBMIT'])) {
-    foreach ($_POST as $key => $value) {
-        if (!$value) { //check for empty fields
-            $errors = $errors . "<p>$key is empty</p>";
-            $noMissingFields = false;
-        } else { //validate data
-            switch ($key) {
-                case "AGE":
-                    $ageOptions = array(
-                        'options' => array(
-                            'min_range' => 5,
-                            'max_range' => 120,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $ageOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "MONTH":
-                    $monthOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 12,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $monthOptions) == false) {
-                       $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "YEAR":
-                    $yearOptions = array(
-                        'options' => array(
-                            'min_range' => 1900,
-                            'max_range' => getdate()['year'],
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $yearOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "DAY":
-                    $dayOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 31,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $dayOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                
-                case "ZIP":
-                    $zipOptions = array(
-                        'options' => array(
-                            'regexp' => '/^\d{5}(?:[-\s]\d{4})?$/'
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_REGEXP, $zipOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "PHONE":
-                    $phoneOptions = array(
-                        'options' => array(
-                            'regexp' => '/(\()?[0-9]{3}(\))?(.)?[0-9]{3}(.)?[0-9]{4}/'
-                        )
-                    );
-                    //echo "phone is: " . $value;
-                    if (filter_var($value, FILTER_VALIDATE_REGEXP, $phoneOptions) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case "EMAIL":
-                    if (filter_var($value, FILTER_VALIDATE_EMAIL) == false) {
-                        $errors = $errors . "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-            }
+    
+    //checking for the required fields for the patient
+    if (empty($_POST['FIRSTNAME']) || empty($_POST['LASTNAME']) || empty($_POST['GENDER']) || empty($_POST['USERNAME']) || empty($_POST['PASSWORD']) || (array_key_exists("DOCTOR", $_POST) && empty($_POST['DOCTOR']))) {
+        echo "Make sure first name, last name, username, password, gender, and doctor are filled";
+        $noMissingFields = false;
+    }
+
+    if (!empty($_POST['MONTH']) && !empty($_POST['DAY']) && !empty($_POST['YEAR'])) {
+        $dateCheck = checkdate($_POST['MONTH'], $_POST['DAY'], $_POST['YEAR']);
+        if (!$dateCheck) { //if check fails
+            $noInvalidFields = false;
+            echo "<p>Date is invalid</p>";
         }
     }
+
+    if (!empty($_POST['ZIP'])) {
+        $zipOptions = array(
+            'options' => array(
+                'regexp' => '/^\d{5}(?:[-\s]\d{4})?$/'
+            )
+        );
+        if (filter_var($_POST['ZIP'], FILTER_VALIDATE_REGEXP, $zipOptions) == false) {
+            $errors = $errors . "<p>Zip is not valid</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if (!empty($_POST['PHONE'])) {
+        $phoneOptions = array(
+            'options' => array(
+                'regexp' => '/(\()?[0-9]{3}(\))?(.)?[0-9]{3}(.)?[0-9]{4}/'
+            )
+        );
+        //echo "phone is: " . $value;
+        if (filter_var($_POST['PHONE'], FILTER_VALIDATE_REGEXP, $phoneOptions) == false) {
+            $errors = $errors . "<p>Phone is not valid</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+    if (!empty($_POST['EMAIL'])) {
+        $phoneOptions = array(
+            'options' => array(
+                'regexp' => '/(\()?[0-9]{3}(\))?(.)?[0-9]{3}(.)?[0-9]{4}/'
+            )
+        );
+        if (filter_var($_POST['EMAIL'], FILTER_VALIDATE_REGEXP, $phoneOptions) == false) {
+            $errors = $errors . "<p>Email is not valid</p>";
+            $noInvalidFields = false;
+        }
+    }
+
+
 
     if ($noMissingFields && $noInvalidFields) { //all fields have been validated
         $patient = new Patient();
         $patient->setFirstName($_POST['FIRSTNAME']);
         $patient->setLastName($_POST['LASTNAME']);
         $patient->setSex($_POST['GENDER']);
-        $patient->setAge($_POST['AGE']);
-        $patient->setDOB($_POST['MONTH'], $_POST['DAY'], $_POST['YEAR']);
+        if (!empty($_POST['MONTH']) && !empty($_POST['DAY']) && !empty($_POST['YEAR'])) {
+            $patient->setDOB($_POST['MONTH'], $_POST['DAY'], $_POST['YEAR']);
+        }
         $patient->setDoctor($session->getUserType() === Physician::tableName ? $loggedInUser->getId() : $_POST["DOCTOR"]); //checks to see type of logged in user. If it's a physician, use the id, otherwise, use $_POST['DOCTOR']
         $patient->setUsername($_POST['USERNAME']);
         $patient->setPassword($_POST['PASSWORD']);
@@ -137,7 +104,7 @@ if (isset($_POST['SUBMIT'])) {
         //var_dump($patient);
         //echo "<p>", $patient->generateCreateQuery(), "</p>";
         $database->create($patient);
-        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "New Patient added successfully");
+        //$nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "New Patient added successfully");
     }
 }
 ?>
@@ -181,10 +148,6 @@ if (isset($_POST['SUBMIT'])) {
                                 <option value='<?php echo $patientValues['gender']['f']; ?>' <?php echo (isset($_POST['GENDER']) && $_POST['GENDER'] == $patientValues['gender']['f']) ? 'selected = "selected"' : '' ?> >Female</option> 
                             </select> 
                         </td> 
-                    </tr> 
-                    <tr> 
-                        <td><?php echo $patientQuestions['age']; ?></td> 
-                        <td><input class='text' type='text' name='AGE' placeholder='Age' value='<?php echo array_key_exists("AGE", $_POST) ? $_POST['AGE'] : ""; ?>' id='AGE' /></td> 
                     </tr> 
                     <tr> 
                         <td><?php echo $patientQuestions['dob']; ?></td> 
@@ -258,7 +221,7 @@ if (isset($_POST['SUBMIT'])) {
         </form> 
         <div id="PHPMESSAGES">
             <?php
-                echo $errors;
+            echo $errors;
             ?>
         </div>
     </body> 
