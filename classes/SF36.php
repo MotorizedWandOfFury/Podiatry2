@@ -314,6 +314,8 @@ use TimeComparison;
             $average = ($finalVal27 + $finalVal28) / $numOfAnswers;
             $score = ((($finalVal27 + $finalVal28) + ($average * (2 - $average)) - 2) / 10) * 100;
         }
+        
+        return $score;
     }
 
     public function getGeneralHealthScore() {
