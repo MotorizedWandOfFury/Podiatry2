@@ -31,6 +31,11 @@ $eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extr
 
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
     if (isset($_POST['SUBMIT'])) {
+      
+        $surgical->setQ5Other($_POST['Q5Other']);
+        $surgical->setQ17Other($_POST['Q17Other']);
+        $surgical->setQ26Other($_POST['Q26Other']);
+        
         foreach ($_POST as $key => $value) {
 
             if ($key === 'Q5' || $key === 'Q22') {
@@ -88,6 +93,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                                     //echo "</td>";
                                 }
                                 ?>
+                                (Specify Other: <input class="text" type="text" size="6" name="Q5Other" value="<?php echo $surgical->getQ5Other();?>" <?php echo $func->disableElement($mode); ?>/>)
                             </td>
                         </tr>
                     </table>
@@ -222,6 +228,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                                     echo "</td>";
                                 }
                                 ?>
+                                <td>(Specify Other: <input class="text" type="text" size="6" name="Q17Other" value="<?php echo $surgical->getQ17Other();?>" <?php echo $func->disableElement($mode); ?>/>)</td>
                             </tr>
                             <tr>
                                 <td>18) <?php echo $surgicalQuestions['Q18'] . ":"; ?></td>
@@ -313,6 +320,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                                     echo "</td>";
                                 }
                                 ?>
+                                <td>(Specify Other: <input class="text" type="text" size="6" name="Q26Other" value="<?php echo $surgical->getQ26Other();?>" <?php echo $func->disableElement($mode); ?>/>)</td>
                             </tr>
                         </table>
                     </div>

@@ -46,6 +46,9 @@ if (isset($_POST['SUBMIT'])) {
         }
         $surgical->setSurId($doctor->getID());
         $surgical->setExtremity($extremity);
+        $surgical->setQ5Other($_POST['Q5Other']);
+        $surgical->setQ17Other($_POST['Q17Other']);
+        $surgical->setQ26Other($_POST['Q26Other']);
 
         foreach ($_POST as $key => $value) {
             if ($key === 'Q5' || $key === 'Q22') {
@@ -99,10 +102,11 @@ if (isset($_POST['SUBMIT'])) {
                                 <?php
                                 foreach ($surgicalValues['Q5'] as $opt) {
                                     //echo "<td>";
-                                    echo "<input type = 'checkbox' name = 'Q5[]'  value = '" . $opt['val'] . "' " . (isset($_POST['Q5']) && in_array($opt['val'], $_POST['Q5']) ? "checked='checked'" : "") . "/>" . $opt['name'] . "&nbsp;&nbsp;";
+                                    echo "<input type = 'checkbox' name = 'Q5[]'  value = '" . $opt['val'] . "' " . (isset($_POST['Q5']) && in_array($opt['val'], $_POST['Q5']) ? "checked='checked'" : "") . "/>" . $opt['name'];
                                     //echo "</td>";
                                 }
                                 ?>
+                                (Specify Other: <input class="text" type="text" size="6" name="Q5Other" value="<?php echo (isset($_POST['Q5Other']) ? $_POST['Q5Other'] : "");?>"/>)
                             </td>
                         </tr>
                     </table>
@@ -239,6 +243,7 @@ if (isset($_POST['SUBMIT'])) {
                                 echo "</td>";
                             }
                             ?>
+                            <td>(Specify "Other": <input class="text" type="text" size="6" name="Q17Other" value="<?php echo (isset($_POST['Q17Other']) ? $_POST['Q17Other'] : "");?>"/>)</td>
                         </tr>
                         <tr>
                             <td>18) <?php echo $surgicalQuestions['Q18'] . ":"; ?></td>
@@ -329,7 +334,8 @@ if (isset($_POST['SUBMIT'])) {
                                 echo "<input type = 'radio' name = 'Q26'  value = '" . $opt['val'] . "' " . (isset($_POST['Q26']) && $_POST['Q26'] == $opt['val'] ? "checked='checked'" : "") . "/> " . $opt['name'];
                                 echo "</td>";
                             }
-                            ?>
+                            ?><td>
+                            (Specify Other: <input class="text" type="text" size="6" name="Q26Other" value="<?php echo (isset($_POST['Q26Other']) ? $_POST['Q26Other'] : "");?>"/>)</td>
                         </tr>
                     </table>
                 </div>

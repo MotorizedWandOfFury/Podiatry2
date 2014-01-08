@@ -13,7 +13,7 @@
 class Surgical implements DatabaseObject {
     
     const tableName = "surgical_answers"; 
-    private $id, $pat_id, $sur_id, $dateof, $dateofsurgery, $extremity, $answerArray, $questionArray; 
+    private $id, $pat_id, $sur_id, $dateof, $dateofsurgery, $extremity, $q5other, $q17other, $q26other, $answerArray, $questionArray; 
   
     use Clean { 
         cleanInput as private; 
@@ -56,6 +56,18 @@ use CustomArrayOperations {
         if(array_key_exists('extremity', $paramArray)){
             $this->setExtremity($paramArray['extremity']);
         }
+        
+        if(array_key_exists('q5other', $paramArray)){
+            $this->setQ5Other($paramArray['q5other']);
+        }
+        
+        if(array_key_exists('q17other', $paramArray)){
+            $this->setQ17Other($paramArray['q17other']);
+        }
+        
+        if(array_key_exists('q5other', $paramArray)){
+            $this->setQ26Other($paramArray['q26other']);
+        }
           
         foreach ($paramArray as $key => $var) { 
             if ($key === 'pat_id' || $key === 'id' || $key === 'dateof' || $key === 'dateofsurgery' || $key === 'sur_id' || $key === 'extremity') { 
@@ -73,7 +85,7 @@ use CustomArrayOperations {
         if (isset($this->sur_id) && isset($this->dateofsurgery)) { 
             $answers = implode("', '", $this->answerArray); 
             $questions = implode(", ", array_keys($this->answerArray)); 
-            $queryString = "INSERT INTO " . Surgical::tableName.  " (dateof, pat_id, sur_id, dateofsurgery, extremity, " . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofsurgery, $this->extremity, '" . $answers . "')";  
+            $queryString = "INSERT INTO " . Surgical::tableName.  " (dateof, pat_id, sur_id, dateofsurgery, extremity, q5other, q17other, q26other," . $questions . ") VALUES ($this->dateof, $this->pat_id, $this->sur_id, $this->dateofsurgery, $this->extremity, '$this->q5other', '$this->q17other', '$this->q26other',  '" . $answers . "')";  
         } else { 
             echo "Error: Attempting to create a DatabaseObject with missing parameters";
             
@@ -107,7 +119,7 @@ use CustomArrayOperations {
         if (!isset($this->id)) { 
             echo "Error: attempting to update uncreated DatabaseObject"; 
         } else { 
-            $queryString = "UPDATE  " . Surgical::tableName.  "  SET " . $fields . "' WHERE id = " . $this->id; 
+            $queryString = "UPDATE  " . Surgical::tableName.  "  SET q5other = '$this->q5other', q17other = '$this->q17other', q26other = '$this->q26other', " . $fields . "' WHERE id = " . $this->id; 
         } 
   
         return $queryString;
@@ -192,6 +204,27 @@ use CustomArrayOperations {
     
     public function setExtremity($value){
         $this->extremity = $this->cleanInt($value);
+    }
+    
+    public function setQ5Other($value){
+        $this->q5other = $this->cleanString($value);
+    }
+    public function getQ5Other(){
+        return $this->cleanInput($this->q5other);
+    }
+    
+    public function setQ17Other($value){
+        $this->q17other = $this->cleanString($value);
+    }
+    public function getQ17Other(){
+        return $this->cleanInput($this->q17other);
+    }
+    
+    public function setQ26Other($value){
+        $this->q26other = $this->cleanString($value);
+    }
+    public function getQ26Other(){
+        return $this->cleanInput($this->q26other);
     }
   
     public function getAnswer($index) { 
