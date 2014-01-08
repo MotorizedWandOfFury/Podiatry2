@@ -23,78 +23,42 @@ $database = new Database();
 $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($patient->getDoctor()));
-$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1), 'max_range' => 2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
 
 $currTime = getdate();
 
 $noInvalidFields = true;
 if (isset($_POST['SUBMIT'])) {
-    foreach ($_POST as $key => $value) {
-        if ($value) {
-            switch ($key) {
-                case 'M':
-                    $monthOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 12,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $monthOptions) === false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'D':
-                    $dayOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 31,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $dayOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'Y':
-                    $yearOptions = array(
-                        'options' => array(
-                            'min_range' => 1900,
-                            'max_range' => getdate()['year'],
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $yearOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-            }
-        }
-        else {
-            echo "<p>" . $key . " is empty" . "</p>";
+
+    if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
+        $dateCheck = checkdate($_POST['M'], $_POST['D'], $_POST['Y']);
+        if (!$dateCheck) { //if check fails
+            $noInvalidFields = false;
+            echo "<p>Date is invalid</p>";
         }
     }
-    
-   if($noInvalidFields){
-       $surgical = new Surgical($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
-       $surgical->setDateOfSurgery($_POST['M'], $_POST['D'], $_POST['Y']);
-       $surgical->setSurId($doctor->getID());
-       $surgical->setExtremity($extremity);
-       
-       foreach ($_POST as $key => $value){
-           if($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y'){   //filtering out unwanted keys
-           } else if($key === 'Q5'){
-               $surgical->setAnswer($key, implode("|", $value));
-           } else {
-               $surgical->setAnswer($key, $value);
-           }
-       }
-       //echo $surgical->generateCreateQuery();
-       //var_dump($surgical);
-       $database->create($surgical);
-       $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Surgical data successfully submitted");
-   } 
+
+    if ($noInvalidFields) {
+        $surgical = new Surgical($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
+        if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
+            $surgical->setDateOfSurgery($_POST['M'], $_POST['D'], $_POST['Y']);
+        }
+        $surgical->setSurId($doctor->getID());
+        $surgical->setExtremity($extremity);
+
+        foreach ($_POST as $key => $value) {
+            if ($key === 'Q5' || $key === 'Q22') {
+                $surgical->setAnswer($key, implode("|", $value));
+            } else {
+                $surgical->setAnswer($key, $value);
+            }
+        }
+        //echo $surgical->generateCreateQuery();
+        //var_dump($surgical);
+        $database->create($surgical);
+        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Surgical data successfully submitted");
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -105,8 +69,8 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle("", "Surgical Evaluation", $extremity)?>
-        <form action="<?php echo $_SERVER['SCRIPT_NAME']. "?patid=$patientID" . "&extremity=$extremity"; ?>" method="POST">
+        <?php echo Functions::formTitle("", "Surgical Evaluation", $extremity) ?>
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity"; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>
                     <table>
@@ -247,7 +211,7 @@ if (isset($_POST['SUBMIT'])) {
                             }
                             ?>
                         </tr>
-                        
+
                     </table>
                 </div>
             </div>
@@ -321,7 +285,8 @@ if (isset($_POST['SUBMIT'])) {
                             <?php
                             foreach ($surgicalValues['Q22'] as $opt) {
                                 echo "<td>";
-                                echo "<input type = 'radio' name = 'Q22'  value = '" . $opt['val'] . "' " . (isset($_POST['Q22']) && $_POST['Q22'] == $opt['val'] ? "checked='checked'" : "") . "/> " . $opt['name'];
+                                echo "<input type = 'checkbox' name = 'Q22[]'  value = '" . $opt['val'] . "' " . (isset($_POST['Q22']) && in_array($opt['val'], $_POST['Q22']) ? "checked='checked'" : "") . "/>" . $opt['name'];
+                                //echo "<input type = 'radio' name = 'Q22'  value = '" . $opt['val'] . "' " . (isset($_POST['Q22']) && $_POST['Q22'] == $opt['val'] ? "checked='checked'" : "") . "/> " . $opt['name'];
                                 echo "</td>";
                             }
                             ?>
