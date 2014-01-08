@@ -136,11 +136,11 @@ use CustomArrayOperations {
         $this->sur_id = $this->cleanInt($value);
     }
 
-    public function getId() {
+    public function getID() {
         return $this->cleanInput($this->id);
     }
 
-    private function setId($value) {
+    private function setID($value) {
         $this->id = $this->cleanInt($value);
     }
     
