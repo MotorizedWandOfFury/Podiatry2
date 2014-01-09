@@ -27,16 +27,6 @@ interface DatabaseObject {
     
     public function getID();
     
-    public function getPatientID();
-    
-    public function getDateOf();
-    
-    public function setDateOf($month, $day, $year);
-    
-     public function getAnswer($index);
-     
-     public function setAnswer($index, $answer);
-    
 }
 
 ?>

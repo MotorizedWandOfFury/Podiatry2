@@ -120,11 +120,11 @@ class Patient implements DatabaseObject {
         return $dbObj;
     }
 
-    public function getId() {
+    public function getID() {
         return $this->cleanInput($this->id);
     }
 
-    public function setId($value) {
+    public function setID($value) {
         $this->id = $this->cleanInt($value);
     }
 

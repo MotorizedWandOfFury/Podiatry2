@@ -113,7 +113,7 @@ class Admin implements DatabaseObject {
         return $dbObj;
     }
     
-    public function getId() {
+    public function getID() {
         return $this->cleanInput($this->id);
     }
 
