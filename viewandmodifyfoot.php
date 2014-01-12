@@ -14,6 +14,7 @@ if (empty($footQuestions) || empty($footValues)) {
  
 $session = new SessionManager();
 $session->validate();
+$type = $session->getUserType();
  
 $func = new Functions();
 $nav = new Navigator();
@@ -57,6 +58,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
     <body>
         <?php echo Functions::formTitle($type, "Foot Health Status Questionnaire", $extremity);?>
         &nbsp;
+		<?php if ($type == Admin::tableName) echo '<a href="admin/main.php">Home</a>'; else echo '<a href="main.php">Home</a>'; ?> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=$mode"; ?>" method="POST">
              <div class='container'>
