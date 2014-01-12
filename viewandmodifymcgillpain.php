@@ -14,7 +14,8 @@ if (empty($mcgillpainQuestions) || empty($mcgillpainValues)) {
  
 $session = new SessionManager();
 $session->validate();
-$type = $session->getUserType();
+$userType = $session->getUserObject();
+if (get_class($userType) == 'Admin') $home = 'admin/main.php'; else $home = 'doctor/main.php';
  
 $func = new Functions();
 $nav = new Navigator();
@@ -56,9 +57,9 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         <link rel='stylesheet' href='bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "McGill Pain Questionnaire", $extremity)?>
+        <?php echo Functions::formTitle($type, "McGill Pain Questionnaire", $extremity)?><br>
         &nbsp;
-		<?php if ($type == Admin::tableName) echo '<a href="admin/main.php">Home</a>'; else echo '<a href="main.php">Home</a>'; ?> |
+		<a href="<?php echo $home ?>">Home</a> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type". "&extremity=$extremity" . "&mode=$mode"; ?>" method="POST">
             <div class='container'>

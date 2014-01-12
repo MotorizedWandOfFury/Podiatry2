@@ -230,7 +230,18 @@ class Functions {
                                 <a role="menuitem" tabindex="-1" href="../formselection.php?patid=' . $userId . '&form=5&extremity=' . $extremity . '">View/Edit Post-Evaluation</a>  
                             </li>  
                         </ul>       
-                    </li>  
+                    </li>
+					<li class="dropdown-submenu">  
+                        <a tabindex="7" href="#"> Complications Action</a>  
+                        <ul class="dropdown-menu">  
+                            <li>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/addnewcomplications.php?patid=' . $userId . '&type=2&extremity=' . $extremity .'">Fill Comp. Evaluation</a>  
+                            </li> 
+                            <li>  
+                                <a role="menuitem" tabindex="-1" href="../doctor/viewandmodifycomplications.php?patid=' . $userId . '&extremity=' . $extremity . '">View/Edit Comp. Evaluation</a>  
+                            </li>  
+                        </ul>       
+                    </li>
                 </ul>';
 	}
     //new way to display the buttons on the table for the admin(tentative) page to select the doctor's patients and editing a doctor   
