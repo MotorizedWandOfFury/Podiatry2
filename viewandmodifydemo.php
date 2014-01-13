@@ -15,7 +15,7 @@ if (empty($demoQuestions) || empty($demoValues)) {
 $session = new SessionManager();
 $session->validate();
 $userType = $session->getUserObject();
-if (get_class($userType) == 'Admin') $home = 'admin/main.php'; else $home = 'doctor/main.php';
+($userType->getRole() == 3) ? $home = 'admin/main.php' : $home = 'doctor/main.php';
 
 $nav = new Navigator();
 $func = new Functions();
