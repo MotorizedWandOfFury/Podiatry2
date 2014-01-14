@@ -59,8 +59,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
  
         if ($noInvalidFields) {
             foreach ($_POST as $key => $value) {
-                if ($key === 'SUBMIT') {   //filtering out unwanted keys
-                } else if ($key === 'Q10' || $key === 'Q11' || $key === 'Q17' || $key === 'Q18' || $key === 'Q21' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
+                if ($key === 'Q10' || $key === 'Q11' || $key === 'Q17' || $key === 'Q18' || $key === 'Q21' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
                     $eval->setAnswer($key, implode("|", $value));
                 } else {
                     $eval->setAnswer($key, $value);
