@@ -34,6 +34,9 @@ $database->createAssociationObject($patientsf36);
 	<table class='table table-striped table-bordered' style="width: 10%" >
     <tr><th style='text-align: center;' colspan='9'>SF36 Scores</th></tr>
 	<tr>
+		<td></td><td>Pre</td><td>3 Mo</td><td>6 Mo</td><td>12 Mo</td>		
+	</tr>
+	<tr>
             <td>Role Physical Score:</td>
 			<?php
 			foreach ($patientsf36->getSF36Array() as $sf36)

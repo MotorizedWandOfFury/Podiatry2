@@ -1,35 +1,35 @@
 <?php
 date_default_timezone_set("EST");
- 
+
 require_once dirname(dirname(__FILE__)) . '\PodiatryAutoloader.php';
 spl_autoload_register(array('PodiatryAutoloader', 'autoLoad'));
- 
+
 $json = new JSONManager();
 $postQuestions = $json->loadJSONQuestions("Post", "en");
 $postValues = $json->loadJSONValues("Post", "en");
- 
+
 if (empty($postQuestions) || empty($postValues)) {
     die("Unable to load JSON files");
 }
- 
+
 $session = new SessionManager();
 $session->validate();
- 
+
 $nav = new Navigator();
 $func = new Functions();
- 
- 
+
+
 $mode = isset($_GET['mode']) ? $_GET['mode'] : "view"; // default mode for page is viewing, if the mode attribute has not been set
- 
+
 $database = new Database();
 $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
-$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options'=>array('min_range' => 1, 'max_range'=>5))) or die("Type value is invalid");
+$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 5))) or die("Type value is invalid");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
-$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1), 'max_range' => 2)) or die("Extremity is needed");
 $post = $database->read(Post::createRetrievableDatabaseObject($patientID, $type, $extremity)) or die("Form has not been filled for this patient");
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($post->getSurID()));
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
- 
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
+
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
     $noInvalidFields = true;
     if (isset($_POST['SUBMIT'])) {
@@ -51,7 +51,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                 }
             }
         }
- 
+
         if ($noInvalidFields) {
             foreach ($_POST as $key => $value) {
                 if ($key === 'SUBMIT' || $key === 'painmedused' || $key === 'dosepainmedused') {   //filtering out unwanted keys
@@ -59,10 +59,10 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                     $post->setAnswer($key, $value);
                 }
             }
- 
+
             $post->setPainMedUsed($_POST['painmedused']);
             $post->setDosePainMedUsed($_POST['dosepainmedused']);
-             
+
             //echo $post->generateUpdateQuery();
             //var_dump($post);
             $database->update($post);
@@ -79,8 +79,9 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "POST-OPERATIVE Evaluation", $extremity)?>
+        <?php echo Functions::formTitle($type, "POST-OPERATIVE Evaluation", $extremity) ?><br>
         &nbsp;
+        <a href="<?php echo $func->getUserHome($session->getUserObject()); ?>">Home</a> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&extremity=$extremity" . "&mode=" . $mode; ?>" method="POST">
             <div class='container'>

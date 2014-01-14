@@ -15,6 +15,7 @@ if (empty($sf36Questions) || empty($sf36Values)) {
 $session = new SessionManager();
 $session->validate();
 
+
 $nav = new Navigator();
 $func = new Functions();
 
@@ -57,8 +58,9 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         <link rel='stylesheet' href='bootstrap/css/sf36_css.css' />
     </head>
     <body>
+        <?php echo Functions::formTitle($type, "SF-36", $extremity);?><br />
 		&nbsp;
-        <?php echo Functions::formTitle($type, "SF-36", $extremity);?><br />&nbsp;
+	<a href="<?php echo $func->getUserHome($session->getUserObject());?>">Home</a> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&type=$type" . "&mode=$mode"; ?>" method="POST">
             <div class='container'>

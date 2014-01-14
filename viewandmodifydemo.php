@@ -53,6 +53,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
     </head>
     <body>
 		&nbsp;
+	<a href="<?php echo $func->getUserHome($session->getUserObject());?>">Home</a> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=" . $patientID . "&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=" . $patientID . "&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=" . $patientID . "&mode=" . $mode; ?>" method="POST">
             <div class="container">

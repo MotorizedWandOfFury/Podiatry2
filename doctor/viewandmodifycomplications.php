@@ -90,6 +90,8 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
+		&nbsp;
+		<a href="<?php echo $func->getUserHome($session->getUserObject()); ?>">Home</a> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID&extremity=$extremity&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID&extremity=$extremity&mode=edit"; ?>">Edit</a>
         <form id="form1" action="<?php echo $_SERVER['SCRIPT_NAME'], "?patid=$patientID&extremity=$extremity&mode=$mode"; ?>" method="POST">
             <div class='container'>
