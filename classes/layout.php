@@ -24,18 +24,9 @@ class Layout
 		$session = new SessionManager();
 		$loggedInUser = $session->getUserObject();
 		$nav = new Navigator();
-		if ($session->getUserType() === Admin::tableName) {
-			$home = "<a class='brand' href='" . $dir . "admin/main.php'>Podiatry Information System</a>";
-		}
-		else if ($session->getUserType() === Physician::tableName) {
-			$home = "<a class='brand' href='" . $dir . "doctor/main.php'>Podiatry Information System</a>";
-		}
-		else if ($session->getUserType() === Patient::tableName) {
-			$home = "<a class='brand' href='" . $dir . "main.php'>Podiatry Information System</a>";
-		}
-		else {
-			$nav->redirectUser($session->getUserType(), Navigator::UNAUTHORIZED_NAVIGATION_ACTION, "Unauthorized User. Please log in.");
-		}
+		$function = new Functions();
+		$home = $function->getUserHome($session->getUserObject());
+		
 		$func = "
 			<head>
 				<meta charset='utf-8'>
@@ -58,16 +49,16 @@ class Layout
 								<span class='icon-bar'></span>
 								<span class='icon-bar'></span>
 							</a>
-							" . $home . "
+							<a class='brand' href='" . $home . "'>Podiatry Information System</a>
 							<div class='nav-collapse collapse'>
 								<ul class='nav'>
 									<!--<li><a href='../../contact.html'>Contact</a></li>-->
 									<li class='dropdown'>
 										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin Actions<b class='caret'></b></a>
 										<ul class='dropdown-menu'>
-											<li class='nav-header'>Doctors</li>
-											<li><a href='main.php'>Home</a></li>
+											<li><a href='" . $home . "'>Home</a></li>
 											<li class='divider'></li>
+											<li class='nav-header'>Doctors</li>		
 											<li><a href='" . $dir . "admin/main.php'>View Doctors</a></li>
 											<li><a href='" . $dir . "admin/addnewdoctor.php'>Add Doctor</a></li>
 											<li class='divider'></li>
