@@ -11,7 +11,7 @@
  * @author Yaw
  */
 
-class Physician implements DatabaseObject {
+class Physician implements DatabaseUserObject {
 
     const tableName = "physicians";
 

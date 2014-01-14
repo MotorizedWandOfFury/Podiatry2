@@ -11,7 +11,7 @@
  * @author Yaw
  */
 
-class Admin implements DatabaseObject {
+class Admin implements DatabaseUserObject {
     
     const tableName = "login";
     private $id, $username, $password, $role = 3, $firstname, $lastname, $sex;

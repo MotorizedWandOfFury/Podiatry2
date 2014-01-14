@@ -325,10 +325,9 @@ class Functions {
         return ($withHTML ? Functions::doText($title) : $title);
     }
     
-    public static function getUserHome(DatabaseObject $userType){
+    public static function getUserHome(DatabaseUserObject $user){
         
-        $userRole = $userType->getRole();
-        switch($userRole){
+        switch($user->getRole()){
             case 1:
                 return Constants::PROJECT_PATH ."/main.php";
                 break;
