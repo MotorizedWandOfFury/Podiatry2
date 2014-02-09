@@ -18,7 +18,7 @@ if (empty($patientQuestions) || empty($patientValues)) {
     die("Unable to load JSON files");
 }
 
-$patient_id = $_GET['id'] or die("Patient id not specified");
+$patient_id = $_GET['patid'] or die("Patient id not specified");
 $pat = $database->read(Patient::createRetrievableDatabaseObject($patient_id));
 
 if (isset($_POST['SUBMIT']) == TRUE) {

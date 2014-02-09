@@ -17,6 +17,7 @@ $pat = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $docID = $pat->getDoctor();
 $patientsf36 = new PatientSF36Association($pat);
 $database->createAssociationObject($patientsf36);
+$counter = 0;
 //$sf36 = $patientsf36->getSF36Array();
 //var_dump($patientsf36->getSF36Array());
 /*if ($session->getUserType() != Admin::tableName || $session->getUserType() != Physician::tableName) 
@@ -31,6 +32,7 @@ $database->createAssociationObject($patientsf36);
 ?>
 <link href="../bootstrap/css/mainForms.css" rel="stylesheet">
 <div align="center">
+	<h3>Patient: <?php echo $pat->getFirstName() . " " . $pat->getLastName()  ?></h3>
 	<table class='table table-striped table-bordered' style="width: 10%" >
     <tr><th style='text-align: center;' colspan='9'>SF36 Scores</th></tr>
 	<tr>
@@ -42,7 +44,15 @@ $database->createAssociationObject($patientsf36);
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
 				echo "<td>". $sf36->getRolePhysicalScore() ."</td>";
-				
+				$counter++;
+			}
+			if ($counter < 5)
+			{
+				$counter = 4 - $counter;
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
 			}
 			?>
     </tr>
@@ -54,6 +64,10 @@ $database->createAssociationObject($patientsf36);
 				echo "<td>". $sf36->getPhysicalFunctioningScore() ."</td>";
 				
 			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
 			?>
     </tr>
 	<tr>
@@ -63,6 +77,10 @@ $database->createAssociationObject($patientsf36);
 			{
 				echo "<td>". $sf36->getBodilyPainScore() ."</td>";
 				
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
 			}
 			?>
     </tr>
@@ -74,6 +92,10 @@ $database->createAssociationObject($patientsf36);
 				echo "<td>". $sf36->getGeneralHealthScore() ."</td>";
 				
 			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
 			?>
     </tr>
     <tr>
@@ -83,6 +105,10 @@ $database->createAssociationObject($patientsf36);
 			{
 				echo "<td>". $sf36->getVitalityScore() ."</td>";
 				
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
 			}
 			?>
     </tr>
@@ -94,6 +120,10 @@ $database->createAssociationObject($patientsf36);
 				echo "<td>". $sf36->getSocialFunctioningScore() ."</td>";
 				
 			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
 			?>
     </tr>
 	<tr>
@@ -104,6 +134,10 @@ $database->createAssociationObject($patientsf36);
 				echo "<td>". $sf36->getRoleEmotionalScore() ."</td>";
 				
 			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
 			?>
     </tr>
 	<tr>
@@ -113,6 +147,10 @@ $database->createAssociationObject($patientsf36);
 			{
 				echo "<td>". $sf36->getMentalHealthScore() ."</td>";
 				
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
 			}
 			?>
     </tr>

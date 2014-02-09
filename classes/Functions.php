@@ -263,7 +263,8 @@ class Functions {
                 <div id="modalBody" class="modal-body">   
                 </div>   
                 <div class="modal-footer"> 
-                    <button type="button" class="btn btn-primary" onclick="location.href=\'../doctor/editpatient.php?id=' . $userId . '\';">Edit Patient</button> 
+                    <button type="button" class="btn btn-primary" onclick="location.href=\'../doctor/editpatient.php?patid=' . $userId . '\';">Edit Patient</button> 
+					<button type="button" class="btn btn-info" onclick="location.href=\'../doctor/patscore.php?patid=' . $userId . '\';">Patient Scores</button> 
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>     
                   
                 </div>';
