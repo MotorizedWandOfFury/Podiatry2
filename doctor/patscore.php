@@ -18,6 +18,7 @@ $docID = $pat->getDoctor();
 $patientsf36 = new PatientSF36Association($pat);
 $database->createAssociationObject($patientsf36);
 $counter = 0;
+$foot = $_GET['extremity'] or 0;
 //$sf36 = $patientsf36->getSF36Array();
 //var_dump($patientsf36->getSF36Array());
 /*if ($session->getUserType() != Admin::tableName || $session->getUserType() != Physician::tableName) 
@@ -32,7 +33,44 @@ $counter = 0;
 ?>
 <link href="../bootstrap/css/mainForms.css" rel="stylesheet">
 <div align="center">
-	<h3>Patient: <?php echo $pat->getFirstName() . " " . $pat->getLastName()  ?></h3>
+	<h4>Patient: <?php echo $pat->getFirstName() . " " . $pat->getLastName()  ?></h4>
+	<?php 
+		foreach ($patientsf36->getSF36Array() as $sf36)
+		{
+			$counter++;
+		}
+		if ($counter > 4 && $foot == 0)
+		{
+			$foot = 1;
+			echo '
+			<select id="extremity" class="form-control">
+			  <option selected="selected" value="1">L</option>
+			  <option value="2">R</option>
+			</select>
+			';
+		}
+		else if ($counter > 4 && $foot == 1)
+		{
+			echo '
+			<select id="extremity" class="form-control">
+			  <option selected="selected" value="1">L</option>
+			  <option value="2">R</option>
+			</select>
+			';
+		}
+		else if ($counter > 4 && $foot == 2)
+		{
+			echo '
+			<select id="extremity" class="form-control">
+			  <option value="1">L</option>
+			  <option selected="selected" value="2">R</option>
+			</select>
+			';
+		}
+		$counter = 0;
+	?>
+	
+	
 	<table class='table table-striped table-bordered' style="width: 10%" >
     <tr><th style='text-align: center;' colspan='9'>SF36 Scores</th></tr>
 	<tr>
@@ -43,8 +81,11 @@ $counter = 0;
 			<?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getRolePhysicalScore() ."</td>";
-				$counter++;
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getRolePhysicalScore() ."</td>";
+					$counter++;
+				}
 			}
 			if ($counter < 5)
 			{
@@ -61,8 +102,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getPhysicalFunctioningScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getPhysicalFunctioningScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -75,8 +118,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getBodilyPainScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getBodilyPainScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -89,8 +134,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getGeneralHealthScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getGeneralHealthScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -103,8 +150,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getVitalityScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getVitalityScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -117,8 +166,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getSocialFunctioningScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getSocialFunctioningScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -131,8 +182,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getRoleEmotionalScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getRoleEmotionalScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -145,8 +198,10 @@ $counter = 0;
             <?php
 			foreach ($patientsf36->getSF36Array() as $sf36)
 			{
-				echo "<td>". $sf36->getMentalHealthScore() ."</td>";
-				
+				if ($sf36->getExtremity() == $foot || $foot == 0)
+				{
+					echo "<td>". $sf36->getMentalHealthScore() ."</td>";
+				}
 			}
 			for ($i = 0; $i < $counter; $i++)
 			{
@@ -185,4 +240,17 @@ $counter = 0;
 <?php
 	echo $layout->loadFooter('../');
 ?>
+<script>
+    $(function(){
+      // bind change event to select
+      $('#extremity').bind('change', function () {
+          var foot = $(this).val(); // get selected value
+		  var id = <?php echo $patientID ?>;
+          if (foot) { // require a URL
+              window.location = "patscore.php?patid=" + id + "&extremity=" + foot; // redirect
+          }
+          return false;
+      });
+    });
+</script>
 </html>
