@@ -1,89 +1,96 @@
 <?php
+date_default_timezone_set("EST");
 
+require_once dirname(dirname(__FILE__)) . '\PodiatryAutoloader.php';
+spl_autoload_register(array('PodiatryAutoloader', 'autoLoad'));
 
-require_once "../db.php";                // Database Interaction
-require_once "../classes/database.php";  // Database Functions
-//require "../classes/clean.php";     // Filter Functions
-require_once "../classes/variables.php"; // Global Variables
-require_once "../classes/time.php";      // Time Functions
-require_once "../classes/functions.php"; // Other Functions
-require_once "../classes/layout.php";    // Layout Functions
-require_once "../classes/error.php";     // Error Control
-require_once "../classes/patient.php";   // Patient Class
-require_once "../classes/doctor.php";    // Doctor Class
-require_once "../classes/admin.php";     // Admin Class
-require_once "../classes/input.php";     // Input Functions
-require_once dirname(dirname(__FILE__)).'/classes/PhysicianPatientsAssociation.php';
-session_start();                    // Start Session
-$database = new Database();
-//$clean = new Clean();
-$var = new Variables();
-$time = new Time();
+$session = new SessionManager();
+$session->validate();
+ 
 $func = new Functions();
+$database = new Database();
 $layout = new Layout();
-$error = new Error();
-//$patient = new Patient(@$_SESSION[$var->GetSessionUserId()]);
-$physician = $_SESSION[$var->GetSessionDoctorObject()];
-//var_dump($physician);
-$allPatients = new PhysicianPatientsAssociation($physician);
+   
+$doctor_id = $_GET['docid'] or die('Doctor ID has not been set in URL');
+$allPatients = new PhysicianPatientsAssociation();
+$allPatients->setPhysicianId($doctor_id);
 $database->createAssociationObject($allPatients);
-//var_dump($allPatients->getPatientArray());
-
-//$admin = new Admin(@$_SESSION[$var->GetSessionAdminId()]);
-$in = new Input();
-
-//if ($doctor->isLogged() == FALSE && $admin->isLogged())
- //   $error->doGo("index.php", "Only for doctors and administrators.");
-
-//$doctor_patients = $database->doQuery("SELECT p.* FROM patients p LEFT OUTER JOIN physicians pp ON (p.doctor = pp.id) WHERE p.doctor = '" . $doctor->GetId() . "' GROUP BY p.username");
-
-// Load the HTML, CSS.
-echo $layout->loadCSS("Physician Main Page", "../");
-// Load the body.
-echo $layout->startBody();
-
-echo "<h3>Physician Main Page</h3>";
-
-// Main Header
-//echo $layout->doLinks();
-
-echo "
-	<form action='" . $_SERVER['SCRIPT_NAME'] . "' method='post'>
-		<div class='container'>
-			<div>
-				<div>Profile for:</div>
-                <div>
-                    <select id='users' onchange='doLoad(\"pat_profile.php?id=\" + this.value, true, \"#page\"); doDoctorLinks(this.value)'>
-                        <optgroup label='Patients'>
-                            <option value='' selected='selected'>Select a Patient:</option>
-";
-
-//for ($i = 1; $doctor_patient = $database->doArray($doctor_patients); $i++)
-foreach($allPatients->getPatientArray() as $patient)
-{
-    // Get the id of patients that belong to the doctor.
-    //$id = $clean->toInt($doctor_patient['id']);
-    // Create an object for each patient.
-    //$doc_pat = new Patient($id);
-	
-    echo "<option value='" . $patient->getId() . "'>" . $patient->getFirstName() . " " . $patient->getLastName() . "</option>";
-}
-
-echo "
-                        </optgroup>
-                    </select>
-                </div>
-			</div>
-		</div>
-		<div class='container'>
-			<div id='page'>&nbsp;</div>
-		</div>
-	</form>
-";
-
-echo $layout->doLinksFoot();
-// End body.
-echo $layout->endBody();
-// Footer
-echo $layout->doFoot();
 ?>
+<html>
+	<?php
+		echo $layout->loadNavBar('Doctor Main', '../');
+	?>
+		<link href="../bootstrap/css/mainForms.css" rel="stylesheet">
+		<div class='container'>
+			<table class='table table-striped table-bordered' width='40%'>
+				<tr style='text-align: center;'>
+					<td class='head' colspan='8' style='text-align: center;'><b> Dr. <?php echo $_GET['lastName']; ?>'s Patients</b></td>
+				</tr>
+				<tr style='text-align: center;'>
+					<td class='cate' style='width: 5%; text-align: center;'>Id</td>
+					<td class='cate' style='width: 15%; text-align: center;'>Last Name</td>
+					<td class='cate' style='width: 10%; text-align: center;'>First Name</td>
+					<td class='cate' style='width: 10%; text-align: center;'>Extremity</td>
+					<td class='cate' style='width: 10%; text-align: center;'>Medical Record Number</td>
+					<td class='cate' style='width: 10%; text-align: center;'>Date of Birth</td>
+                    <td class='cate' style='width: 5%; text-align: center;'>&nbsp;</td>
+                    <td class='cate' style='width: 5%; text-align: center;'>&nbsp;</td>
+				</tr>
+	<?php
+	if ($allPatients->getPatientArray() == 0)
+	{
+		echo "<b><p style='color:red'>No patients are assigned to this doctor</p></b>";
+	}
+	else
+	{
+		$i = 0;
+		foreach ($allPatients->getPatientArray() as $admin_pat)
+		{
+			$patientEval = new PatientEvalsAssociation($admin_pat);
+			$database->createAssociationObject($patientEval);
+			$evalCheck = $patientEval->getEvalArray();
+			if(empty($evalCheck))
+			{
+				echo "
+					<tr>
+						<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" . $admin_pat->getId() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 15%; text-align: center;'>" . $admin_pat->getLastName() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getFirstName() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>Evaluation not filled</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doFormButtonDefault($admin_pat->getId(), $admin_pat->getLastName(), "Forms"). "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2). "</td>
+					</tr>		
+				";
+			}
+			else 
+			{
+				foreach ($patientEval->getEvalArray() as $eval)
+				{
+				echo "
+					<tr>
+						<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" . $admin_pat->getId() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 15%; text-align: center;'>" . $admin_pat->getLastName() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getFirstName() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $eval->getExtremityFormatted() . " </td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doFormButton($admin_pat->getId(), $admin_pat->getLastName(), "Forms", $eval->getExtremity()). "</td>
+						<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2). "</td>
+					</tr>		
+				";
+				}
+			}
+		}	
+		echo "
+				</table>
+			</div>
+		";
+	}
+	?>
+	<?php
+		echo $layout->loadFooter('../');
+	?>
+	<script src="../bootstrap/js/modal.js"></script>
+</html>	
