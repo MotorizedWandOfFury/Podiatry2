@@ -31,30 +31,30 @@ class Layout
 		{
 			$dropdown = "
 						<li class='dropdown'>
-										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin Actions<b class='caret'></b></a>
-										<ul class='dropdown-menu'>
-											<li><a href='" . $home . "'>Home</a></li>
-											<li class='divider'></li>
-											<li class='nav-header'>Doctors</li>		
-											<li><a href='" . $dir . "admin/main.php'>View Doctors</a></li>
-											<li><a href='" . $dir . "admin/addnewdoctor.php'>Add Doctor</a></li>
-											<li class='divider'></li>
-											<li class='nav-header'>Patients</li>
-											<li><a href='" . $dir . "admin/view_patients.php'>View Patients</a></li>
-											<li><a href='" . $dir . "doctor/addnewpatient.php'>Add Patient</a></li>
-											<!--<li><a href='" . $dir . "doctor/pat_preop_score.php'>SF-36 Scores</a></li>-->
-										</ul>
-									</li>
+							<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin Actions<b class='caret'></b></a>
+							<ul class='dropdown-menu'>
+								<li><a href='" . $home . "'>Home</a></li>
+								<li class='divider'></li>
+								<li class='nav-header'>Doctors</li>		
+								<li><a href='" . $dir . "admin/main.php'>View Doctors</a></li>
+								<li><a href='" . $dir . "admin/addnewdoctor.php'>Add Doctor</a></li>
+								<li class='divider'></li>
+								<li class='nav-header'>Patients</li>
+								<li><a href='" . $dir . "admin/view_patients.php'>View Patients</a></li>
+								<li><a href='" . $dir . "doctor/addnewpatient.php'>Add Patient</a></li>
+								<!--<li><a href='" . $dir . "doctor/pat_preop_score.php'>SF-36 Scores</a></li>-->
+							</ul>
+						</li>
 						";
 		}
 		else
 		{
 			$dropdown = "
 						<li class='dropdown'>
-										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Actions<b class='caret'></b></a>
-										<ul class='dropdown-menu'>
-											<li><a href='" . $home . "'>Home</a></li>
-										</ul>
+							<a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Actions<b class='caret'></b></a>
+							<ul class='dropdown-menu'>
+								<li><a href='" . $home . "'>Home</a></li>
+							</ul>
 						</li>
 						";
 		}
