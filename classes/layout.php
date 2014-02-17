@@ -27,6 +27,37 @@ class Layout
 		$function = new Functions();
 		$home = $function->getUserHome($session->getUserObject());
 		
+		if ($loggedInUser->getRole() == 'Admin')
+		{
+			$dropdown = "
+						<li class='dropdown'>
+										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin Actions<b class='caret'></b></a>
+										<ul class='dropdown-menu'>
+											<li><a href='" . $home . "'>Home</a></li>
+											<li class='divider'></li>
+											<li class='nav-header'>Doctors</li>		
+											<li><a href='" . $dir . "admin/main.php'>View Doctors</a></li>
+											<li><a href='" . $dir . "admin/addnewdoctor.php'>Add Doctor</a></li>
+											<li class='divider'></li>
+											<li class='nav-header'>Patients</li>
+											<li><a href='" . $dir . "admin/view_patients.php'>View Patients</a></li>
+											<li><a href='" . $dir . "doctor/addnewpatient.php'>Add Patient</a></li>
+											<!--<li><a href='" . $dir . "doctor/pat_preop_score.php'>SF-36 Scores</a></li>-->
+										</ul>
+									</li>
+						";
+		}
+		else
+		{
+			$dropdown = "
+						<li class='dropdown'>
+										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>User Actions<b class='caret'></b></a>
+										<ul class='dropdown-menu'>
+											<li><a href='" . $home . "'>Home</a></li>
+										</ul>
+						</li>
+						";
+		}
 		$func = "
 			<head>
 				<meta charset='utf-8'>
@@ -53,21 +84,7 @@ class Layout
 							<div class='nav-collapse collapse'>
 								<ul class='nav'>
 									<!--<li><a href='../../contact.html'>Contact</a></li>-->
-									<li class='dropdown'>
-										<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Admin Actions<b class='caret'></b></a>
-										<ul class='dropdown-menu'>
-											<li><a href='" . $home . "'>Home</a></li>
-											<li class='divider'></li>
-											<li class='nav-header'>Doctors</li>		
-											<li><a href='" . $dir . "admin/main.php'>View Doctors</a></li>
-											<li><a href='" . $dir . "admin/addnewdoctor.php'>Add Doctor</a></li>
-											<li class='divider'></li>
-											<li class='nav-header'>Patients</li>
-											<li><a href='" . $dir . "admin/view_patients.php'>View Patients</a></li>
-											<li><a href='" . $dir . "doctor/addnewpatient.php'>Add Patient</a></li>
-											<!--<li><a href='" . $dir . "doctor/pat_preop_score.php'>SF-36 Scores</a></li>-->
-										</ul>
-									</li>
+									" . $dropdown . "
 								</ul>
 								<form class='navbar-form pull-right'> 
 									<button type='button' onclick='location.href = \"" . $dir . "logout.php\"' class='btn'>Log Out</button> 
