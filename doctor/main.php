@@ -10,10 +10,11 @@ $session->validate();
 $func = new Functions();
 $database = new Database();
 $layout = new Layout();
-   
-$doctor_id = $_GET['docid'] or die('Doctor ID has not been set in URL');
+
+$doctor = $session->getUserObject();   
+//$doctor_id = $_GET['docid'] or die('Doctor ID has not been set in URL');
 $allPatients = new PhysicianPatientsAssociation();
-$allPatients->setPhysicianId($doctor_id);
+$allPatients->setPhysicianId($doctor->getID());
 $database->createAssociationObject($allPatients);
 ?>
 <html>
@@ -24,7 +25,7 @@ $database->createAssociationObject($allPatients);
 		<div class='container'>
 			<table class='table table-striped table-bordered' width='40%'>
 				<tr style='text-align: center;'>
-					<td class='head' colspan='8' style='text-align: center;'><b> Dr. <?php echo $_GET['lastName']; ?>'s Patients</b></td>
+					<td class='head' colspan='8' style='text-align: center;'><b> Dr. <?php echo $doctor->getLastName(); ?>'s Patients</b></td>
 				</tr>
 				<tr style='text-align: center;'>
 					<td class='cate' style='width: 5%; text-align: center;'>Id</td>
