@@ -5,13 +5,12 @@
  *
  * @author Yaw
  */
-
 class SF36 implements DatabaseObject {
 
     const tableName = "sf36_answers";
 
     private static $questionArray = array("Q4", "Q5", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16", "Q18", "Q19", "Q20", "Q21", "Q23", "Q24", "Q25", "Q26", "Q27", "Q28", "Q31", "Q32", "Q33", "Q34", "Q35", "Q36", "Q37", "Q38", "Q39", "Q40", "Q42", "Q43", "Q44", "Q45");
-    private $id, $patient_id, $type, $dateof, $extremity, $answerArray;//, $questionArray;
+    private $id, $patient_id, $type, $dateof, $extremity, $answerArray = Array(); //, $questionArray;
 
     use Clean {
         cleanInput as private;
@@ -44,17 +43,18 @@ use TimeComparison;
         if (array_key_exists('dateof', $paramArray)) {
             $this->setDateOfByTimeStamp($paramArray['dateof']);
         }
-        
+
         if (array_key_exists('type', $paramArray)) {
             $this->setType($paramArray['type']);
         }
-        
-        if(array_key_exists('extremity', $paramArray)){
+
+        if (array_key_exists('extremity', $paramArray)) {
             $this->setExtremity($paramArray['extremity']);
         }
 
         foreach ($paramArray as $key => $var) {
             if ($key === 'patientid' || $key === 'id' || $key === 'dateof' || $key === 'type' || $key === 'extremity') {
+                
             } else {
                 $this->setAnswer($key, $var);
                 //echo "$key => $var", "\n";
@@ -125,8 +125,7 @@ use TimeComparison;
     private function setPatientID($value) {
         $this->patient_id = $this->cleanInt($value);
     }
-    
-   
+
     public function setType($value) {
         $this->type = $this->cleanInt($value);
     }
@@ -150,13 +149,13 @@ use TimeComparison;
     public function setDateOfByTimeStamp($value) {
         $this->dateof = $this->cleanInt($value);
     }
-    
-    public function getExtremity(){
+
+    public function getExtremity() {
         return $this->cleanInput($this->extremity);
     }
-    
-    public function getExtremityFormatted(){
-        switch($this->extremity){
+
+    public function getExtremityFormatted() {
+        switch ($this->extremity) {
             case 1:
                 return 'L';
                 break;
@@ -165,15 +164,14 @@ use TimeComparison;
                 break;
         }
     }
-    
-    public function setExtremity($value){
+
+    public function setExtremity($value) {
         $this->extremity = $this->cleanInt($value);
     }
-    
-     public static function getQuestionArray(){
+
+    public static function getQuestionArray() {
         return SF36::$questionArray;
     }
-    
 
     public function getAnswer($index) {
         if (array_key_exists($index, $this->answerArray)) {
@@ -184,9 +182,9 @@ use TimeComparison;
     }
 
     public function setAnswer($index, $answer) {
-        if(in_array($index, SF36::$questionArray)){
+        if (in_array($index, SF36::$questionArray)) {
             $this->answerArray[$this->cleanString($index)] = $this->cleanInt($answer);
-        }      
+        }
     }
 
     public function getRolePhysicalScore() {
@@ -215,264 +213,310 @@ use TimeComparison;
     }
 
     public function getPhysicalFunctioningScore() {
-        $sum = 0.0;
+        $sum = 0;
         $numOfAnswers = 0;
-        $score = -50;
-
         $subset = $this->subsetOfArray($this->answerArray, array("Q7", "Q8", "Q9", "Q10", "Q11", "Q12", "Q13", "Q14", "Q15", "Q16"));
 
         foreach ($subset as $val) {
-            if ($val) {
-                $sum += $val;
-                $numOfAnswers++;
-            }
+            $sum += $val;
+            $numOfAnswers++;
         }
 
-        if ($numOfAnswers > 0) {
-            $average = $sum / $numOfAnswers;
-            $score = (($numOfAnswers + ($average * (10 - $numOfAnswers)) - 10) / 20) * 100;
-        }
+        $score = (($sum - 10) / 20) * 100;
 
         return $score;
     }
 
     public function getBodilyPainScore() {
         $subset = $this->subsetOfArray($this->answerArray, array("Q27", "Q28"));
-        $finalVal27 = 0;
-        $finalVal28 = 0;
-        $numOfAnswers = 0;
-        $score = -50;
+        $Q27FinalValue = 0;
+        $Q28FinalValue = 0;
 
-        if ($subset["Q27"] != 0) {
-            $numOfAnswers++;
+        if (array_key_exists("Q27", $subset)) {
             switch ($subset["Q27"]) {
                 case 1:
-                    $finalVal27 = 6.0;
+                    $Q27FinalValue = 6;
                     break;
                 case 2:
-                    $finalVal27 = 5.4;
+                    $Q27FinalValue = 5.4;
                     break;
                 case 3:
-                    $finalVal27 = 4.2;
+                    $Q27FinalValue = 4.2;
                     break;
                 case 4:
-                    $finalVal27 = 3.1;
+                    $Q27FinalValue = 3.1;
                     break;
                 case 5:
-                    $finalVal27 = 2.2;
+                    $Q27FinalValue = 2.2;
                     break;
                 case 6:
-                    $finalVal27 = 1.0;
+                    $Q27FinalValue = 1;
+                    break;
+                default:
+                    $Q27FinalValue = 0;
                     break;
             }
-            if ($subset["Q28"] != 0) {
-                $numOfAnswers++;
-                switch ($subset["Q28"]) {
-                    case 1:
-                        if ($subset["Q27"] == 1) {
-                            $finalVal28 = 6;
-                        } else {
-                            $finalVal28 = 5;
-                        }
-                        break;
-                    case 2:
-                        $finalVal28 = 4;
-                        break;
-                    case 3:
-                        $finalVal28 = 3;
-                        break;
-                    case 4:
-                        $finalVal28 = 2;
-                        break;
-                    case 5:
-                        $finalVal28 = 1.0;
-                        break;
-                }
-            }
-        } else if ($subset["Q28"] != 0) {
-            $numOfAnswers++;
-            switch ($subset["Q28"]) {
-                case 1:
-                    $finalVal28 = 6.0;
-                    break;
-                case 2:
-                    $finalVal28 = 4.75;
-                    break;
-                case 3:
-                    $finalVal28 = 3.5;
-                    break;
-                case 4:
-                    $finalVal28 = 2.25;
-                    break;
-                case 5:
-                    $finalVal28 = 1.0;
-                    break;
-            }
+        } else {
+            $Q27FinalValue = 0;
         }
 
-        if ($numOfAnswers > 0) {
-            $average = ($finalVal27 + $finalVal28) / $numOfAnswers;
-            $score = ((($finalVal27 + $finalVal28) + ($average * (2 - $average)) - 2) / 10) * 100;
+        if(array_key_exists("Q28", $subset)){
+            switch ($subset["Q28"]) {
+            case 1:
+                if ($Q27FinalValue == 6) { //if precoded value of Q27 is 1
+                    $Q28FinalValue = 6;
+                } else if ($Q27FinalValue <= 5.4) { //if precoded value of Q27 is 2 or greater
+                    $Q28FinalValue = 5;
+                } else { //if Q27 has not been answered
+                    $Q28FinalValue = 6;
+                }
+                break;
+            case 2:
+                if ($Q27FinalValue > 0) { //if Q27 has been answered
+                    $Q28FinalValue = 4;
+                } else {
+                    $Q28FinalValue = 4.75;
+                }
+                break;
+            case 3:
+                if ($Q27FinalValue > 0) { //if Q27 has been answered
+                    $Q28FinalValue = 3;
+                } else {
+                    $Q28FinalValue = 3.5;
+                }
+                break;
+            case 4:
+                if ($Q27FinalValue > 0) { //if Q27 has been answered
+                    $Q28FinalValue = 2;
+                } else {
+                    $Q28FinalValue = 2.25;
+                }
+                break;
+            case 5:
+                if ($Q27FinalValue > 0) { //if Q27 has been answered
+                    $Q28FinalValue = 1;
+                } else {
+                    $Q28FinalValue = 1;
+                }
+                break;
+        }
+        } else {
+            $Q28FinalValue = -1;
         }
         
+
+        $sum = $Q27FinalValue + $Q28FinalValue;
+        $score = (($sum - 2) / 10) * 100;
         return $score;
     }
-
-    public function getGeneralHealthScore() {
-        $sum = 0;
-        $numOfAnswers = 0;
-        $score = -50;
-        //echo "\ngetGeneralHealth() called";
-
-        if ($this->answerArray['Q4']) {
-            switch ($this->answerArray['Q4']) {
-                case 1:
-                    $sum = 5.0;
-                    break;
-                case 2:
-                    $sum = 4.4;
-                    break;
-                case 3:
-                    $sum = 3.4;
-                    break;
-                case 4:
-                    $sum = 2.0;
-                    break;
-                case 5:
-                    $sum = 1.0;
-                    break;
-            }
+    
+    public function getGeneralHealthScore(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q4", "Q42", "Q43", "Q44", "Q45"));
+        $Q4FinalValue = 0;
+        $Q43FinalValue = 0;
+        $Q45FinalValue = 0;
+        
+        switch($subset["Q4"]){
+            case 1:
+                $Q4FinalValue = 5;
+                break;
+            case 2:
+                $Q4FinalValue = 4.4;
+                break;
+            case 3:
+                $Q4FinalValue = 3.4;
+                break;
+            case 4:
+                $Q4FinalValue = 2;
+                break;
+            case 5:
+                $Q4FinalValue = 1;
+                break;
         }
-        // echo "\nAfter Q4, sum = ", $sum;
-        $subset = $this->subsetOfArray($this->answerArray, array("Q42", "Q43", "Q44", "Q45"));
-
-        foreach ($subset as $key => $val) {
-
-            if ($val) {
-                if ($key == "Q42" || $key == "Q44") {
-                    $sum += $val;
-                } else {
-                    $sum = $sum + (6 - $val);
-                }
-                $numOfAnswers++;
-            }
+        
+        switch($subset["Q43"]){
+            case 1:
+                $Q43FinalValue = 5;
+                break;
+            case 2:
+                $Q43FinalValue = 4;
+                break;
+            case 3:
+                $Q43FinalValue = 3;
+                break;
+            case 4:
+                $Q43FinalValue = 2;
+                break;
+            case 5:
+                $Q43FinalValue = 1;
+                break;
         }
-        // echo "\nAfter Q42-45, sum = ", $sum;
-
-        if ($numOfAnswers > 0) {
-            $average = $sum / $numOfAnswers;
-            $score = (($sum + ($average * (5 - $numOfAnswers)) - 5) / 20) * 100;
+        switch($subset["Q45"]){
+            case 1:
+                $Q45FinalValue = 5;
+                break;
+            case 2:
+                $Q45FinalValue = 4;
+                break;
+            case 3:
+                $Q45FinalValue = 3;
+                break;
+            case 4:
+                $Q45FinalValue = 2;
+                break;
+            case 5:
+                $Q45FinalValue = 1;
+                break;
         }
-        return $score;
+        
+        $rawScore = $Q4FinalValue + $subset["Q42"] + $Q43FinalValue + $subset["Q44"] + $Q45FinalValue;
+        
+       $score = (($rawScore - 5)/20)*100;
+       return $score;
     }
 
     public function getVitalityScore() {
-        $sum = 0;
-        $numOfAnswers = 0;
-        $score = -50;
-
-
-        if ($this->answerArray['Q31']) {
-            $sum = $sum + (7 - $this->answerArray['Q31']);
-            $numOfAnswers++;
+        $Q31FinalValue = 0;
+        $Q35FinalValue = 0;
+        $subset = $this->subsetOfArray($this->answerArray, array("Q31", "Q35", "Q37", "Q39"));
+        
+        switch($subset["Q31"]){
+            case 1:
+                $Q31FinalValue = 6;
+                break;
+            case 2:
+                $Q31FinalValue = 5;
+                break;
+            case 3:
+                $Q31FinalValue = 4;
+                break;
+            case 4:
+                $Q31FinalValue = 3;
+                break;
+            case 5:
+                $Q31FinalValue = 2;
+                break;
+            case 6:
+                $Q31FinalValue = 1;
+                break;
         }
-
-        if ($this->answerArray['Q35']) {
-            $sum = $sum + (7 - $this->answerArray['Q35']);
-            $numOfAnswers++;
+        
+        switch($subset["Q35"]){
+            case 1:
+                $Q35FinalValue = 6;
+                break;
+            case 2:
+                $Q35FinalValue = 5;
+                break;
+            case 3:
+                $Q35FinalValue = 4;
+                break;
+            case 4:
+                $Q35FinalValue = 3;
+                break;
+            case 5:
+                $Q35FinalValue = 2;
+                break;
+            case 6:
+                $Q35FinalValue = 1;
+                break;
         }
-
-        if ($this->answerArray['Q37']) {
-            $sum = $sum + $this->answerArray['Q37'];
-            $numOfAnswers++;
-        }
-        if ($this->answerArray['Q31']) {
-            $sum = $sum + $this->answerArray['Q39'];
-            $numOfAnswers++;
-        }
-
-        if ($numOfAnswers > 0) {
-            $average = $sum / $numOfAnswers;
-            $score = (($score + ($average * (4 - $numOfAnswers)) - 4) / 20) * 100;
-        }
-
-
+        $rawScore = $Q31FinalValue + $Q35FinalValue + $subset["Q37"] + $subset["Q39"];
+        $score = (($rawScore - 4)/20)*100;
         return $score;
     }
 
     public function getSocialFunctioningScore() {
-        $sum = 0;
-        $numOfAnswers = 0;
-        $score = -50;
-
-        if ($this->answerArray['Q26']) {
-            $sum = $sum + (6 - $this->answerArray['Q26']);
-            $numOfAnswers++;
-        }
-        if ($this->answerArray['Q40']) {
-            $sum = $sum + ($this->answerArray['Q40']);
-            $numOfAnswers++;
-        }
-
-        if ($numOfAnswers > 0) {
-            $average = $sum / $numOfAnswers;
-            $score = (($score + ($average * (2 - $numOfAnswers)) - 2) / 8) * 100;
-        }
-
-        return $score;
+       $subset = $this->subsetOfArray($this->answerArray, array("Q26", "Q40"));
+       $Q26FinalValue = 0;
+       
+       switch($subset["Q26"]){
+           case 1:
+                $Q26FinalValue = 5;
+                break;
+            case 2:
+                $Q26FinalValue = 4;
+                break;
+            case 3:
+                $Q26FinalValue = 3;
+                break;
+            case 4:
+                $Q26FinalValue = 2;
+                break;
+            case 5:
+                $Q26FinalValue = 1;
+                break;
+       }
+       
+       $rawScore = $Q26FinalValue + $subset["Q40"];
+       $score = (($rawScore - 2)/8)*100;
+       return $score;
     }
 
     public function getRoleEmotionalScore() {
-        $sum = 0;
-        $numOfAnswers = 0;
-        $score = -50;
-
-        $subset = $this->subsetOfArray($this->answerArray, array("Q23", "Q24", "Q25"));
-
-        foreach ($subset as $val) {
-            if ($val) {
-                $sum += $val;
-                $numOfAnswers++;
-            }
-        }
-
-        if ($numOfAnswers > 0) {
-            $average = $sum / $numOfAnswers;
-            $score = (($score + ($average * (3 - $numOfAnswers)) - 3) / 3) * 100;
-        }
-
-        return $score;
+       $subset = $this->subsetOfArray($this->answerArray, array("Q23", "Q24", "Q25"));
+       $rawScore = 0;
+       
+       foreach ($subset as $val) {
+           $rawScore += $val;
+       }
+       
+       $score = (($rawScore - 3)/3)*100;
+       return $score;
     }
 
     public function getMentalHealthScore() {
-        $sum = 0;
-        $numOfAnswers = 0;
-        $score = -50;
 
-        $subset = $this->subsetOfArray($this->answerArray, array("Q32", "Q33", "Q34", "Q35"));
-
-        foreach ($subset as $key => $val) {
-            if ($val) {
-                if ($key == "Q34") {
-                    $score = $score + (7 - $val);
-                } else {
-                    $score += $val;
-                }
-                $numOfAnswers++;
-            }
+        $subset = $this->subsetOfArray($this->answerArray, array("Q32", "Q33", "Q34", "Q36", "Q38"));
+        $Q34FinalValue = 0;
+        $Q38FinalValue = 0;
+        
+        switch($subset["Q34"]){
+            case 1:
+                $Q34FinalValue = 6;
+                break;
+            case 2:
+                $Q34FinalValue = 5;
+                break;
+            case 3:
+                $Q34FinalValue = 4;
+                break;
+            case 4:
+                $Q34FinalValue = 3;
+                break;
+            case 5:
+                $Q34FinalValue = 2;
+                break;
+            case 6:
+                $Q34FinalValue = 1;
+                break;
         }
-
-        if ($this->answerArray['Q38']) {
-            $score = $score + (7 - $this->answerArray['Q38']);
-            $numOfAnswers++;
+        
+        switch($subset["Q38"]){
+            case 1:
+                $Q38FinalValue = 6;
+                break;
+            case 2:
+                $Q38FinalValue = 5;
+                break;
+            case 3:
+                $Q38FinalValue = 4;
+                break;
+            case 4:
+                $Q38FinalValue = 3;
+                break;
+            case 5:
+                $Q38FinalValue = 2;
+                break;
+            case 6:
+                $Q38FinalValue = 1;
+                break;
         }
-
-        if ($numOfAnswers > 0) {
-            $average = $sum / $numOfAnswers;
-            $score = (($sum + ($average * (5 - $average)) - 5) / 25) * 100;
-        }
-
+        
+        $rawScore = $subset["Q32"] + $subset["Q33"] + $subset["Q36"] + $Q34FinalValue + $Q38FinalValue;
+        $score = (($rawScore - 5)/25)*100;
         return $score;
+        
     }
 
 }
