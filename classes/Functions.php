@@ -254,20 +254,34 @@ class Functions {
                 return '<button type="button" id="' . $btnId . '" class="btn btn-info" onclick="loadIn(' . $userId . ',' . $btnId . ',\'' . $lastN . '\')">' . $text . '';
                 break;
             case 2://returns a button that will display a modal for viewing a patient's profile   
-                return '<a class="btn btn-info" onclick="displayModal(' . $userId . ',\'' . $btnId . '\')">' . $text . '</a>   
+                /*return '<a class="btn btn-info" onclick="displayModal(' . $userId . ',\'' . $btnId . '\')">' . $text . '</a>   
                 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">   
                 <div class="modal-header">   
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>   
                     <h3 id="myModalLabel">Profile</h3>   
                 </div>   
-                <div id="modalBody" class="modal-body">   
+                <div id="modalBody" class="modal-body"> 
                 </div>   
-                <div class="modal-footer"> 
+                <div class="modal-footer">
+					' . $userId . '
                     <button type="button" class="btn btn-primary" onclick="location.href=\'../doctor/editpatient.php?patid=' . $userId . '\';">Edit Patient</button> 
 					<button type="button" class="btn btn-info" onclick="location.href=\'../doctor/patscore.php?patid=' . $userId . '\';">Patient Scores</button> 
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>     
                   
-                </div>';
+                </div>';*/
+				return '
+				<a href="../doctor/pat_profile.php?patid=' . $userId . '" data-target="#myModal" role="button" class="btn btn-info" id=' . $btnId . ' data-toggle="modal">' . $text . '</a>
+				<div class="modal fade hide" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+						<h3 id="myModalLabel">Profile</h3>
+					</div>
+					 <div class="modal-body">
+					</div>
+					<div class="modal-footer">
+						<!--<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>-->	
+					</div>
+				</div>';
                 break;
         }
     }

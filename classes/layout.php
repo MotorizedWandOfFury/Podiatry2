@@ -27,7 +27,7 @@ class Layout
 		$function = new Functions();
 		$home = $function->getUserHome($session->getUserObject());
 		
-		if ($loggedInUser->getRole() == 'Admin')
+		if ($loggedInUser->getRole() == 3)
 		{
 			$dropdown = "
 						<li class='dropdown'>
@@ -42,7 +42,20 @@ class Layout
 								<li class='nav-header'>Patients</li>
 								<li><a href='" . $dir . "admin/view_patients.php'>View Patients</a></li>
 								<li><a href='" . $dir . "doctor/addnewpatient.php'>Add Patient</a></li>
-								<!--<li><a href='" . $dir . "doctor/pat_preop_score.php'>SF-36 Scores</a></li>-->
+							</ul>
+						</li>
+						";
+		}
+		else if ($loggedInUser->getRole() == 2)
+		{
+			$dropdown = "
+						<li class='dropdown'>
+							<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Doctor Actions<b class='caret'></b></a>
+							<ul class='dropdown-menu'>
+								<li><a href='" . $home . "'>Home</a></li>
+								<li class='divider'></li>
+								<li class='nav-header'>Patients</li>
+								<li><a href='" . $dir . "doctor/addnewpatient.php'>Add Patient</a></li>
 							</ul>
 						</li>
 						";
