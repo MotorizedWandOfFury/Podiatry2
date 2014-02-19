@@ -25,7 +25,6 @@ if (array_key_exists($var->getLoggedInUserType(), $_SESSION)) { //have the sessi
 			echo $layout->loadNavBar('Admin Main', '../');
 		?>
 		<link href="../bootstrap/css/mainForms.css" rel="stylesheet">
-		<?php echo $session->getUserObject()->getRole(); ?>
         <div class="container" id="mainDiv">
                 <table class='table table-striped table-bordered'>
                     <tr>
