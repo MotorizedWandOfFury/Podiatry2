@@ -9,11 +9,11 @@
         "Opt1": { "val" : 1, "name" : "None" },
         "Opt2": { "val" : 2, "name" : "Reduced performance" },
         "Opt3": { "val" : 3, "name" : "Limits duties" },
-        "Opt4": { "val" : 4, "name" : 0, "name" : "Changed jobs due to foot pain" }
+        "Opt4": { "val" : 4, "name" : "Changed jobs due to foot pain" }
     },
     "Q7": {
-        "Opt1": { "val" : 1, "name" : 0, "name" : "None" },
-        "Opt2": { "val" : 2, "name" : 0, "name" : "Restricted to sneakers/wide shoes" },
+        "Opt1": { "val" : 1, "name" : "None" },
+        "Opt2": { "val" : 2, "name" : "Restricted to sneakers/wide shoes" },
         "Opt3": { "val" : 3, "name" : "Very limited in shoes" },
         "Opt4": { "val" : 4, "name" : "Sandals/surgical shoe only" }
     },
