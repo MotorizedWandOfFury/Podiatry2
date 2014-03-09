@@ -40,6 +40,7 @@ if ($allPatients->getPatientArray() == 0)
 else
 {
     $i = 0;
+	$count = 0;
 	foreach ($allPatients->getPatientArray() as $admin_pat)
 	{
 		$patientEval = new PatientEvalsAssociation($admin_pat);
@@ -56,9 +57,10 @@ else
 					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
 					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
 					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doFormButtonDefault($admin_pat->getId(), $admin_pat->getLastName(), "Forms"). "</td>
-					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2). "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2, $count). "</td>
 				</tr>		
 			";
+			$count++;
 		}
 		else 
 		{
@@ -73,9 +75,10 @@ else
 					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getMedicalRecordNumber() . "</td>
 					<td class='" . $func->doRows($i) . "' style='width: 10%; text-align: center;'>" . $admin_pat->getDOBFormatted() . "</td>
 					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doFormButton($admin_pat->getId(), $admin_pat->getLastName(), "Forms", $eval->getExtremity()). "</td>
-					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2). "</td>
+					<td class='" . $func->doRows($i) . "' style='width: 5%; text-align: center;'>" .$func->doButton($admin_pat->getId(), $admin_pat->getLastName(), "patProfile", "Profile", 2, $count). "</td>
 				</tr>		
 			";
+			$count++;
 			}
 		}
 	}	
