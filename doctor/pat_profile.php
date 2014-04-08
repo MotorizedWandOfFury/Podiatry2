@@ -108,7 +108,7 @@ $doc = $database->read(Physician::createRetrievableDatabaseObject($docID));
             <td>User Name:</td>
             <td><?php echo $pat->getUserName(); ?></td>
     </tr>
-	<tr>
+	<!--<tr>
 		<td colspan="2">
 			<div align="right">
 				<button type="button" class="btn btn-primary" onclick="location.href='../doctor/editpatient.php?patid=<?php echo $patientID; ?>'">Edit Patient</button> 
@@ -116,5 +116,5 @@ $doc = $database->read(Physician::createRetrievableDatabaseObject($docID));
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			</div>
 		</td>
-	</tr>
+	</tr>-->
 </table>

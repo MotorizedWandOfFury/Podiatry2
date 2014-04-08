@@ -187,15 +187,14 @@ if (isset($_POST['SUBMIT'])) {
                         <td><?php echo $patientQuestions['email']; ?></td> 
                         <td><input class='text' type='text' name='EMAIL' placeholder='Email' value='<?php echo array_key_exists("EMAIL", $_POST) ? $_POST['EMAIL'] : ""; ?>' id='EMAIL'/></td> 
                     </tr> 
-                    <tr style='text-align: center; font-weight: bold;'> 
-                        <td colspan='2'>Health</td> 
-                    </tr> 
 
                     <?php
                     if ($session->getUserType() === Admin::tableName) {
                         $allDoctors = new AllDoctorsAssociation();
                         $database->createAssociationObject($allDoctors);
-
+						echo "<tr style='text-align: center; font-weight: bold;'> 
+								<td colspan='2'>Health</td> 
+							</tr>"; 
                         echo "<tr>";
                         echo "<td>", $patientQuestions['doc'], "</td>";
                         echo "<td>";
