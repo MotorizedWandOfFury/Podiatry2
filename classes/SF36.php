@@ -311,11 +311,7 @@ use TimeComparison;
                     }
                     break;
                 case 5:
-                    if ($Q27FinalValue > 0) { //if Q27 has been answered
-                        $Q28FinalValue = 1;
-                    } else {
-                        $Q28FinalValue = 1;
-                    }
+                    $Q28FinalValue = 1;
                     break;
             }
         } else {

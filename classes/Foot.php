@@ -187,6 +187,121 @@ use CustomArrayOperations {
             $this->answerArray[$this->cleanString($index)] = $this->cleanInt($answer);
         }
     }
+    
+    public function getFootPainIndex(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q4", "Q6", "Q7", "Q8"));
+        $rawScore = 0;
+        $RANGE = 16;
+        foreach ($subset as $val) { //flip scores, so answers with 1 (which is the most positive answer) become 5. It makes calculating the score easier.
+            switch($val){
+                case 1:
+                    $rawScore += 5;
+                    break;
+                case 2:
+                    $rawScore += 4;
+                    break;
+                case 3:
+                    $rawScore += 3;
+                    break;
+                case 4:
+                    $rawScore += 2;
+                    break;
+                case 5:
+                    $rawScore += 1;
+                    break;
+            }
+        }
+        
+        $score = (($rawScore - 4)  / $RANGE) * 100;
+        return $score;
+    }
+    
+    public function getFootFunctionIndex(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q10", "Q11", "Q13", "Q14"));
+        $rawScore = 0;
+        $RANGE = 16;
+        
+        foreach ($subset as $val) { //flip scores, so answers with 1 (which is the most positive answer) become 5. It makes calculating the score easier.
+            switch($val){
+                case 1:
+                    $rawScore += 5;
+                    break;
+                case 2:
+                    $rawScore += 4;
+                    break;
+                case 3:
+                    $rawScore += 3;
+                    break;
+                case 4:
+                    $rawScore += 2;
+                    break;
+                case 5:
+                    $rawScore += 1;
+                    break;
+            }
+        }
+        
+        $score = (($rawScore - 4)  / $RANGE) * 100;
+        return $score;
+    }
+    
+    public function getGeneralFootHealthScore(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q15", "Q20"));
+        $rawScore = 0;
+        $RANGE = 8;
+        
+        foreach ($subset as $val) { //flip scores, so answers with 1 (which is the most positive answer) become 5. It makes calculating the score easier.
+            switch($val){
+                case 1:
+                    $rawScore += 5;
+                    break;
+                case 2:
+                    $rawScore += 4;
+                    break;
+                case 3:
+                    $rawScore += 3;
+                    break;
+                case 4:
+                    $rawScore += 2;
+                    break;
+                case 5:
+                    $rawScore += 1;
+                    break;
+            }
+        }
+        
+        $score = (($rawScore - 2)  / $RANGE) * 100;
+        return $score;
+    }
+    
+    public function getFootwearScore(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q17", "Q18", "Q19"));
+        $rawScore = 0;
+        $RANGE = 12;
+        
+        foreach ($subset as $val) { //flip scores, so answers with 1 (which is the most positive answer) become 5. It makes calculating the score easier.
+            switch($val){
+                case 1:
+                    $rawScore += 5;
+                    break;
+                case 2:
+                    $rawScore += 4;
+                    break;
+                case 3:
+                    $rawScore += 3;
+                    break;
+                case 4:
+                    $rawScore += 2;
+                    break;
+                case 5:
+                    $rawScore += 1;
+                    break;
+            }
+        }
+        
+        $score = (($rawScore - 3)  / $RANGE) * 100;
+        return $score;
+    }
 }
 
 ?>

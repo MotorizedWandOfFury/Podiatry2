@@ -1,370 +1,120 @@
+<!DOCTYPE html>
+<html>
 <?php
+require_once '\PodiatryAutoloader.php';
+spl_autoload_register(array('PodiatryAutoloader', 'autoLoad'));
 
-// Session
-session_start();
-// Database interaction.
-require "db.php";
-// Database functions.
-require "classes/database.php";
-$database = new Database();
-// Clean class
-require "classes/clean.php";
-$clean = new Clean();
-// Global variables
-require "variables.php";
-// Time class
-require "classes/time.php";
-$time = new Time();
-// HTML, CSS class.
-require "classes/layout.php";
-$layout = new Layout();
-// Error control
-require "classes/error.php";
-$error = new Error();
-// Need patient class.
-require "classes/patient.php";
-$patient = new Patient(@$_SESSION[$sID]);
-// Need doctor class.
-require "classes/doctor.php";
-$doctor = new Doctor(@$_SESSION[$sDID]);
-// Need admin class.
-require "classes/admin.php";
-$admin = new Admin(@$_SESSION[$sAID]);
-// Inputs
-require "classes/input.php";
-$in = new Input();
-// Need the score class.
-require "classes/score.php";
+$sf36 = new SF36(1, 10, 31, 1980);
 
-// Let's first check to see if the patient is logged in.
-if ($patient->isLogged() == FALSE)
-    $error->doGo("index.php", "Patients only.");
+$sf36->setAnswer("Q7", 1);
+$sf36->setAnswer("Q8", 1);
+$sf36->setAnswer("Q9", 1);
+$sf36->setAnswer("Q10", 1);
+$sf36->setAnswer("Q11", 1);
+$sf36->setAnswer("Q12", 1);
+$sf36->setAnswer("Q13", 1);
+$sf36->setAnswer("Q14", 1);
+$sf36->setAnswer("Q15", 1);
+$sf36->setAnswer("Q16", 1);
 
-// Check to see if the patient has filled the survey.
-$checkans = "SELECT dateof FROM ans_sf36 WHERE pat_id IN ('" . $patient->GetId() . "') LIMIT 1";
+echo "<p>","Physical Functioning Score (all 1s): ",$sf36->getPhysicalFunctioningScore(),"<p>";
 
-$test = $time->timeInterval($checkans, $patient);
-if ($test == 0) {
-    $error->doMSG("fill in the survey in the rigth time!!!");
-} else {
+$sf36->setAnswer("Q7", 3);
+$sf36->setAnswer("Q8", 3);
+$sf36->setAnswer("Q9", 3);
+$sf36->setAnswer("Q10", 3);
+$sf36->setAnswer("Q11", 3);
+$sf36->setAnswer("Q12", 3);
+$sf36->setAnswer("Q13", 3);
+$sf36->setAnswer("Q14", 3);
+$sf36->setAnswer("Q15", 3);
+$sf36->setAnswer("Q16", 3);
 
-// Otherwise, create a query for the questions
-    $questions = mysql_query("SELECT * FROM ques_sf36");
-// Question number to start from.
-    $s = 4;
-// Last question number.
-    $e = 45;
+echo "<p>","Physical Functioning Score (all 3s): ",$sf36->getPhysicalFunctioningScore(),"<p>";
 
-    if (isset($_POST['SUBMIT']) == FALSE) {
-        // Load the HTML, CSS.
-        echo $layout->loadCSS("PRE-OPERATIVE SF-36", "");
-        // Header
-        echo $layout->doHead($layout->doText("PRE-OPERATIVE", "grey"), $layout->doText("SF-36", "grey"));
+$sf36->setAnswer("Q18", 1);
+$sf36->setAnswer("Q19", 1);
+$sf36->setAnswer("Q20", 1);
+$sf36->setAnswer("Q21", 1);
 
-        echo "
-            <form action='" . $SCRIPT_NAME . "' method='post'>
-                <div class='container'>
-                    <div class='greybox'>
-                                    <table>
-                                            <tr>
-                                                    <td>1) Patient: " . $in->readonly("text", "", $patient->GetFullName()) . "</td>
-                                                    <td>2) Date: " . $in->readonly("text", "", $time->doDate(time())) . "</td>
-                                                    <td colspan='3'>3) Extremity: " . $patient->GetExtremity() . "</td>
-                                            </tr>
-	";
+echo "<p>","Role Physical Score (all 1s): ",$sf36->getRolePhysicalScore(),"</p>";
 
-        for ($i = $s; $question = mysql_fetch_array($questions); $i++) {
-            $values = mysql_query("SELECT * FROM vals_sf36 WHERE ques_num = '" . $question['num'] . "'");
+$sf36->setAnswer("Q18", 2);
+$sf36->setAnswer("Q19", 2);
+$sf36->setAnswer("Q20", 2);
+$sf36->setAnswer("Q21", 2);
 
-            switch ($i) {
-                case 4:
-                case 5:
-                    echo "
-                        <tr>
-                            <td>" . $question['num'] . ") " . $question['question'] . ":</td>
-                    ";
+echo "<p>","Role Physical Score (all 2s): ",$sf36->getRolePhysicalScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                                <td>" . $in->radio($question['num'], $value['id']) . " " . $value['val'] . "</td>
-                            ";
-                    }
+$sf36->setAnswer("Q27", 1);
+$sf36->setAnswer("Q28", 1);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 6:
-                    echo "
-                                </table>
-                            </div>
-                        </div>
-                        <div class='container'>
-                            <div class='whitebox'>
-                                <table>
-                                    <tr>
-                                            <td colspan='3'>6) THE FOLLOWING QUESTIONS ARE ABOUT ACTIVITIES YOU MIGHT DO DURING A TYPICAL DAY. DOES YOUR HEALTH <u>NOW</u> LIMIT YOU IN THESE ACTIVITIES? IF SO, HOW MUCH?</td>
-                                    </tr>
-                                    <tr style='text-align: center;'>
-                                            <td>&nbsp;</td>
-                                            <td>Yes, Limited a lot</td>
-                                            <td>Yes, Limited a little</td>
-                                            <td>No, not limited at all</td>
-                                    </tr>
-                    ";
-                case 7:
-                case 8:
-                case 9:
-                case 10:
-                case 11:
-                case 12:
-                case 13:
-                case 14:
-                case 15:
-                    echo "
-                        <tr>
-                            <td>" . $question['num'] . ") " . $question['question'] . ":</td>
-                    ";
+echo "<p>","Bodily Pain Score (all 1s): ",$sf36->getBodilyPainScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                                <td style='text-align: center;'>" . $in->radio($question['num'], $value['id']) . "</td>
-                            ";
-                    }
+$sf36->setAnswer("Q27", 6);
+$sf36->setAnswer("Q28", 5);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 16:
-                    echo "
-                                </table>
-                            </div>
-                        </div>
-                        <div class='container'>
-                            <div class='greybox'>
-                                <table>
-                                    <tr>
-                                        <td colspan='3'>17) DURING THE PAST 4 WEEKS, HAVE YOU HAD ANY OF THE FOLLOWING PROBLEMS WITH YOUR WORK OR OTHER REGULAR DAILY ACTIVITIES AS A RESULT OF YOUR PHYSICAL HEALTH?</td>
-                                    </tr>
-                                    <tr style='text-align: center;'>
-                                        <td>&nbsp;</td>
-                                        <td>Yes</td>
-                                        <td>No</td>
-                                    </tr>
-                    ";
-                case 17:
-                case 18:
-                case 19:
-                    echo "
-                        <tr>
-                            <td>" . $question['num'] . ") " . $question['question'] . ":</td>
-                    ";
+echo "<p>","Bodily Pain Score (all 6s and 5s): ",$sf36->getBodilyPainScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                                <td style='text-align: center;'>" . $in->radio($question['num'], $value['id']) . "</td>
-                            ";
-                    }
+$sf36->setAnswer("Q4", 5);
+$sf36->setAnswer("Q42", 1);
+$sf36->setAnswer("Q43", 5);
+$sf36->setAnswer("Q44", 1);
+$sf36->setAnswer("Q45", 5);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 20:
-                    echo "
-                                </table>
-                            </div>
-                        </div>
-                        <div class='container'>
-                            <div class='whitebox'>
-                                <table>
-                                    <tr>
-                                            <td colspan='3'>22) DURING THE PAST 4 WEEKS, HAVE YOU HAD ANY OF THE FOLLOWING PROBLEMS WITH YOUR WORK OR OTHER REGULAR DAILY ACTIVITIES AS A RESULT OF ANY EMOTIONAL PROBLEMS (SUCH AS FEELING DEPRESSED OR ANXIOUS)?</td>
-                                    </tr>
-                                    <tr style='text-align: center;'>
-                                        <td>&nbsp;</td>
-                                        <td>Yes</td>
-                                        <td>No</td>
-                                    </tr>
-                    ";
-                case 21:
-                case 22:
-                    echo "
-                        <tr>
-                            <td>" . $question['num'] . ") " . $question['question'] . ":</td>
-                    ";
+echo "<p>","General Health Score (all negative): ",$sf36->getGeneralHealthScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                                <td style='text-align: center;'>" . $in->radio($question['num'], $value['id']) . "</td>
-                            ";
-                    }
+$sf36->setAnswer("Q4", 1);
+$sf36->setAnswer("Q42", 5);
+$sf36->setAnswer("Q43", 1);
+$sf36->setAnswer("Q44", 5);
+$sf36->setAnswer("Q45", 1);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 23:
-                    echo "
-                            </table>
-                        </div>
-                    </div>
-                    <div class='container'>
-                        <div class='greybox'>
-                            <table>                
-                ";
-                case 24:
-                case 25:
-                    echo "
-                        <tr>
-                            <td colspan='6'>" . $question['num'] . ") " . $question['question'] . ":</td>
-                        </tr>
-                        <tr>
-                    ";
+echo "<p>","General Health Score (all positive): ",$sf36->getGeneralHealthScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                            <td>" . $in->radio($question['num'], $value['id']) . " " . $value['val'] . "</td>
-                        ";
-                    }
+$sf36->setAnswer("Q31", 6);
+$sf36->setAnswer("Q35", 6);
+$sf36->setAnswer("Q37", 1);
+$sf36->setAnswer("Q39", 1);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 26:
-                    echo "
-                            </table>
-                        </div>
-                    </div>
-                    <div class='container'>
-                        <div class='whitebox'>
-                            <table>
-                                <tr>
-                                    <td colspan='6'>29) THESE QUESTIONS ARE ABOUT HOW YOU FEEL AND HOW THINGS HAVE BEEN WITH YOU DURING THE <u>PAST 4 WEEKS</u>. FOR EACH QUESTION, PLEASE GIVE THE ONE ANSWER THAT COMES CLOSEST TO THE WAY YOU HAVE BEEN FEELING.</td>
-                                </tr>
-                                <tr>
-                                    <td colspan='6'>30) HOW MUCH OF THE TIME DURING THE <u>PAST 4 WEEKS</u>...</td>
-                                </tr>
-                                <tr style='text-align: center;'>
-                                        <td>&nbsp;</td>
-                                        <td>All of the time</td>
-                                        <td>Most of the time</td>
-                                        <td>A good bit of the time</td>
-                                        <td>Some of the time</td>
-                                        <td>A little of the time</td>
-                                        <td>None of the time</td>
-                                </tr>
-                ";
-                case 27:
-                case 28:
-                case 29:
-                case 30:
-                case 31:
-                case 32:
-                case 33:
-                case 34:
-                    echo "
-                        <tr>
-                            <td>" . $question['num'] . ") " . $question['question'] . ":</td>
-                    ";
+echo "<p>","Vitality (all negative): ",$sf36->getVitalityScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                                <td style='text-align: center;'>" . $in->radio($question['num'], $value['id']) . "</td>
-                            ";
-                    }
+$sf36->setAnswer("Q31", 1);
+$sf36->setAnswer("Q35", 1);
+$sf36->setAnswer("Q37", 6);
+$sf36->setAnswer("Q39", 6);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 35:
-                    echo "
-                                </table>
-                            </div>
-                        </div>
-                        <div class='container'>
-                            <div class='greybox'>
-                                <table>
-                                    <tr>
-                                        <td colspan='5'>" . $question['num'] . ") " . $question['question'] . ":</td>
-                                    </tr>
-                                    <tr style='text-align: center;'>
-                                        <td>&nbsp;</td>
-                                        <td>All of the time</td>
-                                        <td>Most of the time</td>
-                                        <td>Some of the time</td>
-                                        <td>A little of the time</td>
-                                        <td>None of the time</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&nbsp;</td>
-                    ";
+echo "<p>","Vitality (all positive): ",$sf36->getVitalityScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                            <td style='text-align: center;'>" . $in->radio($question['num'], $value['id']) . "</td>
-                        ";
-                    }
+$sf36->setAnswer("Q23", 1);
+$sf36->setAnswer("Q24", 1);
+$sf36->setAnswer("Q25", 1);
 
-                    echo "</tr>";
-                    break;
-                //-------------------------------------------
-                case 36:
-                    echo "
-                        <tr>
-                            <td colspan='5'>41) HOW TRUE OR FALSE IS <u>EACH</u> OF THE FOLLOWING STATEMENTS FOR YOU?</td>
-                        </tr>
-                        <tr style='text-align: center;'>
-                            <td>&nbsp;</td>
-                            <td>Definately true</td>
-                            <td>Mostly true</td>
-                            <td>Don't know</td>
-                            <td>Mostly false</td>
-                            <td>Definately false</td>
-                        </tr>
-                    ";
-                case 37:
-                case 38:
-                case 39:
-                    echo "
-                        <tr>
-                            <td>" . $question['num'] . ") " . $question['question'] . ":</td>
-                    ";
+echo "<p>","Role Emotional (all 1s): ",$sf36->getRoleEmotionalScore(),"</p>";
 
-                    for ($j = 1; $value = mysql_fetch_array($values); $j++) {
-                        echo "
-                            <td style='text-align: center;'>" . $in->radio($question['num'], $value['id']) . "</td>
-                        ";
-                    }
+$sf36->setAnswer("Q23", 2);
+$sf36->setAnswer("Q24", 2);
+$sf36->setAnswer("Q25", 2);
 
-                    echo "</tr>";
-                    break;
-            }
-        }
+echo "<p>","Role Emotional (all 2s): ",$sf36->getRoleEmotionalScore(),"</p>";
 
-        echo "
-                        </table>
-                    </div>
-                </div>
-                <div class='container'>
-                    <div><input type='submit' name='SUBMIT' value='Finish Questionaire' /></div>
-                </div>
-            </form>
-	";
 
-        echo $layout->doFoot();
-    } else if (isset($_POST['SUBMIT']) == TRUE) {
-        // Date of when you submitted the answers.
-        $dateof = time();
-        // Add answers to database.
-        for ($i = $s; $i <= $e; $i++) {
-            if (!empty($_POST[$i])) {
-                if ($i != 6 && $i != 17 && $i != 22 && $i != 29 && $i != 30 && $i != 41) {
-                    $database->doQuery("INSERT INTO ans_sf36 (dateof, answer, ques_num, pat_id) VALUES ('" . $dateof . "', '" . $_POST[$i] . "', '" . $i . "', '" . $patient->GetId() . "')");
-                }
-            }
-        }
+$sf36->setAnswer("Q32", 6);
+$sf36->setAnswer("Q33", 6);
+$sf36->setAnswer("Q34", 1);
+$sf36->setAnswer("Q36", 6);
+$sf36->setAnswer("Q38", 1);
 
-        $patient->InsertScores($dateof);
-        // Redirect
-        $error->doGo("main.php", "Success!");
-    }
-}
+echo "<p>","Mental Health Score (all positive): ",$sf36->getMentalHealthScore(),"</p>";
+
+$sf36->setAnswer("Q32", 1);
+$sf36->setAnswer("Q33", 1);
+$sf36->setAnswer("Q34", 6);
+$sf36->setAnswer("Q36", 1);
+$sf36->setAnswer("Q38", 6);
+
+echo "<p>","Mental Health Score (all negative): ",$sf36->getMentalHealthScore(),"</p>";
+
 ?>
+
+</html>

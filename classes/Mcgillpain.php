@@ -197,6 +197,66 @@ use CustomArrayOperations {
             $this->answerArray[$this->cleanString($index)] = $this->cleanInt($answer);
         }
     }
+    
+    public function getPainSensoryDimensionScore(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q13","Q14", "Q15", "Q16", "Q17", "Q18", "Q19", "Q20", "Q21", "Q22", "Q23"));
+        $sum = 0;
+        
+        foreach ($subset as $val){
+            $valModified = $val - 1; 
+            if($valModified >= 0){ //valid range is 0-3
+            $sum += $valModified;
+            }
+        }
+       return $sum;
+    }
+    
+    public function getPainAffectiveDimensionScore(){
+        $subset = $this->subsetOfArray($this->answerArray, array("Q24", "Q25", "Q26", "Q12"));
+        
+         $sum = 0;
+        
+        foreach ($subset as $val){
+            $valModified = $val - 1; 
+            if($valModified >= 0){ //valid range is 0-3
+            $sum += $valModified;
+            }
+        }
+       return $sum;
+    }
+    
+    public function getHalluxScore(){
+       $rawScore = 0;
+        $Q10FinalValue = 0;
+       
+       if(array_key_exists("Q10", $this->answerArray)){
+           switch($this->answerArray["Q10"]){
+               case 1:
+                   $Q10FinalValue = 40;
+                   $rawScore += 40;
+                   break;
+               case 2:
+                   $Q10FinalValue = 30;
+                   $rawScore += 30;
+                   break;
+               case 3:
+                   $Q10FinalValue = 20;
+                   $rawScore += 20;
+                   break;
+               case 4:
+                   $Q10FinalValue = 0;
+                   $rawScore += 0;
+                   break;
+           }
+       }
+       
+       $subset = $this->subsetOfArray($this->answerArray, array("Q5", "Q7"));
+       
+       
+       
+      // $subset = $this->subsetOfArray($this->answerArray, array("Q5", "Q6", "Q7", "Q8", "Q9", "Q11", "Q12"));
+       
+    }
 }
 
 ?>
