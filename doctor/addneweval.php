@@ -27,70 +27,60 @@ $currTime = getdate();
 $errors = "";
 
 $noInvalidFields = true;
-$noMissingFields = true;
 if (isset($_POST['SUBMIT'])) {
 
     if (empty($_POST['EXTREMITY']) || (array_key_exists("DOCTOR", $_POST) && empty($_POST['DOCTOR']))) {
-        echo "Extremity and Doctor is required";
-        $noMissingFields = false;
+        echo "Extremity and Doctor are required";
+        $noInvalidFields = false;
     }
 
-    if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
-        $dateCheck = checkdate($_POST['M'], $_POST['D'], $_POST['Y']);
-        if (!$dateCheck) { //if check fails
-            $noInvalidFields = false;
-            echo "<p>Date is invalid</p>";
-        }
+    if (!Functions::isValidDate($_POST['M'], $_POST['D'], $_POST['Y'])) {
+        $noInvalidFields = false;
+        echo "<p>Date is invalid</p>";
     }
 
-    if (!empty($_POST['HEIGHT'])) {
-        $heightOptions = array(
-            'options' => array(
-                'min_range' => 20,
-                'max_range' => 90,
-            )
-        );
-        if (filter_var($_POST['HEIGHT'], FILTER_VALIDATE_INT, $heightOptions) == false) {
-            $errors = $errors . "<p>Height is not valid</p>";
-            $noInvalidFields = false;
-        }
+    $heightOptions = array(
+        'options' => array(
+            'min_range' => 20,
+            'max_range' => 90,
+        )
+    );
+    if (!filter_var($_POST['HEIGHT'], FILTER_VALIDATE_INT, $heightOptions)) {
+        $errors = $errors . "<p>Height is not valid</p>";
+        $noInvalidFields = false;
     }
 
-    if (!empty($_POST['WEIGHT'])) {
-        $weightOptions = array(
-            'options' => array(
-                'min_range' => 30,
-                'max_range' => 800,
-            )
-        );
-        if (filter_var($_POST['WEIGHT'], FILTER_VALIDATE_INT, $weightOptions) == false) {
-            $errors = $errors . "<p>Weight is not valid</p>";
-            $noInvalidFields = false;
-        }
+
+    $weightOptions = array(
+        'options' => array(
+            'min_range' => 30,
+            'max_range' => 800,
+        )
+    );
+    if (!filter_var($_POST['WEIGHT'], FILTER_VALIDATE_INT, $weightOptions)) {
+        $errors = $errors . "<p>Weight is not valid</p>";
+        $noInvalidFields = false;
     }
 
-    if (!empty($_POST['Q15'])) {
-        if (filter_var($_POST['Q15'], FILTER_VALIDATE_INT) == false) {
-            $errors = $errors . "<p>Question 15 needs to be an integer</p>";
-            $noInvalidFields = false;
-        }
+    if (filter_var($_POST['Q15'], FILTER_VALIDATE_INT) == false) {
+        $errors = $errors . "<p>Question 15 needs to be an integer</p>";
+        $noInvalidFields = false;
     }
 
-    if (!empty($_POST['Q19'])) {
-        if (filter_var($_POST['Q19'], FILTER_VALIDATE_INT) == false) {
-            $errors = $errors . "<p>Question 19 needs to be an integer</p>";
-            $noInvalidFields = false;
-        }
+
+    if (filter_var($_POST['Q19'], FILTER_VALIDATE_INT) == false) {
+        $errors = $errors . "<p>Question 19 needs to be an integer</p>";
+        $noInvalidFields = false;
     }
 
-    if (!empty($_POST['Q20'])) {
-        if (filter_var($_POST['Q20'], FILTER_VALIDATE_INT) == false) {
-            $errors = $errors . "<p>Question 20 needs to be an integer</p>";
-            $noInvalidFields = false;
-        }
+
+    if (filter_var($_POST['Q20'], FILTER_VALIDATE_INT) == false) {
+        $errors = $errors . "<p>Question 20 needs to be an integer</p>";
+        $noInvalidFields = false;
     }
 
-    if ($noInvalidFields && $noMissingFields) {
+
+    if ($noInvalidFields) {
         $eval = new Evals($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
         if (!empty($_POST['M']) && !empty($_POST['D']) && !empty($_POST['Y'])) {
             $eval->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);

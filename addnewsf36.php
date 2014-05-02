@@ -42,15 +42,9 @@ $noInvalidFields = true;
 
 if (isset($_POST['SUBMIT'])) {
 
-    if (isset($_POST['M'], $_POST['D'], $_POST['Y'])) {
-      $dateCheck =  checkdate($_POST['M'], $_POST['D'], $_POST['Y']);
-      if(!$dateCheck){ //if check fails
-          $noInvalidFields = false;
-          echo "<p>Date is invalid</p>";
-      }
-    } else {
-        echo "<p>Date is missing</p>";
-        $noMissingFields = false;
+    if (!Functions::isValidDate($_POST['M'], $_POST['D'], $_POST['Y'])) {
+        $noInvalidFields = false;
+        echo "<p>Date is not valid</p>";
     }
     
     foreach (SF36::getQuestionArray() as $question) {
@@ -60,7 +54,7 @@ if (isset($_POST['SUBMIT'])) {
         }
     }
 
-    if (($session->getUserType() === Patient::tableName) && !$noMissingFields) {
+    if (($session->getUserType() === Patient::tableName) && $noMissingFields == false) {
         echo "<p>You are required to answer every question.</p>";
         $noMissingFields = false;
     }
@@ -80,16 +74,11 @@ if (isset($_POST['SUBMIT'])) {
         $sf36->setExtremity($extremity);
 
         foreach ($_POST as $key => $value) {
-            if (($key === 'M') || ($key === 'D') || ($key === 'Y') || ($key === 'SUBMIT')) {
-                
-            } //do nothing
-            else {
+            if (!($key === 'M') && !($key === 'D') && !($key === 'Y') && !($key === 'SUBMIT')) {
                 $sf36->setAnswer($key, $value);  //get the answers
             }
         }
         
-        
-
         //echo $sf36->generateCreateQuery();
         //var_dump($sf36);
         $database->create($sf36);

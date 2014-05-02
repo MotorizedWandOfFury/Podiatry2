@@ -20,97 +20,53 @@ $nav = new Navigator();
 
 $database = new Database();
 $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
-$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options'=>array('min_range' => 1, 'max_range'=>5))) or die("Type value is invalid");
+$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 5))) or die("Type value is invalid");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($patient->getDoctor()));
-$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1), 'max_range' => 2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
 
 $currTime = getdate();
 
 $noInvalidFields = true;
 if (isset($_POST['SUBMIT'])) {
-    foreach ($_POST as $key => $value) {
-        if ($value) {
-            switch ($key) {
-                case 'M':
-                    $monthOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 12,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $monthOptions) === false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'D':
-                    $dayOptions = array(
-                        'options' => array(
-                            'min_range' => 1,
-                            'max_range' => 31,
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $dayOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'Y':
-                    $yearOptions = array(
-                        'options' => array(
-                            'min_range' => 1900,
-                            'max_range' => getdate()['year'],
-                        )
-                    );
-                    if (filter_var($value, FILTER_VALIDATE_INT, $yearOptions) == false) {
-                        echo "<p>$key is not valid</p>";
-                        $noInvalidFields = false;
-                    }
-                    break;
-                case 'painmedused':
-                    if (filter_var($_POST['painmedused'], FILTER_VALIDATE_INT) === false) {
-                        $noInvalidFields = false;
-                        echo "<p>$key is not valid</p>";
-                    }
-                    break;
-                case 'dosepainmedused':
-                    if (filter_var($_POST['dosepainmedused'], FILTER_VALIDATE_INT) === false) {
-                        $noInvalidFields = false;
-                        echo "<p>$key is not valid</p>";
-                    }
-                    break;
+
+    if (!Functions::isValidDate($_POST['M'], $_POST['D'], $_POST['Y'])) {
+        $noInvalidFields = false;
+        echo "<p>Exam date is not valid</p>";
+    }
+
+    if (!filter_var($_POST['painmedused'], FILTER_VALIDATE_INT)) {
+        $noInvalidFields = false;
+        echo "<p>Pain Med Days is not valid</p>";
+    }
+
+    if (!filter_var($_POST['dosepainmedused'], FILTER_VALIDATE_INT)) {
+        $noInvalidFields = false;
+        echo "<p>Pain Med Doses is not valid</p>";
+    }
+
+    if ($noInvalidFields) {
+        $post = new Post($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
+        $post->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);
+        $post->setSurId($patient->getDoctor());
+        $post->setPainMedUsed($_POST['painmedused']);
+        $post->setDosePainMedUsed($_POST['dosepainmedused']);
+        $post->setType($type);
+        $post->setExtremity($extremity);
+
+        foreach ($_POST as $key => $value) {
+            if ($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y' || $key === 'painmedused' || $key === 'dosepainmedused') {   //filtering out unwanted keys
+            } else {
+                $post->setAnswer($key, $value);
             }
         }
-        else {
-            echo "<p>" . $key . " is empty" . "</p>";
-        }
+        //echo $post->generateCreateQuery();
+        //var_dump($post);
+        $database->create($post);
+        $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
     }
-    
-   if($noInvalidFields){
-       $post = new Post($patientID, $currTime['mon'], $currTime['mday'], $currTime['year']);
-       $post->setDateOfExam($_POST['M'], $_POST['D'], $_POST['Y']);
-       $post->setSurId($patient->getDoctor());
-       $post->setPainMedUsed($_POST['painmedused']);
-       $post->setDosePainMedUsed($_POST['dosepainmedused']);
-       $post->setType($type);
-       $post->setExtremity($extremity);
-       
-       foreach ($_POST as $key => $value){
-           if($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y' || $key === 'painmedused' || $key === 'dosepainmedused'){   //filtering out unwanted keys
-           } else {
-               $post->setAnswer($key, $value);
-           }
-       }
-       //echo $post->generateCreateQuery();
-       //var_dump($post);
-       
-       $database->create($post);
-       $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Evaluation successfully submitted");
-   } 
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,7 +76,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "POST-OPERATIVE Evaluation", $extremity)?>
+        <?php echo Functions::formTitle($type, "POST-OPERATIVE Evaluation", $extremity) ?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&type=$type"; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>

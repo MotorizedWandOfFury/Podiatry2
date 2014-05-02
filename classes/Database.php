@@ -53,7 +53,6 @@ class Database {
         } else {
            return $this->runQuery($dbObj->generateCreateQuery());
            
-           
         }
     }
 

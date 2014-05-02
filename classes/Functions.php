@@ -344,5 +344,18 @@ class Functions {
         }
     }
     
+    public static function isValidDate($month, $day, $year){
+        if(empty($month) || empty($day) || empty($year)){
+            return false;
+        }
+        if(!filter_var($month, FILTER_VALIDATE_INT) 
+                || !filter_var($day, FILTER_VALIDATE_INT) 
+                || !filter_var($year, FILTER_VALIDATE_INT)){
+            return false;
+        }
+        
+        return checkdate($month, $day, $year);
+    }
+    
 
 }
