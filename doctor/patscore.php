@@ -17,6 +17,10 @@ $pat = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $docID = $pat->getDoctor();
 $patientsf36 = new PatientSF36Association($pat);
 $database->createAssociationObject($patientsf36);
+$patientfoot = new PatientFootAssociation($pat);
+$database->createAssociationObject($patientfoot);
+$patientmcgill = new PatientMcgillpainAssociation($pat);
+$database->createAssociationObject($patientmcgill);
 $counter = 0;
 $foot = $_GET['extremity'] or 0;
 //$sf36 = $patientsf36->getSF36Array();
@@ -32,7 +36,7 @@ $foot = $_GET['extremity'] or 0;
 	echo $layout->loadNavBar('Form Selection Menu', '../');
 ?>
 <link href="../bootstrap/css/mainForms.css" rel="stylesheet">
-<div align="center">
+<div class="container" align="center">
 	<h4>Patient: <?php echo $pat->getFirstName() . " " . $pat->getLastName()  ?></h4>
 	<?php 
 		foreach ($patientsf36->getSF36Array() as $sf36)
@@ -209,33 +213,141 @@ $foot = $_GET['extremity'] or 0;
 			}
 			?>
     </tr>
-    <tr><th style='text-align: center;' colspan='9'>FHSQ</th></td>
+    <tr><th style='text-align: center;' colspan='9'>FHSQ</th></tr>
 	<tr>
-            <td>Medical Record Number:</td>
-            <td><?php ?></td>
+            <td>Foot Pain Index:</td>
+            <?php
+			$counter = 0; //reset back to 0
+			foreach ($patientfoot->getFootArray() as $ft)
+			{
+				if ($ft->getExtremity() == $foot)
+				{
+					echo "<td>". $ft->getFootPainIndex() ."</td>";
+					$counter++;
+				}
+			}
+			if ($counter < 5)
+			{
+				$counter = 4 - $counter;
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
 	</tr>
     <tr>
-            <td>Extremity:</td>
-            <td><?php
-				
-				
-				?></td>
-    </tr>
-    <tr>
-            <td>Doctor:</td>
-            <td><?php ?></td>
+            <td>Foot Function Index:</td>
+            <?php
+			foreach ($patientfoot->getFootArray() as $ft)
+			{
+				if ($ft->getExtremity() == $foot)
+				{
+					echo "<td>". $ft->getFootFunctionIndex() ."</td>";
+				}
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
 	</tr>
-    <tr><th style='text-align: center;' colspan='9'>McGill Pain Scores</th></tr>
     <tr>
-            <td>ID:</td>
-            <td><?php ?></td>
-    </tr>
-    <tr>
-            <td>User Name:</td>
-            <td><?php ?></td>
-    </tr>
+            <td>General Foot Health Score:</td>
+            <?php
+			foreach ($patientfoot->getFootArray() as $ft)
+			{
+				if ($ft->getExtremity() == $foot)
+				{
+					echo "<td>". $ft->getGeneralFootHealthScore() ."</td>";
+				}
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
+	</tr>
+	<tr>
+            <td>Foot Wear Score:</td>
+            <?php
+			foreach ($patientfoot->getFootArray() as $ft)
+			{
+				if ($ft->getExtremity() == $foot)
+				{
+					echo "<td>". $ft->getFootWearScore() ."</td>";
+				}
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
+	</tr>
 	<tr><th style='text-align: center;' colspan='9'>Bristol Foot Index Scores</th></tr>
 </table>
+
+<table class='table table-striped table-bordered' style="width: 10%" >
+    <tr><th style='text-align: center;' colspan='9'>McGill Pain Scores</th></tr>
+	<tr>
+		<td></td><td>Pre</td><td>Post</td><td>3 Mo</td><td>6 Mo</td><td>12 Mo</td>		
+	</tr>
+	<tr>
+            <td>Pain Sensory Dimension Score:</td>
+            <?php
+			$counter = 0; //reset back to 0
+			foreach ($patientmcgill->getMcgillpainArray() as $mcgill)
+			{
+				if ($mcgill->getExtremity() == $foot)
+				{
+					echo "<td>". $mcgill->getPainSensoryDimensionScore() ."</td>";
+					$counter++;
+				}
+			}
+			if ($counter < 6)
+			{
+				$counter = 4 - $counter;
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
+	</tr>
+    <tr>
+            <td>Pain Affective Dimension Score:</td>
+            <?php
+			foreach ($patientmcgill->getMcgillpainArray() as $mcgill)
+			{
+				if ($mcgill->getExtremity() == $foot)
+				{
+					echo "<td>". $mcgill->getPainAffectiveDimensionScore() ."</td>";
+				}
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
+	</tr>
+    <tr>
+            <td>Hallux Score:</td>
+            <?php
+			foreach ($patientmcgill->getMcgillpainArray() as $mcgill)
+			{
+				if ($mcgill->getExtremity() == $foot)
+				{
+					echo "<td>". $mcgill->getHalluxScore() ."</td>";
+				}
+			}
+			for ($i = 0; $i < $counter; $i++)
+			{
+				echo "<td><p>N/A</p></td>";
+			}
+			?>
+	</tr>
+</table>
+
 </div>
 <?php
 	echo $layout->loadFooter('../');
