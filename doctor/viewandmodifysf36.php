@@ -35,11 +35,9 @@ $eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extr
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
     if (isset($_POST['SUBMIT'])) {
         foreach ($_POST as $key => $value) {
-            if ($key === 'SUBMIT') {
-                
-            } else {
+            if (!($key === 'SUBMIT')) {
                 $sf36->setAnswer($key, $value);
-            }
+            } 
         }
 
         //echo $sf36->generateUpdateQuery();

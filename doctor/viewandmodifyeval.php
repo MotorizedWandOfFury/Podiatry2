@@ -1,62 +1,51 @@
 <?php
 date_default_timezone_set("EST");
- 
+
 require_once dirname(dirname(__FILE__)) . '\PodiatryAutoloader.php';
 spl_autoload_register(array('PodiatryAutoloader', 'autoLoad'));
- 
+
 $json = new JSONManager();
 $evalQuestions = $json->loadJSONQuestions("Eval", "en");
 $evalValues = $json->loadJSONValues("Eval", "en");
- 
+
 if (empty($evalQuestions) || empty($evalValues)) {
     die("Unable to load JSON files");
 }
- 
+
 $session = new SessionManager();
 $session->validate();
- 
+
 $nav = new Navigator();
 $func = new Functions();
- 
- 
+
+
 $mode = isset($_GET['mode']) ? $_GET['mode'] : "view"; // default mode for page is viewing, if the mode attribute has not been set
- 
+
 $database = new Database();
 $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
-$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1), 'max_range' => 2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
 $doctorID = $eval->getSurID();
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($doctorID));
- 
+
 if ($mode === 'edit') { // make sure we are in edit mode before we can make changes
     $noInvalidFields = true;
     if (isset($_POST['SUBMIT'])) {
-        foreach ($_POST as $key => $value) {
-            if ($value) {
-                switch ($key) {
-                    case 'Q15':
-                        if (filter_var($_POST['Q15'], FILTER_VALIDATE_INT) === false) {
-                            $noInvalidFields = false;
-                            echo "<p>$key is not valid</p>";
-                        }
-                        break;
-                    case 'Q19':
-                        if (filter_var($_POST['Q19'], FILTER_VALIDATE_INT) === false) {
-                            $noInvalidFields = false;
-                            echo "<p>$key is not valid</p>";
-                        }
-                        break;
-                    case 'Q20':
-                        if (filter_var($_POST['Q20'], FILTER_VALIDATE_INT) === false) {
-                            $noInvalidFields = false;
-                            echo "<p>$key is not valid</p>";
-                        }
-                        break;
-                }
-            }
+        
+        if (filter_var($_POST['Q15'], FILTER_VALIDATE_INT) === false) {
+            $noInvalidFields = false;
+            echo "<p>Q15 is not valid</p>";
         }
- 
+        if (filter_var($_POST['Q19'], FILTER_VALIDATE_INT) === false) {
+            $noInvalidFields = false;
+            echo "<p>Q19 is not valid</p>";
+        }
+        if (filter_var($_POST['Q20'], FILTER_VALIDATE_INT) === false) {
+            $noInvalidFields = false;
+            echo "<p>Q20 is not valid</p>";
+        }
+
         if ($noInvalidFields) {
             foreach ($_POST as $key => $value) {
                 if ($key === 'Q10' || $key === 'Q11' || $key === 'Q17' || $key === 'Q18' || $key === 'Q21' || $key === 'Q24' || $key === 'Q27') { //handling the answers with multiple values
@@ -65,7 +54,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                     $eval->setAnswer($key, $value);
                 }
             }
- 
+
             //echo $eval->generateUpdateQuery();
             //var_dump($eval);
             $database->update($eval);
@@ -74,7 +63,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
     }
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,7 +73,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
     </head>
     <body>
         &nbsp;
-        <a href="<?php echo $func->getUserHome($session->getUserObject());?>">Home</a> |
+        <a href="<?php echo $func->getUserHome($session->getUserObject()); ?>">Home</a> |
         <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID&extremity=$extremity&mode=view"; ?>">View</a> | <a href="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID&extremity=$extremity&mode=edit"; ?>">Edit</a>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID&extremity=$extremity&mode=$mode"; ?>" method="POST">
             <div class='container'>
@@ -295,7 +284,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
                         }
                         ?>
                     </tr>
- 
+
                 </table>
             </div>
             <div class='container'>

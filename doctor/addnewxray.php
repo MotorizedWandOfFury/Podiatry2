@@ -19,14 +19,14 @@ $nav = new Navigator();
 
 $database = new Database();
 $patientID = filter_var($_GET['patid'], FILTER_VALIDATE_INT) or die("Patient ID not set");
-$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options'=>array('min_range' => 1, 'max_range'=>5))) or die("Type value is invalid");
-if($type == 2){ //2 is not a valid type for this form
+$type = filter_var($_GET['type'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 5))) or die("Type value is invalid");
+if ($type == 2) { //2 is not a valid type for this form
     die("Type value is invalid");
 }
 $patient = $database->read(Patient::createRetrievableDatabaseObject($patientID));
 $doctor = $database->read(Physician::createRetrievableDatabaseObject($patient->getDoctor()));
-$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options'=> array('min_range' => 1), 'max_range'=>2)) or die("Extremity is needed");
-$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet."); 
+$extremity = filter_var($_GET['extremity'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1), 'max_range' => 2)) or die("Extremity is needed");
+$eval = $database->read(Evals::createRetrievableDatabaseObject($patientID, $extremity)) or die("Pre eval form for patient has not been filled yet.");
 
 $currTime = getdate();
 
@@ -38,18 +38,17 @@ if (isset($_POST['SUBMIT'])) {
     $xray->setSurId($patient->getDoctor());
     $xray->setType($type);
     $xray->setExtremity($extremity);
-    
-    foreach ($_POST as $key => $value){
-           if($key === 'SUBMIT' || $key === 'M' || $key === 'D' || $key === 'Y'){   //filtering out unwanted keys
-           } else {
-               $xray->setAnswer($key, $value);
-           }
-       }
-       //echo $xray->generateCreateQuery();
-       //var_dump($xray);
-       
-       $database->create($xray);
-       $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Xray Evaluation successfully submitted");
+
+    foreach ($_POST as $key => $value) {
+        if (!($key === 'SUBMIT') && !($key === 'M') && !($key === 'D') && !($key === 'Y')) {   //filtering out unwanted keys
+            $xray->setAnswer($key, $value);
+        }
+    }
+    //echo $xray->generateCreateQuery();
+    //var_dump($xray);
+
+    $database->create($xray);
+    $nav->redirectUser($session->getUserType(), Navigator::SUBMISSION_NAVIGATION_ACTION, "Xray Evaluation successfully submitted");
 }
 ?>
 <!DOCTYPE html>
@@ -60,7 +59,7 @@ if (isset($_POST['SUBMIT'])) {
         <link rel='stylesheet' href='../bootstrap/css/sf36_css.css' />
     </head>
     <body>
-        <?php echo Functions::formTitle($type, "X-Ray Evaluation", $extremity);?>
+        <?php echo Functions::formTitle($type, "X-Ray Evaluation", $extremity); ?>
         <form action="<?php echo $_SERVER['SCRIPT_NAME'] . "?patid=$patientID" . "&extremity=$extremity" . "&type=$type"; ?>" method="POST">
             <div class='container'>
                 <div class='greybox'>

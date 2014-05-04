@@ -54,8 +54,7 @@ if ($mode === 'edit') { // make sure we are in edit mode before we can make chan
 
         if ($noInvalidFields) {
             foreach ($_POST as $key => $value) {
-                if ($key === 'SUBMIT' || $key === 'painmedused' || $key === 'dosepainmedused') {   //filtering out unwanted keys
-                } else {
+                if (!($key === 'SUBMIT') && !($key === 'painmedused') && !($key === 'dosepainmedused')) {   //filtering out unwanted keys
                     $post->setAnswer($key, $value);
                 }
             }
